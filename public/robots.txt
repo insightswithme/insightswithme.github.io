@@ -5,7 +5,7 @@ Disallow: /admin
 Disallow: /admin/
 
 # Host
-Host: https://pawantyagigi.github.io/pawan-tyagi.github.io
+Host: https://insightswithme.github.io
 
 # Sitemaps
-Sitemap: https://pawantyagigi.github.io/pawan-tyagi.github.io/sitemap.xml
+Sitemap: https://insightswithme.github.io/sitemap.xml
