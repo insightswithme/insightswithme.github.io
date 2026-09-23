@@ -33,7 +33,7 @@ const PromoSection: React.FC = () => {
         </div>
         <div className="promo-image promo-image-photo">
           <img
-            src={withBasePath("/images/home-right.png")}
+            src={withBasePath("/images/home-right.jpg")}
             alt="Hi, I am Pawan!"
             width={800}
             height={800}
