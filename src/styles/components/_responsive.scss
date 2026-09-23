@@ -1,0 +1,61 @@
+/* Global responsive foundation — mobile + desktop */
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img,
+video,
+svg,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prefer max-width over forced full width so icons stay sized */
+img {
+  width: auto;
+}
+
+/* Stack half-width columns on phones */
+@include respond-to(small) {
+  .col-6 {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.45em;
+  }
+
+  h2 {
+    font-size: 1.3em;
+  }
+
+  h3 {
+    font-size: 1.15em;
+  }
+
+  .component-section {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .card-box,
+  .intro-content {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 1.25rem;
+  }
+}
+
+@include respond-to(extra-small) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

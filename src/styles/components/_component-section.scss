@@ -1,5 +1,7 @@
 .component-section {
   padding: 30px;
-  .container {
+
+  @include respond-to(small) {
+    padding: 1.25rem 0.5rem;
   }
 }

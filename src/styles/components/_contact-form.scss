@@ -6,6 +6,13 @@
   border-radius: 12px;
   max-width: 36rem;
   box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+  width: 100%;
+
+  @include respond-to(small) {
+    margin: 1.25rem 0 2rem;
+    padding: 1.25rem 1rem;
+  }
 
   .contact-form-header {
     margin-bottom: 1.5rem;
@@ -92,6 +99,10 @@
     cursor: pointer;
     transition: transform 0.15s ease, background-color 0.15s ease,
       opacity 0.15s ease;
+
+    @include respond-to(small) {
+      width: 100%;
+    }
 
     &:hover:not(:disabled) {
       background: #000;
