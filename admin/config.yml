@@ -1,0 +1,159 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+  local_backend: true
+
+media_folder: "public/uploads" # Where media files will be stored
+public_folder: "/uploads" # Where the media files can be accessed from the server
+publish_mode: editorial_workflow # For Drafts
+
+collections:
+  - name: "meta"
+    label: "Meta"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "tags"
+        label: "Tags"
+        file: "content/meta/tags.yml"
+        description: "List of tags"
+        fields:
+          - name: "tags"
+            label: "Tags"
+            label_singular: "Tag"
+            widget: "list"
+            fields:
+              - label: "Slug"
+                name: "slug"
+                widget: "string"
+                hint: "The part of a URL identifies the tag"
+              - label: "Display Name"
+                name: "name"
+                widget: "string"
+                hint: "Tag name for displaying on the site"
+
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Blog" # Used in the UI
+    folder: "content/blogs" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    identifier_field: "slug"
+    summary: "{{title}}"
+    fields: # The fields for each document, usually in front matter
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        required: true
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        hint: "Short summary for listings and meta (can match meta description)."
+      - label: "Keywords"
+        name: "keywords"
+        widget: "string"
+      - label: "Meta Description"
+        name: "metaDescription"
+        widget: "text"
+        hint: "Used for search snippets and Open Graph; keep under ~160 characters."
+      - label: "Featured Image"
+        name: "featuredImage"
+        widget: "image"
+        required: true
+        hint: "Used for blog thumbnail, meta image, and social sharing (og:image)"
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        required: true
+        pattern:
+          - "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          - "Lowercase letters, numbers, and hyphens only (kebab-case URL)."
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        date_format: "DD.MM.YYYY"
+        time_format: "HH:mm"
+        format: "LLL"
+      - label: "Modified Date"
+        name: "modifiedDate"
+        widget: "datetime"
+        required: false
+        date_format: "DD.MM.YYYY"
+        time_format: "HH:mm"
+        format: "LLL"
+        hint: "Update when you substantially revise the post (feeds dateModified in schema and sitemap)."
+      - label: "Author"
+        name: "author"
+        widget: "string"
+        required: false
+        default: "Pawan Tyagi"
+        hint: "Displayed in meta tags and byline. Defaults to Pawan Tyagi when empty."
+      - label: "Original URL"
+        name: "originalUrl"
+        widget: "string"
+        required: false
+        hint: "URL where this post was first published (e.g. Perficient archive). Shown as attribution."
+      - label: "Source"
+        name: "source"
+        widget: "string"
+        required: false
+        hint: "Publication source label, e.g. Perficient Blogs Archive."
+      - label: "Canonical URL override"
+        name: "canonicalUrl"
+        widget: "string"
+        required: false
+        hint: "Optional absolute canonical URL. Leave empty to use this site's post URL (recommended)."
+      - label: "FAQ (optional)"
+        name: "faq"
+        widget: "list"
+        required: false
+        hint: "Only for posts with clear Q&A — emits FAQPage JSON-LD."
+        fields:
+          - label: "Question"
+            name: "question"
+            widget: "string"
+          - label: "Answer"
+            name: "answer"
+            widget: "text"
+      - label: "HowTo (optional)"
+        name: "howto"
+        widget: "object"
+        required: false
+        hint: "Only for step-by-step guides — emits HowTo JSON-LD."
+        fields:
+          - label: "Name"
+            name: "name"
+            widget: "string"
+          - label: "Description"
+            name: "description"
+            widget: "text"
+            required: false
+          - label: "Steps"
+            name: "steps"
+            widget: "list"
+            fields:
+              - label: "Step name"
+                name: "name"
+                widget: "string"
+              - label: "Step text"
+                name: "text"
+                widget: "text"
+      - label: "Tags"
+        label_singular: "Tag"
+        name: "tags"
+        widget: "list"
+        summary: "{{fields.tag}}"
+        fields:
+          - label: "Tag"
+            name: "tag"
+            widget: "relation"
+            collection: "meta"
+            file: "tags"
+            search_fields:
+              - "tags.*.name"
+            display_fields:
+              - "tags.*.name"
+            value_field: "tags.*.slug"
+      - label: "Body"
+        name: "body"
+        widget: "markdown"

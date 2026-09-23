@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pawan Tyagi</title>
+    <link>https://insightswithme.github.io/</link>
+    <description>Technical blog by Pawan Tyagi, Technical Lead at Altudo — Sitecore XM Cloud &amp; 10 .NET certified, Azure AZ-204. Insights on Sitecore XP, XM Cloud, Content Hub, Search, and Helix.</description>
+    <language>en</language>
+    <lastBuildDate>Wed, 23 Sep 2026 11:18:32 GMT</lastBuildDate>
+    <atom:link href="https://insightswithme.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Blogs, Stack Exchange &amp; Social Engagement — 2025 Highlights</title>
+      <link>https://insightswithme.github.io/blogs/blogs-stack-exchange-social-engagement</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/blogs-stack-exchange-social-engagement</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>Highlights of my 2025 Sitecore community contributions across technical blogging, Stack Exchange, and LinkedIn engagement.</description>
+    </item>
+    <item>
+      <title>Building Sitecore Forms with Webhooks and Sitecore Connect</title>
+      <link>https://insightswithme.github.io/blogs/building-sitecore-forms-with-webhooks-and-sitecore-connect</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/building-sitecore-forms-with-webhooks-and-sitecore-connect</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>Sitecore XM Cloud Forms Builder provides a powerful way to create interactive forms for your digital experiences. The intuitive design tools, configurable field properties, and robust integration features make it an</description>
+    </item>
+    <item>
+      <title>Complete Guide: Setting Up Page &amp; DataSource Workflows in Sitecore XM Cloud</title>
+      <link>https://insightswithme.github.io/blogs/complete-guide-setting-up-page-datasource-workflows-in-sitecore-xm-cloud</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/complete-guide-setting-up-page-datasource-workflows-in-sitecore-xm-cloud</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>In this article, I’ll walk you through how to set up page and data source workflows that work together using Datasource Workflow Actions—a powerful feature in XM Cloud that keeps everything in sync. Now, when you&apos;re</description>
+    </item>
+    <item>
+      <title>Content Hub DAM Connector in an Environment Deployed to XM Cloud</title>
+      <link>https://insightswithme.github.io/blogs/content-hub-dam-connector-in-an-environment-deployed-to-xm-cloud</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/content-hub-dam-connector-in-an-environment-deployed-to-xm-cloud</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>Enabling the Content Hub DAM Connector in Sitecore XM Cloud Do you use Sitecore and Content Hub for your business? If so, you might be wondering how to make these two platforms work seamlessly together. The solution is</description>
+    </item>
+    <item>
+      <title>Content Hub Integration with XM Cloud from Sitecore DAM directly from Sitecore DAM</title>
+      <link>https://insightswithme.github.io/blogs/content-hub-integration-with-xm-cloud-from-sitecore-dam-directly-from-sitecore-dam</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/content-hub-integration-with-xm-cloud-from-sitecore-dam-directly-from-sitecore-dam</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>Do you use Sitecore and Content Hub in your organization? If so, you might be looking for a way to make these two platforms work better together. The good news is—you can! Sitecore provides a built in solution: the DAM</description>
+    </item>
+    <item>
+      <title>Effective Content Serialization in Sitecore XM Cloud</title>
+      <link>https://insightswithme.github.io/blogs/effective-content-serialization-in-sitecore-xm-cloud</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/effective-content-serialization-in-sitecore-xm-cloud</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>Serialization in Sitecore XM Cloud is critical for deploying, backing up, and syncing content items between development and production environments. By organizing serialization through modular .module.json files, teams</description>
+    </item>
+    <item>
+      <title>How to Export Media Usage Report in Sitecore Using PowerShell</title>
+      <link>https://insightswithme.github.io/blogs/how-to-export-media-usage-report-in-sitecore-using-powershell</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/how-to-export-media-usage-report-in-sitecore-using-powershell</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>Have you ever wondered where your images or PDFs are used across your Sitecore website? Or maybe you’re planning to clean up your media library but want to make sure the files are not being used somewhere? This blog</description>
+    </item>
+    <item>
+      <title>Implementing a Feed Crawler in Sitecore Search with SFTP</title>
+      <link>https://insightswithme.github.io/blogs/implementing-a-feed-crawler-in-sitecore-search-with-sftp</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/implementing-a-feed-crawler-in-sitecore-search-with-sftp</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>Implementing a Feed Crawler in Sitecore with SFTP body { font family: Arial, sans serif; line height: 1.6; margin: 20px; padding: 20px; } h1, h2, h3 { color: 333; } code { background color: f4f4f4; padding: 3px; border</description>
+    </item>
+    <item>
+      <title>Mastering Sitecore Search API Crawlers: A Comprehensive Series (Part 1-3)</title>
+      <link>https://insightswithme.github.io/blogs/mastering-sitecore-search-api-crawlers-a-comprehensive-series-part-1-3</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/mastering-sitecore-search-api-crawlers-a-comprehensive-series-part-1-3</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>Sitecore Search is an integral part of the Sitecore Experience Platform (XP) that helps businesses deliver highly personalized and relevant search experiences. One of the most powerful features of Sitecore Search is its</description>
+    </item>
+    <item>
+      <title>Pagination in Sitecore: Understanding Offset vs. Cursor</title>
+      <link>https://insightswithme.github.io/blogs/pagination-in-sitecore-understanding-offset-vs-cursor</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/pagination-in-sitecore-understanding-offset-vs-cursor</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>When working with APIs that return a lot of data, it’s not practical (or efficient) to get everything in one giant response. That’s where pagination comes in. Sitecore supports two main ways of handling this: offset</description>
+    </item>
+    <item>
+      <title>Removing Edge Content and Purging Edge Cache with Sitecore XM Cloud Admin API</title>
+      <link>https://insightswithme.github.io/blogs/removing-edge-content-and-purging-edge-cache-with-sitecore-xm-cloud-admin-api</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/removing-edge-content-and-purging-edge-cache-with-sitecore-xm-cloud-admin-api</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>Edge database removal and Edge cache purging through the Admin API of Sitecore XM Cloud could be performed by developers to carry out the necessary Edge related operations and also keeping an optimized environment for</description>
+    </item>
+    <item>
+      <title>Sitecore XM Cloud GraphQL Mutations: A Step-by-Step Guide</title>
+      <link>https://insightswithme.github.io/blogs/sitecore-xm-cloud-graphql-mutations-a-step-by-step-guide</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/sitecore-xm-cloud-graphql-mutations-a-step-by-step-guide</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>Sitecore XM Cloud GraphQL Mutations: A Step by Step Guide Sitecore XM Cloud uses GraphQL (GQL) to query content effectively. With mutations, you can add, modify, and remove items programmatically. This guide discusses</description>
+    </item>
+    <item>
+      <title>Troubleshooting Guide: Sitecore XM Cloud Local Setup and JSS Errors</title>
+      <link>https://insightswithme.github.io/blogs/troubleshooting-guide-sitecore-xm-cloud-local-setup-and-jss-errors</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/troubleshooting-guide-sitecore-xm-cloud-local-setup-and-jss-errors</guid>
+      <pubDate>Mon, 07 Sep 2026 12:15:00 GMT</pubDate>
+      <description>1. Error 1: Access Issue for Files Under the Project Folder 2. Error 2: Network Not Found 3. Error 3: Could Not Resolve Host 4. Error 4: Port 8984 Already in Use 5. Error 5: Traefik Port Conflict 6. Error 6:</description>
+    </item>
+    <item>
+      <title>Publishing in Sitecore XM Cloud: Understanding v1 vs v2</title>
+      <link>https://insightswithme.github.io/blogs/publishing-in-sitecore-xm-cloud-understanding-v1-vs-v2</link>
+      <guid isPermaLink="true">https://insightswithme.github.io/blogs/publishing-in-sitecore-xm-cloud-understanding-v1-vs-v2</guid>
+      <pubDate>Mon, 07 Sep 2026 12:00:00 GMT</pubDate>
+      <description>If you’ve been working with Sitecore XM Cloud for a while, you probably know that publishing plays a major role in how your content reaches Experience Edge. But what you might not know is that Sitecore has introduced a</description>
+    </item>
+  </channel>
+</rss>

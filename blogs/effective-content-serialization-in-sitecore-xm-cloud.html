@@ -1,0 +1,484 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charSet="utf-8" data-next-head=""/><meta name="viewport" content="width=device-width, initial-scale=1" data-next-head=""/><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8135207289906277" crossorigin="anonymous" data-next-head=""></script><link rel="manifest" href="/site.webmanifest" data-next-head=""/><link rel="icon" href="/favicon.svg" type="image/svg+xml" data-next-head=""/><link rel="icon" href="/favicon.ico" sizes="any" data-next-head=""/><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" data-next-head=""/><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" data-next-head=""/><link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" data-next-head=""/><meta name="theme-color" content="#fff" data-next-head=""/><link rel="alternate" type="application/rss+xml" title="Pawan Tyagi Blog RSS" href="/rss.xml" data-next-head=""/><link rel="alternate" hrefLang="en" href="https://insightswithme.github.io/blogs/effective-content-serialization-in-sitecore-xm-cloud" data-next-head=""/><link rel="alternate" hrefLang="x-default" href="https://insightswithme.github.io/blogs/effective-content-serialization-in-sitecore-xm-cloud" data-next-head=""/><title data-next-head="">Effective Content Serialization in Sitecore XM Cloud | Pawan Tyagi</title><meta name="robots" content="index, follow" data-next-head=""/><meta name="algolia-site-verification" content="F4F5F7C97A08F73B" data-next-head=""/><meta name="description" content="Serialization in Sitecore XM Cloud is critical for deploying, backing up, and syncing content items between development and production environments. By organizing serialization through modular .module.json files, teams" data-next-head=""/><meta name="keywords" content="@Sitecore Content Serialization" data-next-head=""/><meta name="author" content="Pawan Tyagi" data-next-head=""/><link rel="canonical" href="https://insightswithme.github.io/blogs/effective-content-serialization-in-sitecore-xm-cloud" data-next-head=""/><meta property="og:site_name" content="Pawan Tyagi" data-next-head=""/><meta property="og:url" content="https://insightswithme.github.io/blogs/effective-content-serialization-in-sitecore-xm-cloud" data-next-head=""/><meta property="og:title" content="Effective Content Serialization in Sitecore XM Cloud | Pawan Tyagi" data-next-head=""/><meta property="og:description" content="Serialization in Sitecore XM Cloud is critical for deploying, backing up, and syncing content items between development and production environments. By organizing serialization through modular .module.json files, teams" data-next-head=""/><meta property="og:image" content="https://insightswithme.github.io/uploads/banner-content-serialization-xm-cloud.png" data-next-head=""/><meta property="og:image:secure_url" content="https://insightswithme.github.io/uploads/banner-content-serialization-xm-cloud.png" data-next-head=""/><meta property="og:image:type" content="image/png" data-next-head=""/><meta property="og:image:width" content="1200" data-next-head=""/><meta property="og:image:height" content="630" data-next-head=""/><meta property="og:image:alt" content="Effective Content Serialization in Sitecore XM Cloud" data-next-head=""/><meta property="og:type" content="article" data-next-head=""/><meta property="og:locale" content="en_US" data-next-head=""/><meta property="article:published_time" content="2025-09-10T17:51:00+05:30" data-next-head=""/><meta property="article:modified_time" content="2026-09-07T17:45:00+05:30" data-next-head=""/><meta property="article:author" content="https://insightswithme.github.io/about" data-next-head=""/><meta property="article:tag" content="sitecore-content-serialization" data-next-head=""/><meta name="twitter:card" content="summary_large_image" data-next-head=""/><meta name="twitter:url" content="https://insightswithme.github.io/blogs/effective-content-serialization-in-sitecore-xm-cloud" data-next-head=""/><meta name="twitter:title" content="Effective Content Serialization in Sitecore XM Cloud | Pawan Tyagi" data-next-head=""/><meta name="twitter:description" content="Serialization in Sitecore XM Cloud is critical for deploying, backing up, and syncing content items between development and production environments. By organizing serialization through modular .module.json files, teams" data-next-head=""/><meta name="twitter:image" content="https://insightswithme.github.io/uploads/banner-content-serialization-xm-cloud.png" data-next-head=""/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/><link rel="preload" href="/_next/static/css/b74a687c13995548.css" as="style"/><link rel="preload" href="/_next/static/css/fc94f74a8ede9696.css" as="style"/><script type="application/ld+json" data-next-head="">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://insightswithme.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://insightswithme.github.io/blogs"},{"@type":"ListItem","position":3,"name":"Effective Content Serialization in Sitecore XM Cloud","item":"https://insightswithme.github.io/blogs/effective-content-serialization-in-sitecore-xm-cloud"}]}</script><script type="application/ld+json" data-next-head="">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://insightswithme.github.io/blogs/effective-content-serialization-in-sitecore-xm-cloud"},"headline":"Effective Content Serialization in Sitecore XM Cloud","keywords":"@Sitecore Content Serialization","inLanguage":"en","wordCount":1193,"datePublished":"2025-09-10T17:51:00+05:30","dateModified":"2026-09-07T17:45:00+05:30","author":{"@type":"Person","name":"Pawan Tyagi","url":"https://insightswithme.github.io/about","sameAs":["https://www.linkedin.com/in/pawan-tyagi-6bb22357/"]},"publisher":{"@type":"Organization","name":"Pawan Tyagi","logo":{"@type":"ImageObject","url":"https://insightswithme.github.io/images/pt-logo.png"}},"image":{"@type":"ImageObject","url":"https://insightswithme.github.io/uploads/banner-content-serialization-xm-cloud.png"},"description":"Serialization in Sitecore XM Cloud is critical for deploying, backing up, and syncing content items between development and production environments. By organizing serialization through modular .module.json files, teams","articleBody":" Effective Content Serialization in Sitecore XM Cloud\n\nIntroduction\n\nSerialization in Sitecore XM Cloud is critical for deploying, backing up, and syncing content items between development and production environments. By organizing serialization through modular .module.json files, teams can efficiently control and automate complex multisite projects.\n\nHow Serialization Works in XM Cloud\n\nSitecore Content Serialization uses two primary config files:\n\nsitecore.json: Located at the root of your solution, this file declares which .module.json modules should be active for serialization and sets general serialization preferences.\n.module.json files: These define logical groupings of Sitecore content by item path, controlling serialization for templates, layouts, renderings, settings, and more.\n\nExample .module.json Structure\n\nA typical Feature or Project .module.json might look as follows:\n\n{\n  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,\n  &quot;namespace&quot;: &quot;Feature.Blog&quot;,\n  &quot;items&quot;: {\n    &quot;includes&quot;: [\n      {\n        &quot;name&quot;: &quot;BlogTemplates&quot;,\n        &quot;path&quot;: &quot;/sitecore/templates/Feature/Blog&quot;,\n        &quot;scope&quot;: &quot;ItemAndDescendants&quot;\n      },\n      {\n        &quot;name&quot;: &quot;BlogRenderings&quot;,\n        &quot;path&quot;: &quot;/sitecore/layout/Renderings/Feature/Blog&quot;,\n        &quot;scope&quot;: &quot;ItemAndDescendants&quot;\n      },\n      {\n        &quot;name&quot;: &quot;BlogSettings&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Settings/Feature/Blog&quot;,\n        &quot;scope&quot;: &quot;ItemAndDescendants&quot;\n      }\n    ]\n  }\n}\n\nKey Points for XM Cloud Content Serialization\n\nOnly custom items (not vanilla Sitecore items) should be included in module JSON files.\nUse path and scope rules to target specific parts of the content tree (e.g., Project/Feature templates, layouts, media folders, renderings).\nCombine multiple .module.json files under logical folders (Feature, Project, etc.) for modular development.\nThe scope field controls whether to serialize only the item, its children, or all descendants.\nSerialization is triggered either by the Sitecore CLI tool or as part of the cloud deployment process, ensuring environments (Dev, QA, Staging) are consistent.\n\nImportant Configuration Controls\n\nallowedPushOperations: Restricts what actions (create, update, delete) occur when synchronizing content.\nSitecore CLI is used for pushing/pulling serialized items between the local environment and XM Cloud.\nAdditional configuration, like excluding standard fields or custom module references, can be set in sitecore.json or in each .module.json file.\n\nModular Approach for the xxx Site\n\nThe use of separate .module.json files for Sitecore XM Cloud serialization is best practice for scalable, modular, and maintainable content management. These files enable fine-grained control over what is serialized, organized across different solution layers (Content, Template, Layout, System, Core, and Root), directly supporting robust DevOps and team workflows.\n\nWhy Separate .module.json Files?\n\nModularity: Dividing content into distinct module files (e.g., site content, templates, layouts, system settings) allows teams to work independently on different areas with minimal merge conflicts.\nClarity &amp; Control: Each file targets explicit paths and scopes, making it easy to understand what will be serialized and deployed. Rules per path (including, excluding, assigning scope, and controlling allowedPushOperations) are clearly stated.\nVersioning: Version control tools (Git) can efficiently track changes in individual modules, supporting rapid troubleshooting and deployments.\nEnvironment Consistency: Ensures only the necessary items are pushed to target environments, reducing risk and increasing predictability.\n\nArticle content\n\nTypical Configuration Examples\n\nCore Module\n\n{\n  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,\n  &quot;namespace&quot;: &quot;XXX.Core&quot;,\n  &quot;items&quot;: {\n    &quot;includes&quot;: [\n      {\n        &quot;name&quot;: &quot;Snippets&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Settings/Html Editor Profiles/Rich Text Full/Snippets&quot;,\n        &quot;database&quot;: &quot;core&quot;,\n        &quot;scope&quot;: &quot;ItemAndDescendants&quot;\n      }\n    ]\n  }\n}\n\nTemplate Module\n\n{\n  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,\n  &quot;namespace&quot;: &quot;XXX.Template&quot;,\n  &quot;items&quot;: {\n    &quot;includes&quot;: [\n\t {\n        &quot;name&quot;: &quot;templates/Foundation&quot;,\n        &quot;path&quot;: &quot;/sitecore/templates/Foundation&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;/ABC&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          },\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;Ignored&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;templates/project&quot;,\n        &quot;path&quot;: &quot;/sitecore/templates/Project/ABC&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;templates/feature&quot;,\n        &quot;path&quot;: &quot;/sitecore/templates/Feature&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;/ABC&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          },\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;Ignored&quot;\n          }\n        ]\n      },\t  \n      {\n        &quot;name&quot;: &quot;templates/branches/project&quot;,\n        &quot;path&quot;: &quot;/sitecore/templates/Branches/Project/ABC&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;templates/branches/feature&quot;,\n        &quot;path&quot;: &quot;/sitecore/templates/Branches/Feature/ABC&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          }\n        ]\n      }\n    ]\n  }\n}\n\nLayout Module\n\n{\n  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,\n  &quot;namespace&quot;: &quot;XXX.Layout&quot;,\n  &quot;items&quot;: {\n    &quot;includes&quot;: [\n      {\n        &quot;name&quot;: &quot;layout/renderings/feature&quot;,\n        &quot;path&quot;: &quot;/sitecore/layout/Renderings/Feature/ABC&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;layout/renderings/project&quot;,\n        &quot;path&quot;: &quot;/sitecore/layout/Renderings/Project&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;layout/placeholders&quot;,\n        &quot;path&quot;: &quot;/sitecore/layout/Placeholder Settings/Project&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;layout/foundation/placeholders&quot;,\n        &quot;path&quot;: &quot;/sitecore/layout/Placeholder Settings/Foundation/JSS Experience Accelerator/Placeholder Settings&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          }\n        ]\n      },\n\t  {\n        &quot;name&quot;: &quot;layout/feature/placeholders&quot;,\n        &quot;path&quot;: &quot;/sitecore/layout/Placeholder Settings/Feature/ABC&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;layout/foundation/layout&quot;,\n        &quot;path&quot;: &quot;/sitecore/layout/Layouts/Foundation/JSS Experience Accelerator/Presentation&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;layout/renderings/jss&quot;,\n        &quot;path&quot;: &quot;/sitecore/layout/Renderings/Feature/JSS Experience Accelerator&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;/Media&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          },\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;Ignored&quot;\n          }\n        ]\n      }\n    ]\n  }\n}\n\nSystem Module\n\n{\n  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,\n  &quot;namespace&quot;: &quot;XXX.System&quot;,\n  &quot;items&quot;: {\n    &quot;includes&quot;: [\n      {\n        &quot;name&quot;: &quot;system/aliases&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Aliases&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateOnly&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;system/dictionary&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Dictionary&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateOnly&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;system/languages&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Languages&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;system/workflows&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Workflows&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;system/Webhooks/Authorizations&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Settings/Webhooks/Authorizations&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;system/feature&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Settings/Feature/ABC&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;system/project&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Settings/Project/ABC&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;system/validation&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Settings/Validation Rules/Field Rules/Custom Rule&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;system/powershell/scripts&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Modules/PowerShell/Script Library/Custom&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;system/Tasks/Schedules&quot;,\n        &quot;path&quot;: &quot;/sitecore/system/Tasks/Schedules&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          }\n        ]\n      }\n    ]\n  }\n}\n\nRoot Module\n\n{\n  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,\n  &quot;namespace&quot;: &quot;XXX.Root&quot;,\n  &quot;items&quot;: {\n    &quot;includes&quot;: [\n      {\n        &quot;name&quot;: &quot;root&quot;,\n        &quot;path&quot;: &quot;/sitecore/content/ABC&quot;,\n        &quot;scope&quot;: &quot;SingleItem&quot;,\n        &quot;allowedPushOperations&quot;: &quot;CreateOnly&quot;\n      }\n    ]\n  }\n}\n\nSite Content Module\n\n{\n  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,\n  &quot;namespace&quot;: &quot;Content.XXX&quot;,\n  &quot;items&quot;: {\n    &quot;includes&quot;: [\n      {\n        &quot;name&quot;: &quot;XXX/site&quot;,\n        &quot;path&quot;: &quot;/sitecore/content/ABC/XXX&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;/Home&quot;,\n            &quot;scope&quot;: &quot;SingleItem&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/Media&quot;,\n            &quot;scope&quot;: &quot;Ignored&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/Data&quot;,\n            &quot;scope&quot;: &quot;ItemAndChildren&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/GlobalData&quot;,\n            &quot;scope&quot;: &quot;ItemAndChildren&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/Dictionary&quot;,\n            &quot;scope&quot;: &quot;SingleItem&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/Presentation&quot;,\n            &quot;scope&quot;: &quot;Ignored&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/Settings&quot;,\n            &quot;scope&quot;: &quot;ItemAndChildren&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/SearchDataSources&quot;,\n            &quot;scope&quot;: &quot;Ignored&quot;\n          }\n        ]\n      },\n      {\n        &quot;name&quot;: &quot;XXX/presentation&quot;,\n        &quot;path&quot;: &quot;/sitecore/content/ABC/XXX/Presentation&quot;,\n        &quot;rules&quot;: [\n          {\n            &quot;path&quot;: &quot;/Available Renderings&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/Headless Variants&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/Page Branches&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/Styles&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/Partial Designs&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          },\n          {\n            &quot;path&quot;: &quot;/Placeholder Settings&quot;,\n            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,\n            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;\n          },\n          {\n            &quot;path&quot;: &quot;*&quot;,\n            &quot;scope&quot;: &quot;Ignored&quot;\n          }\n        ]\n      }\n    ]\n  }\n}\n\nBest Practices Illustrated\n\nSelective Serialization: Including and excluding with precision improves performance, backup speed, and reduces errors.\nOperation Control: Using allowedPushOperations protects important site data from unwanted changes during deployments.\nModular Separation: Each site, project feature, template, and system area uses its own .module.json, driving clarity for large teams and automations.\n\nConclusion\n\nUsing modular serialization files like site.content.module.json empowers Sitecore XM Cloud projects to scale, automates deployments, and keeps multisite environments consistent and reliable. This approach should be the standard for anyone working with advanced XM Cloud setups.\n\nNote: For more details, refer to the official documentation here:👉 Sitecore Content Serialization\n"}</script><script>(function(){try{var k="pt-theme";var t=localStorage.getItem(k);if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();</script><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap"/><link id="fa-stylesheet" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print"/><noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/></noscript><script>(function(){var l=document.getElementById("fa-stylesheet");if(!l)return;function a(){l.media="all"}l.addEventListener("load",a);if(l.sheet)a();})();</script><link rel="stylesheet" href="/_next/static/css/b74a687c13995548.css" data-n-g=""/><link rel="stylesheet" href="/_next/static/css/fc94f74a8ede9696.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" noModule="" src="/_next/static/chunks/polyfills-42372ed130431b0a.js"></script><script src="/_next/static/chunks/webpack-090b77dc87209fd3.js" defer=""></script><script src="/_next/static/chunks/framework-372c62845e5ba996.js" defer=""></script><script src="/_next/static/chunks/main-6f4c52f1b7f1ef0e.js" defer=""></script><script src="/_next/static/chunks/pages/_app-71e2b46673a27a6d.js" defer=""></script><script src="/_next/static/chunks/540-3cda0dbc27aec686.js" defer=""></script><script src="/_next/static/chunks/473-c095499fa666dc7a.js" defer=""></script><script src="/_next/static/chunks/16-58f4ffb4dd67d3c9.js" defer=""></script><script src="/_next/static/chunks/pages/blogs/%5Bslug%5D-313c6f8a731eba26.js" defer=""></script><script src="/_next/static/InlEURfK0g01zapu9_Riy/_buildManifest.js" defer=""></script><script src="/_next/static/InlEURfK0g01zapu9_Riy/_ssgManifest.js" defer=""></script><style id="__jsx-11044063df0b1e11">.container.jsx-11044063df0b1e11{padding:0px;position:fixed;width:30px;height:30px;cursor:pointer;top:.9rem;left:1.25rem;z-index:1200;background-color:transparent}.meat.jsx-11044063df0b1e11{position:absolute;width:28px;height:2px;background:var(--color-text,#222);top:calc(50% - 2px/2);left:calc(50% - 28px/2);transition:all 150ms ease-in}.meat-1.jsx-11044063df0b1e11{transform:translatey(-10px)}.meat-2.jsx-11044063df0b1e11{width:calc(28px - 6px)}.meat-3.jsx-11044063df0b1e11{transform:translatey(10px)}.active.jsx-11044063df0b1e11 .meat-1.jsx-11044063df0b1e11{transform:rotate(45deg)}.active.jsx-11044063df0b1e11 .meat-2.jsx-11044063df0b1e11{opacity:0}.active.jsx-11044063df0b1e11 .meat-3.jsx-11044063df0b1e11{transform:rotate(-45deg)}.container.jsx-11044063df0b1e11{display:none}@media(max-width:768px){.container.jsx-11044063df0b1e11{display:block}}</style></head><body><link rel="preload" as="image" href="/uploads/banner-content-serialization-xm-cloud.png" fetchPriority="high"/><link rel="preload" as="image" href="https://media.licdn.com/dms/image/v2/D5612AQFZixfjOUP-8w/article-inline_image-shrink_1000_1488/B56Zkzb0iKKwAQ-/0/1757504555655?e=1760572800&amp;v=beta&amp;t=Upu6Lye5e-ep-E223puHJhJRjVsY0ln_AV8FyIv5b1Q"/><div id="__next"><div><div class=""><header class="site-header visible"><div class="container"><div class="header-title"><a class="brand-link" aria-label="Pawan Tyagi - Home" href="/"><span class="brand-text"><span class="header-title-name">pawan</span><span class="brand-surname">tyagi</span></span><span class="brand-underline" aria-hidden="true"></span></a></div><div class="header-end"><div class="site-search"><form class="site-search-form" role="search"><label class="visually-hidden" for="site-search-input">Search blogs and pages</label><span class="site-search-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></span><input id="site-search-input" type="search" class="site-search-input" placeholder="Search blogs…" autoComplete="off" autoCorrect="off" spellCheck="false" aria-autocomplete="list" aria-controls=":Rpm:" aria-expanded="false" value=""/><kbd class="site-search-kbd" aria-hidden="true">⌘K</kbd></form></div><div class="header-nav-wrap"><div class="jsx-11044063df0b1e11 container "><div class="jsx-11044063df0b1e11 meat meat-1"></div><div class="jsx-11044063df0b1e11 meat meat-2"></div><div class="jsx-11044063df0b1e11 meat meat-3"></div></div><nav class="header-nav "><div class="site-search site-search-mobile"><a class="site-search-mobile-link" href="/search">Search blogs…</a></div><ul class="menu"><li><a aria-label="Blogs" href="/blogs">Blogs</a></li><li><a aria-label="Categories" href="/categories">Categories</a></li><li><a aria-label="Search" href="/search">Search</a></li><li><a aria-label="Portfolio" href="/portfolio">Portfolio</a></li><li><a aria-label="About" href="/about">About</a></li><li><a aria-label="Contact" href="/contact">Contact</a></li><li><a aria-label="Privacy Policy" href="/privacy">Privacy Policy</a></li></ul></nav></div><button type="button" class="theme-toggle" aria-label="Switch to dark theme" title="Dark mode"><svg class="theme-toggle-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div></div></header><main class=""><article class="blog-post-page" aria-labelledby="blog-post-title"><div class="background-primary blog-header blog-page"><img class="blog-header-image" src="/uploads/banner-content-serialization-xm-cloud.png" alt="Effective Content Serialization in Sitecore XM Cloud" width="1200" height="630" decoding="async" fetchPriority="high"/><div class="blog-header-overlay" aria-hidden="true"></div><div class="container blog-header-content"><h1 id="blog-post-title">Effective Content Serialization in Sitecore XM Cloud</h1><div class="blog-header-summary"><time dateTime="2025-09-10T17:51:00+05:30"><span class="text-gray-400">📅<!-- --> <!-- -->September 10, 2025</span></time><div>⌛ 4 min read</div></div><p class="blog-original-attribution">Originally published<!-- --> <!-- -->on<!-- --> <a href="https://insightswithpawantyagi.blogspot.com/2025/09/effective-content-serialization-in.html" rel="noopener noreferrer">Insights With Me</a></p></div></div><div class="breadcrumb blog-page"><div class="container"><nav aria-label="breadcrumb"><ul class="breadcrumb-item-list"><li class="breadcrumb-item"><a aria-label="Home" href="/">home</a></li><li class="breadcrumb-item"><a aria-label="blogs" href="/blogs">blogs</a></li><li class="breadcrumb-item active" aria-current="page">effective content serialization in sitecore xm cloud</li></ul></nav></div></div><div class="container"><div class="container-fluid blog-body-layout"><div class="blog-container"><hr class="blog-rule blog-rule-start"/><h1> <strong>Effective Content Serialization in Sitecore XM Cloud</strong></h1>
+<h3 id="introduction">Introduction</h3>
+<p>Serialization in Sitecore XM Cloud is critical for deploying, backing up, and syncing content items between development and production environments. By organizing serialization through modular .module.json files, teams can efficiently control and automate complex multisite projects.</p>
+<h3 id="how-serialization-works-in-xm-cloud">How Serialization Works in XM Cloud</h3>
+<p>Sitecore Content Serialization uses two primary config files:</p>
+<ul>
+<li>sitecore.json: Located at the root of your solution, this file declares which .module.json modules should be active for serialization and sets general serialization preferences.</li>
+<li>.module.json files: These define logical groupings of Sitecore content by item path, controlling serialization for templates, layouts, renderings, settings, and more.</li>
+</ul>
+<h3 id="example-modulejson-structure">Example .module.json Structure</h3>
+<p>A typical Feature or Project .module.json might look as follows:</p>
+<div class="code-block"><button type="button" class="code-block-copy">Copy</button><pre><code>{
+  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,
+  &quot;namespace&quot;: &quot;Feature.Blog&quot;,
+  &quot;items&quot;: {
+    &quot;includes&quot;: [
+      {
+        &quot;name&quot;: &quot;BlogTemplates&quot;,
+        &quot;path&quot;: &quot;/sitecore/templates/Feature/Blog&quot;,
+        &quot;scope&quot;: &quot;ItemAndDescendants&quot;
+      },
+      {
+        &quot;name&quot;: &quot;BlogRenderings&quot;,
+        &quot;path&quot;: &quot;/sitecore/layout/Renderings/Feature/Blog&quot;,
+        &quot;scope&quot;: &quot;ItemAndDescendants&quot;
+      },
+      {
+        &quot;name&quot;: &quot;BlogSettings&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Settings/Feature/Blog&quot;,
+        &quot;scope&quot;: &quot;ItemAndDescendants&quot;
+      }
+    ]
+  }
+}
+</code></pre></div>
+<h3 id="key-points-for-xm-cloud-content-serialization">Key Points for XM Cloud Content Serialization</h3>
+<ul>
+<li>Only custom items (not vanilla Sitecore items) should be included in module JSON files.</li>
+<li>Use path and scope rules to target specific parts of the content tree (e.g., Project/Feature templates, layouts, media folders, renderings).</li>
+<li>Combine multiple .module.json files under logical folders (Feature, Project, etc.) for modular development.</li>
+<li>The scope field controls whether to serialize only the item, its children, or all descendants.</li>
+<li>Serialization is triggered either by the Sitecore CLI tool or as part of the cloud deployment process, ensuring environments (Dev, QA, Staging) are consistent.</li>
+</ul>
+<h3 id="important-configuration-controls">Important Configuration Controls</h3>
+<ul>
+<li>allowedPushOperations: Restricts what actions (create, update, delete) occur when synchronizing content.</li>
+<li>Sitecore CLI is used for pushing/pulling serialized items between the local environment and XM Cloud.</li>
+<li>Additional configuration, like excluding standard fields or custom module references, can be set in sitecore.json or in each .module.json file.</li>
+</ul>
+<hr/>
+<h3 id="modular-approach-for-the-xxx-site">Modular Approach for the xxx Site</h3>
+<p>The use of separate .module.json files for Sitecore XM Cloud serialization is best practice for scalable, modular, and maintainable content management. These files enable fine-grained control over what is serialized, organized across different solution layers (Content, Template, Layout, System, Core, and Root), directly supporting robust DevOps and team workflows.</p>
+<h3 id="why-separate-modulejson-files">Why Separate .module.json Files?</h3>
+<ul>
+<li>Modularity: Dividing content into distinct module files (e.g., site content, templates, layouts, system settings) allows teams to work independently on different areas with minimal merge conflicts.</li>
+<li>Clarity &amp; Control: Each file targets explicit paths and scopes, making it easy to understand what will be serialized and deployed. Rules per path (including, excluding, assigning scope, and controlling allowedPushOperations) are clearly stated.</li>
+<li>Versioning: Version control tools (Git) can efficiently track changes in individual modules, supporting rapid troubleshooting and deployments.</li>
+<li>Environment Consistency: Ensures only the necessary items are pushed to target environments, reducing risk and increasing predictability.</li>
+</ul>
+<p><img src="https://media.licdn.com/dms/image/v2/D5612AQFZixfjOUP-8w/article-inline_image-shrink_1000_1488/B56Zkzb0iKKwAQ-/0/1757504555655?e=1760572800&amp;v=beta&amp;t=Upu6Lye5e-ep-E223puHJhJRjVsY0ln_AV8FyIv5b1Q" alt="Article content"/></p>
+<h3 id="typical-configuration-examples">Typical Configuration Examples</h3>
+<h3 id="core-module">Core Module</h3>
+<div class="code-block"><button type="button" class="code-block-copy">Copy</button><pre><code>{
+  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,
+  &quot;namespace&quot;: &quot;XXX.Core&quot;,
+  &quot;items&quot;: {
+    &quot;includes&quot;: [
+      {
+        &quot;name&quot;: &quot;Snippets&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Settings/Html Editor Profiles/Rich Text Full/Snippets&quot;,
+        &quot;database&quot;: &quot;core&quot;,
+        &quot;scope&quot;: &quot;ItemAndDescendants&quot;
+      }
+    ]
+  }
+}
+</code></pre></div>
+<h3 id="template-module">Template Module</h3>
+<div class="code-block"><button type="button" class="code-block-copy">Copy</button><pre><code>{
+  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,
+  &quot;namespace&quot;: &quot;XXX.Template&quot;,
+  &quot;items&quot;: {
+    &quot;includes&quot;: [
+	 {
+        &quot;name&quot;: &quot;templates/Foundation&quot;,
+        &quot;path&quot;: &quot;/sitecore/templates/Foundation&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;/ABC&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          },
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;Ignored&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;templates/project&quot;,
+        &quot;path&quot;: &quot;/sitecore/templates/Project/ABC&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;templates/feature&quot;,
+        &quot;path&quot;: &quot;/sitecore/templates/Feature&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;/ABC&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          },
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;Ignored&quot;
+          }
+        ]
+      },	  
+      {
+        &quot;name&quot;: &quot;templates/branches/project&quot;,
+        &quot;path&quot;: &quot;/sitecore/templates/Branches/Project/ABC&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;templates/branches/feature&quot;,
+        &quot;path&quot;: &quot;/sitecore/templates/Branches/Feature/ABC&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre></div>
+<h3 id="layout-module">Layout Module</h3>
+<div class="code-block"><button type="button" class="code-block-copy">Copy</button><pre><code>{
+  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,
+  &quot;namespace&quot;: &quot;XXX.Layout&quot;,
+  &quot;items&quot;: {
+    &quot;includes&quot;: [
+      {
+        &quot;name&quot;: &quot;layout/renderings/feature&quot;,
+        &quot;path&quot;: &quot;/sitecore/layout/Renderings/Feature/ABC&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;layout/renderings/project&quot;,
+        &quot;path&quot;: &quot;/sitecore/layout/Renderings/Project&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;layout/placeholders&quot;,
+        &quot;path&quot;: &quot;/sitecore/layout/Placeholder Settings/Project&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;layout/foundation/placeholders&quot;,
+        &quot;path&quot;: &quot;/sitecore/layout/Placeholder Settings/Foundation/JSS Experience Accelerator/Placeholder Settings&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          }
+        ]
+      },
+	  {
+        &quot;name&quot;: &quot;layout/feature/placeholders&quot;,
+        &quot;path&quot;: &quot;/sitecore/layout/Placeholder Settings/Feature/ABC&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;layout/foundation/layout&quot;,
+        &quot;path&quot;: &quot;/sitecore/layout/Layouts/Foundation/JSS Experience Accelerator/Presentation&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;layout/renderings/jss&quot;,
+        &quot;path&quot;: &quot;/sitecore/layout/Renderings/Feature/JSS Experience Accelerator&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;/Media&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          },
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;Ignored&quot;
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre></div>
+<h3 id="system-module">System Module</h3>
+<div class="code-block"><button type="button" class="code-block-copy">Copy</button><pre><code>{
+  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,
+  &quot;namespace&quot;: &quot;XXX.System&quot;,
+  &quot;items&quot;: {
+    &quot;includes&quot;: [
+      {
+        &quot;name&quot;: &quot;system/aliases&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Aliases&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateOnly&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;system/dictionary&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Dictionary&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateOnly&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;system/languages&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Languages&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;system/workflows&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Workflows&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;system/Webhooks/Authorizations&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Settings/Webhooks/Authorizations&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;system/feature&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Settings/Feature/ABC&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;system/project&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Settings/Project/ABC&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;system/validation&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Settings/Validation Rules/Field Rules/Custom Rule&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;system/powershell/scripts&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Modules/PowerShell/Script Library/Custom&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;system/Tasks/Schedules&quot;,
+        &quot;path&quot;: &quot;/sitecore/system/Tasks/Schedules&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre></div>
+<h3 id="root-module">Root Module</h3>
+<div class="code-block"><button type="button" class="code-block-copy">Copy</button><pre><code>{
+  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,
+  &quot;namespace&quot;: &quot;XXX.Root&quot;,
+  &quot;items&quot;: {
+    &quot;includes&quot;: [
+      {
+        &quot;name&quot;: &quot;root&quot;,
+        &quot;path&quot;: &quot;/sitecore/content/ABC&quot;,
+        &quot;scope&quot;: &quot;SingleItem&quot;,
+        &quot;allowedPushOperations&quot;: &quot;CreateOnly&quot;
+      }
+    ]
+  }
+}
+</code></pre></div>
+<h3 id="site-content-module">Site Content Module</h3>
+<div class="code-block"><button type="button" class="code-block-copy">Copy</button><pre><code>{
+  &quot;$schema&quot;: &quot;../.sitecore/schemas/ModuleFile.schema.json&quot;,
+  &quot;namespace&quot;: &quot;Content.XXX&quot;,
+  &quot;items&quot;: {
+    &quot;includes&quot;: [
+      {
+        &quot;name&quot;: &quot;XXX/site&quot;,
+        &quot;path&quot;: &quot;/sitecore/content/ABC/XXX&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;/Home&quot;,
+            &quot;scope&quot;: &quot;SingleItem&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/Media&quot;,
+            &quot;scope&quot;: &quot;Ignored&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/Data&quot;,
+            &quot;scope&quot;: &quot;ItemAndChildren&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/GlobalData&quot;,
+            &quot;scope&quot;: &quot;ItemAndChildren&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/Dictionary&quot;,
+            &quot;scope&quot;: &quot;SingleItem&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/Presentation&quot;,
+            &quot;scope&quot;: &quot;Ignored&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/Settings&quot;,
+            &quot;scope&quot;: &quot;ItemAndChildren&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/SearchDataSources&quot;,
+            &quot;scope&quot;: &quot;Ignored&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;XXX/presentation&quot;,
+        &quot;path&quot;: &quot;/sitecore/content/ABC/XXX/Presentation&quot;,
+        &quot;rules&quot;: [
+          {
+            &quot;path&quot;: &quot;/Available Renderings&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/Headless Variants&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/Page Branches&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateAndUpdate&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/Styles&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/Partial Designs&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          },
+          {
+            &quot;path&quot;: &quot;/Placeholder Settings&quot;,
+            &quot;scope&quot;: &quot;ItemAndDescendants&quot;,
+            &quot;allowedPushOperations&quot;: &quot;CreateUpdateAndDelete&quot;
+          },
+          {
+            &quot;path&quot;: &quot;*&quot;,
+            &quot;scope&quot;: &quot;Ignored&quot;
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre></div>
+<h3 id="best-practices-illustrated">Best Practices Illustrated</h3>
+<ul>
+<li>Selective Serialization: Including and excluding with precision improves performance, backup speed, and reduces errors.</li>
+<li>Operation Control: Using allowedPushOperations protects important site data from unwanted changes during deployments.</li>
+<li>Modular Separation: Each site, project feature, template, and system area uses its own .module.json, driving clarity for large teams and automations.</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>Using modular serialization files like site.content.module.json empowers Sitecore XM Cloud projects to scale, automates deployments, and keeps multisite environments consistent and reliable. This approach should be the standard for anyone working with advanced XM Cloud setups.</p>
+<p>Note: For more details, refer to the official documentation here:👉 <a href="https://doc.sitecore.com/xmc/en/developers/xm-cloud/sitecore-content-serialization-structural-overview.html">Sitecore Content Serialization</a></p><hr class="blog-rule blog-rule-end"/><p class="blog-authored-by">Authored by<!-- --> <a href="/about">Pawan Tyagi</a> <!-- -->on <!-- -->September 10, 2025<!-- --> <!-- -->· Modified on <!-- -->September 7, 2026</p><div class="commentbox" data-theme="light"></div></div><aside class="blog-side-container" aria-label="Page navigation"><nav class="blog-toc" aria-label="Table of contents"><p class="blog-toc-title">On this page</p><ol><li class="level-3"><a href="#introduction">Introduction</a></li><li class="level-3"><a href="#how-serialization-works-in-xm-cloud">How Serialization Works in XM Cloud</a></li><li class="level-3"><a href="#example-modulejson-structure">Example .module.json Structure</a></li><li class="level-3"><a href="#key-points-for-xm-cloud-content-serialization">Key Points for XM Cloud Content Serialization</a></li><li class="level-3"><a href="#important-configuration-controls">Important Configuration Controls</a></li><li class="level-3"><a href="#modular-approach-for-the-xxx-site">Modular Approach for the xxx Site</a></li><li class="level-3"><a href="#why-separate-modulejson-files">Why Separate .module.json Files?</a></li><li class="level-3"><a href="#typical-configuration-examples">Typical Configuration Examples</a></li><li class="level-3"><a href="#core-module">Core Module</a></li><li class="level-3"><a href="#template-module">Template Module</a></li><li class="level-3"><a href="#layout-module">Layout Module</a></li><li class="level-3"><a href="#system-module">System Module</a></li><li class="level-3"><a href="#root-module">Root Module</a></li><li class="level-3"><a href="#site-content-module">Site Content Module</a></li><li class="level-3"><a href="#best-practices-illustrated">Best Practices Illustrated</a></li><li class="level-3"><a href="#conclusion">Conclusion</a></li></ol></nav><nav class="blog-toc blog-side-tags" aria-label="Tags"><p class="blog-toc-title">Tags</p><ol><li class="level-2"><a href="/categories/sitecore-content-serialization">#<!-- -->sitecore-content-serialization</a></li></ol></nav></aside></div></div></article></main><footer class="footer"><div class="container"><div class="footer-content"><div class="footer-section"><h4>About Pawan</h4><p>Technical Lead at Altudo (Gurugram). Sitecore XM Cloud &amp; 10 .NET certified, Azure AZ-204. Passionate about sharing Sitecore knowledge through blogging and community engagement.</p><div class="social-links"><a href="https://www.linkedin.com/in/pawan-tyagi-6bb22357/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a><a href="https://github.com/pawan-tyagi" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a><a href="https://sitecorechat.slack.com/team/U066H8NTN6N" target="_blank" rel="noopener noreferrer" title="Sitecore Slack"><i class="fab fa-slack"></i></a><a href="https://sitecore.stackexchange.com" target="_blank" rel="noopener noreferrer" title="Sitecore Stack Exchange"><i class="fab fa-stack-exchange"></i></a><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a></div></div><div class="footer-section"><h4>Important Pages</h4><ul><li><a href="/blogs">Blog Home</a></li><li><a href="/categories">Categories</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div><div class="footer-section"><h4>Legal &amp; Info</h4><ul><li><a href="/privacy">Privacy Policy</a></li><li><a href="/sitemap.xml">Sitemap</a></li><li><a href="/rss.xml">RSS Feed</a></li></ul></div><div class="footer-section"><h4>Connect with Me</h4><ul class="social-links-list"><li><a href="https://www.linkedin.com/in/pawan-tyagi-6bb22357/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i> LinkedIn</a></li><li><a href="https://github.com/pawan-tyagi" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i> GitHub</a></li><li><a href="https://sitecorechat.slack.com/team/U066H8NTN6N" target="_blank" rel="noopener noreferrer" title="Sitecore Slack"><i class="fab fa-slack"></i> Slack</a></li><li><a href="https://sitecore.stackexchange.com" target="_blank" rel="noopener noreferrer" title="Sitecore Stack Exchange"><i class="fab fa-stack-exchange"></i> Stack Exchange</a></li><li><a href="#" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i> Twitter</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 Pawan Tyagi. All rights reserved. | Built with passion for sharing knowledge</p></div></div></footer><div></div></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"frontmatter":{"title":"Effective Content Serialization in Sitecore XM Cloud","description":"Serialization in Sitecore XM Cloud is critical for deploying, backing up, and syncing content items between development and production environments. By organizing serialization through modular .module.json files, teams","keywords":"@Sitecore Content Serialization","metaDescription":"Serialization in Sitecore XM Cloud is critical for deploying, backing up, and syncing content items between development and production environments. By organizing serialization through modular .module.json files, teams","featuredImage":"/uploads/banner-content-serialization-xm-cloud.png","slug":"effective-content-serialization-in-sitecore-xm-cloud","date":"2025-09-10T12:21:00.000Z","modifiedDate":"2026-09-07T12:15:00.000Z","author":"Pawan Tyagi","source":"Insights With Me","originalUrl":"https://insightswithpawantyagi.blogspot.com/2025/09/effective-content-serialization-in.html","tags":[{"tag":"sitecore-content-serialization"}]},"markdown":"#  **Effective Content Serialization in Sitecore XM Cloud**\n\n### Introduction\n\nSerialization in Sitecore XM Cloud is critical for deploying, backing up, and syncing content items between development and production environments. By organizing serialization through modular .module.json files, teams can efficiently control and automate complex multisite projects.\n\n### How Serialization Works in XM Cloud\n\nSitecore Content Serialization uses two primary config files:\n\n-   sitecore.json: Located at the root of your solution, this file declares which .module.json modules should be active for serialization and sets general serialization preferences.\n-   .module.json files: These define logical groupings of Sitecore content by item path, controlling serialization for templates, layouts, renderings, settings, and more.\n\n### Example .module.json Structure\n\nA typical Feature or Project .module.json might look as follows:\n\n```\n{\n  \"$schema\": \"../.sitecore/schemas/ModuleFile.schema.json\",\n  \"namespace\": \"Feature.Blog\",\n  \"items\": {\n    \"includes\": [\n      {\n        \"name\": \"BlogTemplates\",\n        \"path\": \"/sitecore/templates/Feature/Blog\",\n        \"scope\": \"ItemAndDescendants\"\n      },\n      {\n        \"name\": \"BlogRenderings\",\n        \"path\": \"/sitecore/layout/Renderings/Feature/Blog\",\n        \"scope\": \"ItemAndDescendants\"\n      },\n      {\n        \"name\": \"BlogSettings\",\n        \"path\": \"/sitecore/system/Settings/Feature/Blog\",\n        \"scope\": \"ItemAndDescendants\"\n      }\n    ]\n  }\n}\n```\n\n### Key Points for XM Cloud Content Serialization\n\n-   Only custom items (not vanilla Sitecore items) should be included in module JSON files.\n-   Use path and scope rules to target specific parts of the content tree (e.g., Project/Feature templates, layouts, media folders, renderings).\n-   Combine multiple .module.json files under logical folders (Feature, Project, etc.) for modular development.\n-   The scope field controls whether to serialize only the item, its children, or all descendants.\n-   Serialization is triggered either by the Sitecore CLI tool or as part of the cloud deployment process, ensuring environments (Dev, QA, Staging) are consistent.\n\n### Important Configuration Controls\n\n-   allowedPushOperations: Restricts what actions (create, update, delete) occur when synchronizing content.\n-   Sitecore CLI is used for pushing/pulling serialized items between the local environment and XM Cloud.\n-   Additional configuration, like excluding standard fields or custom module references, can be set in sitecore.json or in each .module.json file.\n\n* * *\n\n### Modular Approach for the xxx Site\n\nThe use of separate .module.json files for Sitecore XM Cloud serialization is best practice for scalable, modular, and maintainable content management. These files enable fine-grained control over what is serialized, organized across different solution layers (Content, Template, Layout, System, Core, and Root), directly supporting robust DevOps and team workflows.\n\n### Why Separate .module.json Files?\n\n-   Modularity: Dividing content into distinct module files (e.g., site content, templates, layouts, system settings) allows teams to work independently on different areas with minimal merge conflicts.\n-   Clarity \u0026 Control: Each file targets explicit paths and scopes, making it easy to understand what will be serialized and deployed. Rules per path (including, excluding, assigning scope, and controlling allowedPushOperations) are clearly stated.\n-   Versioning: Version control tools (Git) can efficiently track changes in individual modules, supporting rapid troubleshooting and deployments.\n-   Environment Consistency: Ensures only the necessary items are pushed to target environments, reducing risk and increasing predictability.\n\n![Article content](https://media.licdn.com/dms/image/v2/D5612AQFZixfjOUP-8w/article-inline_image-shrink_1000_1488/B56Zkzb0iKKwAQ-/0/1757504555655?e=1760572800\u0026v=beta\u0026t=Upu6Lye5e-ep-E223puHJhJRjVsY0ln_AV8FyIv5b1Q)\n\n### Typical Configuration Examples\n\n### Core Module\n\n```\n{\n  \"$schema\": \"../.sitecore/schemas/ModuleFile.schema.json\",\n  \"namespace\": \"XXX.Core\",\n  \"items\": {\n    \"includes\": [\n      {\n        \"name\": \"Snippets\",\n        \"path\": \"/sitecore/system/Settings/Html Editor Profiles/Rich Text Full/Snippets\",\n        \"database\": \"core\",\n        \"scope\": \"ItemAndDescendants\"\n      }\n    ]\n  }\n}\n```\n\n### Template Module\n\n```\n{\n  \"$schema\": \"../.sitecore/schemas/ModuleFile.schema.json\",\n  \"namespace\": \"XXX.Template\",\n  \"items\": {\n    \"includes\": [\n\t {\n        \"name\": \"templates/Foundation\",\n        \"path\": \"/sitecore/templates/Foundation\",\n        \"rules\": [\n          {\n            \"path\": \"/ABC\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          },\n          {\n            \"path\": \"*\",\n            \"scope\": \"Ignored\"\n          }\n        ]\n      },\n      {\n        \"name\": \"templates/project\",\n        \"path\": \"/sitecore/templates/Project/ABC\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          }\n        ]\n      },\n      {\n        \"name\": \"templates/feature\",\n        \"path\": \"/sitecore/templates/Feature\",\n        \"rules\": [\n          {\n            \"path\": \"/ABC\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          },\n          {\n            \"path\": \"*\",\n            \"scope\": \"Ignored\"\n          }\n        ]\n      },\t  \n      {\n        \"name\": \"templates/branches/project\",\n        \"path\": \"/sitecore/templates/Branches/Project/ABC\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          }\n        ]\n      },\n      {\n        \"name\": \"templates/branches/feature\",\n        \"path\": \"/sitecore/templates/Branches/Feature/ABC\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n### Layout Module\n\n```\n{\n  \"$schema\": \"../.sitecore/schemas/ModuleFile.schema.json\",\n  \"namespace\": \"XXX.Layout\",\n  \"items\": {\n    \"includes\": [\n      {\n        \"name\": \"layout/renderings/feature\",\n        \"path\": \"/sitecore/layout/Renderings/Feature/ABC\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          }\n        ]\n      },\n      {\n        \"name\": \"layout/renderings/project\",\n        \"path\": \"/sitecore/layout/Renderings/Project\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          }\n        ]\n      },\n      {\n        \"name\": \"layout/placeholders\",\n        \"path\": \"/sitecore/layout/Placeholder Settings/Project\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          }\n        ]\n      },\n      {\n        \"name\": \"layout/foundation/placeholders\",\n        \"path\": \"/sitecore/layout/Placeholder Settings/Foundation/JSS Experience Accelerator/Placeholder Settings\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          }\n        ]\n      },\n\t  {\n        \"name\": \"layout/feature/placeholders\",\n        \"path\": \"/sitecore/layout/Placeholder Settings/Feature/ABC\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          }\n        ]\n      },\n      {\n        \"name\": \"layout/foundation/layout\",\n        \"path\": \"/sitecore/layout/Layouts/Foundation/JSS Experience Accelerator/Presentation\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          }\n        ]\n      },\n      {\n        \"name\": \"layout/renderings/jss\",\n        \"path\": \"/sitecore/layout/Renderings/Feature/JSS Experience Accelerator\",\n        \"rules\": [\n          {\n            \"path\": \"/Media\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          },\n          {\n            \"path\": \"*\",\n            \"scope\": \"Ignored\"\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n### System Module\n\n```\n{\n  \"$schema\": \"../.sitecore/schemas/ModuleFile.schema.json\",\n  \"namespace\": \"XXX.System\",\n  \"items\": {\n    \"includes\": [\n      {\n        \"name\": \"system/aliases\",\n        \"path\": \"/sitecore/system/Aliases\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateOnly\"\n          }\n        ]\n      },\n      {\n        \"name\": \"system/dictionary\",\n        \"path\": \"/sitecore/system/Dictionary\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateOnly\"\n          }\n        ]\n      },\n      {\n        \"name\": \"system/languages\",\n        \"path\": \"/sitecore/system/Languages\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          }\n        ]\n      },\n      {\n        \"name\": \"system/workflows\",\n        \"path\": \"/sitecore/system/Workflows\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          }\n        ]\n      },\n      {\n        \"name\": \"system/Webhooks/Authorizations\",\n        \"path\": \"/sitecore/system/Settings/Webhooks/Authorizations\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          }\n        ]\n      },\n      {\n        \"name\": \"system/feature\",\n        \"path\": \"/sitecore/system/Settings/Feature/ABC\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          }\n        ]\n      },\n      {\n        \"name\": \"system/project\",\n        \"path\": \"/sitecore/system/Settings/Project/ABC\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          }\n        ]\n      },\n      {\n        \"name\": \"system/validation\",\n        \"path\": \"/sitecore/system/Settings/Validation Rules/Field Rules/Custom Rule\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          }\n        ]\n      },\n      {\n        \"name\": \"system/powershell/scripts\",\n        \"path\": \"/sitecore/system/Modules/PowerShell/Script Library/Custom\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          }\n        ]\n      },\n      {\n        \"name\": \"system/Tasks/Schedules\",\n        \"path\": \"/sitecore/system/Tasks/Schedules\",\n        \"rules\": [\n          {\n            \"path\": \"*\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n### Root Module\n\n```\n{\n  \"$schema\": \"../.sitecore/schemas/ModuleFile.schema.json\",\n  \"namespace\": \"XXX.Root\",\n  \"items\": {\n    \"includes\": [\n      {\n        \"name\": \"root\",\n        \"path\": \"/sitecore/content/ABC\",\n        \"scope\": \"SingleItem\",\n        \"allowedPushOperations\": \"CreateOnly\"\n      }\n    ]\n  }\n}\n```\n\n### Site Content Module\n\n```\n{\n  \"$schema\": \"../.sitecore/schemas/ModuleFile.schema.json\",\n  \"namespace\": \"Content.XXX\",\n  \"items\": {\n    \"includes\": [\n      {\n        \"name\": \"XXX/site\",\n        \"path\": \"/sitecore/content/ABC/XXX\",\n        \"rules\": [\n          {\n            \"path\": \"/Home\",\n            \"scope\": \"SingleItem\"\n          },\n          {\n            \"path\": \"/Media\",\n            \"scope\": \"Ignored\"\n          },\n          {\n            \"path\": \"/Data\",\n            \"scope\": \"ItemAndChildren\"\n          },\n          {\n            \"path\": \"/GlobalData\",\n            \"scope\": \"ItemAndChildren\"\n          },\n          {\n            \"path\": \"/Dictionary\",\n            \"scope\": \"SingleItem\"\n          },\n          {\n            \"path\": \"/Presentation\",\n            \"scope\": \"Ignored\"\n          },\n          {\n            \"path\": \"/Settings\",\n            \"scope\": \"ItemAndChildren\"\n          },\n          {\n            \"path\": \"/SearchDataSources\",\n            \"scope\": \"Ignored\"\n          }\n        ]\n      },\n      {\n        \"name\": \"XXX/presentation\",\n        \"path\": \"/sitecore/content/ABC/XXX/Presentation\",\n        \"rules\": [\n          {\n            \"path\": \"/Available Renderings\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          },\n          {\n            \"path\": \"/Headless Variants\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          },\n          {\n            \"path\": \"/Page Branches\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateAndUpdate\"\n          },\n          {\n            \"path\": \"/Styles\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          },\n          {\n            \"path\": \"/Partial Designs\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          },\n          {\n            \"path\": \"/Placeholder Settings\",\n            \"scope\": \"ItemAndDescendants\",\n            \"allowedPushOperations\": \"CreateUpdateAndDelete\"\n          },\n          {\n            \"path\": \"*\",\n            \"scope\": \"Ignored\"\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n### Best Practices Illustrated\n\n-   Selective Serialization: Including and excluding with precision improves performance, backup speed, and reduces errors.\n-   Operation Control: Using allowedPushOperations protects important site data from unwanted changes during deployments.\n-   Modular Separation: Each site, project feature, template, and system area uses its own .module.json, driving clarity for large teams and automations.\n\n### Conclusion\n\nUsing modular serialization files like site.content.module.json empowers Sitecore XM Cloud projects to scale, automates deployments, and keeps multisite environments consistent and reliable. This approach should be the standard for anyone working with advanced XM Cloud setups.\n\nNote: For more details, refer to the official documentation here:👉 [Sitecore Content Serialization](https://doc.sitecore.com/xmc/en/developers/xm-cloud/sitecore-content-serialization-structural-overview.html)\n","slug":"effective-content-serialization-in-sitecore-xm-cloud"},"__N_SSG":true},"page":"/blogs/[slug]","query":{"slug":"effective-content-serialization-in-sitecore-xm-cloud"},"buildId":"InlEURfK0g01zapu9_Riy","isFallback":false,"gsp":true,"scriptLoader":[{"strategy":"afterInteractive","src":"https://identity.netlify.com/v1/netlify-identity-widget.js","async":true}]}</script><script>
+              if (window.netlifyIdentity) {
+                window.netlifyIdentity.on("init", user => {
+                  if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                      document.location.href = "/admin/";
+                    });
+                  }
+                });
+              }
+          </script></body></html>

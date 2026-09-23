@@ -1,0 +1,36 @@
+# Pawan Tyagi
+
+> Technical blog by Pawan Tyagi, Technical Lead at Altudo — Sitecore XM Cloud & 10 .NET certified, Azure AZ-204. Insights on Sitecore XP, XM Cloud, Content Hub, Search, and Helix.
+
+## Site
+
+- Home: https://insightswithme.github.io/
+- Blog listing: https://insightswithme.github.io/blogs
+- Categories: https://insightswithme.github.io/categories
+- About: https://insightswithme.github.io/about
+- RSS: https://insightswithme.github.io/rss.xml
+
+## Blog posts
+
+- [Blogs, Stack Exchange & Social Engagement — 2025 Highlights](https://insightswithme.github.io/blogs/blogs-stack-exchange-social-engagement): Highlights of my 2025 Sitecore community contributions across technical blogging, Stack Exchange, and LinkedIn engagement.
+- [Building Sitecore Forms with Webhooks and Sitecore Connect](https://insightswithme.github.io/blogs/building-sitecore-forms-with-webhooks-and-sitecore-connect): Sitecore XM Cloud Forms Builder provides a powerful way to create interactive forms for your digital experiences. The intuitive design tools, configurable field properties, and robust integration features make it an
+- [Complete Guide: Setting Up Page & DataSource Workflows in Sitecore XM Cloud](https://insightswithme.github.io/blogs/complete-guide-setting-up-page-datasource-workflows-in-sitecore-xm-cloud): In this article, I’ll walk you through how to set up page and data source workflows that work together using Datasource Workflow Actions—a powerful feature in XM Cloud that keeps everything in sync. Now, when you're
+- [Content Hub DAM Connector in an Environment Deployed to XM Cloud](https://insightswithme.github.io/blogs/content-hub-dam-connector-in-an-environment-deployed-to-xm-cloud): Enabling the Content Hub DAM Connector in Sitecore XM Cloud Do you use Sitecore and Content Hub for your business? If so, you might be wondering how to make these two platforms work seamlessly together. The solution is
+- [Content Hub Integration with XM Cloud from Sitecore DAM directly from Sitecore DAM](https://insightswithme.github.io/blogs/content-hub-integration-with-xm-cloud-from-sitecore-dam-directly-from-sitecore-dam): Do you use Sitecore and Content Hub in your organization? If so, you might be looking for a way to make these two platforms work better together. The good news is—you can! Sitecore provides a built in solution: the DAM
+- [Effective Content Serialization in Sitecore XM Cloud](https://insightswithme.github.io/blogs/effective-content-serialization-in-sitecore-xm-cloud): Serialization in Sitecore XM Cloud is critical for deploying, backing up, and syncing content items between development and production environments. By organizing serialization through modular .module.json files, teams
+- [How to Export Media Usage Report in Sitecore Using PowerShell](https://insightswithme.github.io/blogs/how-to-export-media-usage-report-in-sitecore-using-powershell): Have you ever wondered where your images or PDFs are used across your Sitecore website? Or maybe you’re planning to clean up your media library but want to make sure the files are not being used somewhere? This blog
+- [Implementing a Feed Crawler in Sitecore Search with SFTP](https://insightswithme.github.io/blogs/implementing-a-feed-crawler-in-sitecore-search-with-sftp): Implementing a Feed Crawler in Sitecore with SFTP body { font family: Arial, sans serif; line height: 1.6; margin: 20px; padding: 20px; } h1, h2, h3 { color: 333; } code { background color: f4f4f4; padding: 3px; border
+- [Mastering Sitecore Search API Crawlers: A Comprehensive Series (Part 1-3)](https://insightswithme.github.io/blogs/mastering-sitecore-search-api-crawlers-a-comprehensive-series-part-1-3): Sitecore Search is an integral part of the Sitecore Experience Platform (XP) that helps businesses deliver highly personalized and relevant search experiences. One of the most powerful features of Sitecore Search is its
+- [Pagination in Sitecore: Understanding Offset vs. Cursor](https://insightswithme.github.io/blogs/pagination-in-sitecore-understanding-offset-vs-cursor): When working with APIs that return a lot of data, it’s not practical (or efficient) to get everything in one giant response. That’s where pagination comes in. Sitecore supports two main ways of handling this: offset
+- [Removing Edge Content and Purging Edge Cache with Sitecore XM Cloud Admin API](https://insightswithme.github.io/blogs/removing-edge-content-and-purging-edge-cache-with-sitecore-xm-cloud-admin-api): Edge database removal and Edge cache purging through the Admin API of Sitecore XM Cloud could be performed by developers to carry out the necessary Edge related operations and also keeping an optimized environment for
+- [Sitecore XM Cloud GraphQL Mutations: A Step-by-Step Guide](https://insightswithme.github.io/blogs/sitecore-xm-cloud-graphql-mutations-a-step-by-step-guide): Sitecore XM Cloud GraphQL Mutations: A Step by Step Guide Sitecore XM Cloud uses GraphQL (GQL) to query content effectively. With mutations, you can add, modify, and remove items programmatically. This guide discusses
+- [Troubleshooting Guide: Sitecore XM Cloud Local Setup and JSS Errors](https://insightswithme.github.io/blogs/troubleshooting-guide-sitecore-xm-cloud-local-setup-and-jss-errors): 1. Error 1: Access Issue for Files Under the Project Folder 2. Error 2: Network Not Found 3. Error 3: Could Not Resolve Host 4. Error 4: Port 8984 Already in Use 5. Error 5: Traefik Port Conflict 6. Error 6:
+- [Publishing in Sitecore XM Cloud: Understanding v1 vs v2](https://insightswithme.github.io/blogs/publishing-in-sitecore-xm-cloud-understanding-v1-vs-v2): If you’ve been working with Sitecore XM Cloud for a while, you probably know that publishing plays a major role in how your content reaches Experience Edge. But what you might not know is that Sitecore has introduced a
+
+## Crawling
+
+User-agent: *
+Allow: /
+Disallow: /admin
+
+This site welcomes AI assistants and search engines. Content is for public reference.
