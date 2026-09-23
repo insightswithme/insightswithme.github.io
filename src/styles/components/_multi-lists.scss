@@ -16,10 +16,6 @@
   }
 
   @include respond-to(small) {
-    width: 80%;
-  }
-
-  @include respond-to(extra-small) {
     width: 100%;
   }
 
@@ -33,6 +29,13 @@
     padding: 30px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     cursor: pointer;
+    box-sizing: border-box;
+
+    @include respond-to(small) {
+      margin: 0.75rem 0;
+      padding: 1.25rem;
+      width: 100%;
+    }
 
     h4 {
       text-align: center;

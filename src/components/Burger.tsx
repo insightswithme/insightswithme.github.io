@@ -21,7 +21,7 @@ const Burger: FC<BurgerProps> = ({ active, onClick }) => {
             cursor: pointer;
             top: 0.9rem;
             left: 1.25rem;
-            z-index: 2;
+            z-index: 1200;
             background-color: transparent;
           }
           .meat {

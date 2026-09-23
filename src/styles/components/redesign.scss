@@ -19,27 +19,53 @@
 .latest-posts {
   padding: 80px 0;
   background: #f7fafc;
+
+  @include respond-to(small) {
+    padding: 2.5rem 0;
+  }
 }
 .section-header {
   text-align: center;
   margin-bottom: 4rem;
+
+  @include respond-to(small) {
+    margin-bottom: 2rem;
+  }
+
+  h1,
   h2 {
     font-size: 2.5rem;
     color: $color_1;
     margin-bottom: 1rem;
+
+    @include respond-to(small) {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      padding: 0 0.25rem;
+    }
   }
   p {
     font-size: 1.1rem;
     color: $color_2;
     max-width: 600px;
     margin: 0 auto;
+
+    @include respond-to(small) {
+      font-size: 1rem;
+      padding: 0 0.5rem;
+    }
   }
 }
 .posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
+
+  @include respond-to(small) {
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
 }
 .featured-post {
   grid-column: 1 / -1;
@@ -53,9 +79,18 @@
   }
   .post-image {
     height: 300px;
+
+    @include respond-to(small) {
+      height: 180px;
+    }
   }
   .post-title {
     font-size: 1.8rem;
+
+    @include respond-to(small) {
+      font-size: 1.35rem;
+    }
+
     &:hover {
       color: $primary;
     }
@@ -87,11 +122,16 @@
 }
 .post-content {
   padding: 1.5rem;
+
+  @include respond-to(small) {
+    padding: 1.1rem;
+  }
 }
 .post-meta {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
   margin-bottom: 1rem;
   font-size: 0.9rem;
   color: $color_2;
@@ -223,7 +263,7 @@
 }
 .footer-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 3rem;
   margin-bottom: 3rem;
 }
@@ -315,8 +355,12 @@
   .footer-content {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: 2rem;
   }
   .social-links {
     justify-content: center;
+  }
+  .linkedin-grid {
+    grid-template-columns: 1fr;
   }
 }

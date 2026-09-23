@@ -9,6 +9,11 @@ $background-color_2: #0099ff;
   background-color: $background-color_1;
   margin: 20px;
   color: $site-black;
+
+  @include respond-to(small) {
+    padding: 1rem 1rem 1rem 1.25rem;
+    margin: 0.75rem 0;
+  }
   .timeline-item {
     display: flex;
     align-items: center;
