@@ -1,4 +1,5 @@
 import React from "react";
+import { withBasePath } from "@/lib/withBasePath";
 
 const LINKEDIN = "https://www.linkedin.com/in/pawan-tyagi-6bb22357/";
 
@@ -30,8 +31,14 @@ const PromoSection: React.FC = () => {
             </a>
           </div>
         </div>
-        <div className="promo-image">
-          <img src="images/home-right.png" alt="Hi, I am Pawan!" />
+        <div className="promo-image promo-image-photo">
+          <img
+            src={withBasePath("/images/home-right.png")}
+            alt="Hi, I am Pawan!"
+            width={800}
+            height={800}
+            decoding="async"
+          />
         </div>
       </div>
     </div>

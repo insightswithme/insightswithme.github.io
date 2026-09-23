@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import { withBasePath } from "@/lib/withBasePath";
 
 export interface IntroContentProps {
   className?: string;
@@ -13,8 +12,8 @@ const IntroContent: FC<IntroContentProps> = ({ className }) => {
       <h4 className="intro-title">About Me</h4>
       <div className="hero-author-photo">
         <img
-          src={withBasePath("/images/profile-placeholder.png")}
-          alt="Profile illustration"
+          src="https://avatars.githubusercontent.com/u/56933773"
+          alt="Profile Picture - Pawan Tyagi"
         />
       </div>
       <p className="intro-snippet">
