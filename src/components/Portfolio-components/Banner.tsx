@@ -23,7 +23,7 @@ const PromoSection: React.FC = () => {
             <br />
             <br />
             I share practical Sitecore insights on my blog{" "}
-            <em>Insights With Me</em> and contribute to the developer community.
+            &quot;InsightsWithMe&quot; and contribute to the developer community.
           </div>
           <div className="button button-primary-alternate">
             <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">
