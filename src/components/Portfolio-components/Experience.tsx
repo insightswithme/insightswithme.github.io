@@ -1,4 +1,5 @@
 import React from "react";
+import { withBasePath } from "@/lib/withBasePath";
 
 const Experience: React.FC = () => {
   return (
@@ -8,7 +9,11 @@ const Experience: React.FC = () => {
       </div>
       <div className="container">
         <div className="promo-image">
-          <img src="images/about-us.png" alt="Experience" />
+          <img
+            src={withBasePath("/images/about-us.png")}
+            alt="Experience"
+            decoding="async"
+          />
         </div>
         <div className="promo-content">
           <div className="experience">
