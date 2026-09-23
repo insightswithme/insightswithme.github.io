@@ -50,7 +50,8 @@ const About = () => {
               I am a Sitecore 2× certified developer (including{" "}
               <strong>XM Cloud Developer</strong> and{" "}
               <strong>Sitecore 10 .NET Developer</strong>), Sitecore 9 Platform
-              Associate Developer, and a{" "}
+              Associate Developer,{" "}
+              <strong>Optimizely CMS Certified Developer</strong>, and a{" "}
               <strong>Microsoft Azure Developer Associate (AZ-204)</strong>. My
               toolkit also includes Helix, .NET MVC, Docker, and JSS.
             </p>

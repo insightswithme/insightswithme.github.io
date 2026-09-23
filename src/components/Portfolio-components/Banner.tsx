@@ -13,12 +13,12 @@ const PromoSection: React.FC = () => {
           </div>
           <div className="description">
             Technical Lead at Altudo · Sitecore 2× Certified · XM Cloud
-            Certified · Azure AZ-204
+            Certified · Optimizely CMS Certified · Azure AZ-204
             <br />
             <br />
             Based in Gurugram, I lead Sitecore engineering delivery with deep
-            experience across XM Cloud, Content Hub, Search, Helix, and .NET
-            MVC — plus Docker and Azure.
+            experience across XM Cloud, Content Hub, Search, Helix, Optimizely,
+            and .NET MVC — plus Docker and Azure.
             <br />
             <br />
             I share practical Sitecore insights on my blog{" "}
