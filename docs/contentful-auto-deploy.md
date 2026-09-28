@@ -20,9 +20,10 @@ https://github.com/insightswithme/insightswithme.github.io/actions
 
 ## If deploy does not start
 
-1. Contentful → **Settings → Webhooks** → **GitHub Pages redeploy** → call logs (look for HTTP 204).
-2. If **401/403**: webhook GitHub token expired — create a new PAT and re-run the setup script (below).
-3. You can always redeploy manually: Actions → **Deploy Next.js site to Pages** → **Run workflow**.
+1. Contentful → **Settings → Webhooks** → **GitHub Pages redeploy** → call logs (look for HTTP **204**).
+2. **HTTP 403 / User-Agent**: webhook must send header `User-Agent: Contentful-Webhook-GitHubPages-Redeploy` (re-run setup script).
+3. **HTTP 401**: GitHub token expired — create a classic PAT with **`repo`** scope and re-run setup.
+4. You can always redeploy manually: Actions → **Deploy Next.js site to Pages** → **Run workflow**.
 
 ## Recreate / refresh the webhook
 
