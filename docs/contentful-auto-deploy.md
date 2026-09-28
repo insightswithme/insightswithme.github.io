@@ -5,8 +5,10 @@ After you **Publish** (or unpublish/delete) content in Contentful, a webhook cal
 ## One-time setup (already done if script succeeded)
 
 1. Workflow listens for `repository_dispatch` type `contentful-publish`.
-2. Contentful webhook **GitHub Pages redeploy** posts to GitHub Dispatches API.
+2. Contentful webhook **GitHub Pages redeploy** posts to GitHub Dispatches API
+   (topics: **Entry** publish / unpublish / delete only — not Asset, to avoid double deploys).
 3. GitHub token used by the webhook needs **`repo`** scope.
+4. Workflow concurrency cancels an in-progress deploy when a newer one starts.
 
 ## Your day-to-day steps
 
@@ -22,8 +24,10 @@ https://github.com/insightswithme/insightswithme.github.io/actions
 
 1. Contentful → **Settings → Webhooks** → **GitHub Pages redeploy** → call logs (look for HTTP **204**).
 2. **HTTP 403 / User-Agent**: webhook must send header `User-Agent: Contentful-Webhook-GitHubPages-Redeploy` (re-run setup script).
-3. **HTTP 401**: GitHub token expired — create a classic PAT with **`repo`** scope and re-run setup.
-4. You can always redeploy manually: Actions → **Deploy Next.js site to Pages** → **Run workflow**.
+3. **HTTP 422 / “is not an object”**: webhook transformation `body` must be a JSON **object**, not a stringified JSON string (re-run setup script).
+4. **HTTP 401**: GitHub token expired — create a classic PAT with **`repo`** scope and re-run setup.
+5. **Deploy loop / constant cancels**: CI must not republish Contentful entries during build (fixed in sync scripts). Re-enable the webhook if it was paused.
+6. You can always redeploy manually: Actions → **Deploy Next.js site to Pages** → **Run workflow**.
 
 ## Recreate / refresh the webhook
 

@@ -78,32 +78,24 @@ function webhookDefinition(githubToken) {
       { key: "Accept", value: "application/vnd.github+json" },
       { key: "Authorization", value: `Bearer ${githubToken}` },
       { key: "X-GitHub-Api-Version", value: "2022-11-28" },
-      { key: "Content-Type", value: "application/json" },
       {
         key: "User-Agent",
         value: "Contentful-Webhook-GitHubPages-Redeploy",
       },
     ],
-    topics: [
-      "Entry.publish",
-      "Entry.unpublish",
-      "Entry.delete",
-      "Asset.publish",
-      "Asset.unpublish",
-      "Asset.delete",
-    ],
+    // Entry-only: publishing a post with an image also fires Asset.publish,
+    // which would start a second identical deploy.
+    topics: ["Entry.publish", "Entry.unpublish", "Entry.delete"],
     filters: [],
+    // body must be a JSON object (not a string). A string body is sent as a
+    // JSON string and GitHub returns 422 "is not an object".
     transformation: {
       method: "POST",
       contentType: "application/json",
-      body: [
-        "{",
-        '  "event_type": "contentful-publish",',
-        '  "client_payload": {',
-        '    "source": "contentful"',
-        "  }",
-        "}",
-      ].join("\n"),
+      body: {
+        event_type: EVENT_TYPE,
+        client_payload: { source: "contentful" },
+      },
     },
     active: true,
   };
@@ -113,22 +105,32 @@ async function main() {
   loadEnv();
   const spaceId = process.env.CONTENTFUL_SPACE_ID;
   const cmaToken = process.env.CONTENTFUL_MANAGEMENT_TOKEN;
-  const githubToken =
-    process.env.GITHUB_DISPATCH_TOKEN || process.env.GH_TOKEN;
 
   if (!spaceId || !cmaToken) {
     throw new Error("Need CONTENTFUL_SPACE_ID and CONTENTFUL_MANAGEMENT_TOKEN");
-  }
-  if (!githubToken) {
-    throw new Error(
-      "Need GITHUB_DISPATCH_TOKEN (GitHub PAT with repo scope) or GH_TOKEN"
-    );
   }
 
   const list = await cma("GET", `/spaces/${spaceId}/webhook_definitions`, {
     token: cmaToken,
   });
   const existing = (list.items || []).find((w) => w.name === WEBHOOK_NAME);
+
+  const existingAuth = (existing?.headers || []).find(
+    (h) => h.key?.toLowerCase() === "authorization"
+  )?.value;
+  const existingToken = existingAuth?.replace(/^Bearer\s+/i, "")?.trim();
+
+  const githubToken =
+    process.env.GITHUB_DISPATCH_TOKEN ||
+    process.env.GH_TOKEN ||
+    existingToken;
+
+  if (!githubToken) {
+    throw new Error(
+      "Need GITHUB_DISPATCH_TOKEN (GitHub PAT with repo scope) or GH_TOKEN"
+    );
+  }
+
   const body = webhookDefinition(githubToken);
 
   let saved;

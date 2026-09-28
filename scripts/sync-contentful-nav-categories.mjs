@@ -315,7 +315,7 @@ async function main() {
   let categories = defaultCategories();
   let navigation = defaultNavigation();
 
-  if (spaceId && cmaToken) {
+  if (spaceId && cmaToken && !process.env.GITHUB_ACTIONS) {
     await ensureContentType(spaceId, envId, cmaToken, "category", categoryType);
     await ensureContentType(
       spaceId,
@@ -375,6 +375,8 @@ async function main() {
     } else {
       console.log(`Navigation items already present: ${existingNav.length}`);
     }
+  } else if (process.env.GITHUB_ACTIONS) {
+    console.log("CI: skipping Contentful CMA writes (Delivery API only)");
   } else {
     console.warn(
       "No CONTENTFUL_MANAGEMENT_TOKEN — writing local defaults only."

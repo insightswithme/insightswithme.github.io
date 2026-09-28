@@ -247,11 +247,13 @@ async function main() {
   const seeds = allPageSeeds();
   let pages = seeds;
 
-  if (spaceId && cmaToken) {
+  if (spaceId && cmaToken && !process.env.GITHUB_ACTIONS) {
     await ensureContentType(spaceId, envId, cmaToken);
     for (const page of seeds) {
       await ensurePage(spaceId, envId, cmaToken, page);
     }
+  } else if (process.env.GITHUB_ACTIONS) {
+    console.log("CI: skipping Contentful CMA writes (Delivery API only)");
   } else {
     console.warn("No CMA token — writing local seeds only.");
   }

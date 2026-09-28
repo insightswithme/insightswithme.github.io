@@ -153,10 +153,12 @@ async function patchPagePortfolioBanner(spaceId, envId, token, banner) {
 
   const fields = { ...entry.fields };
   // Only fill empty banner-related fields so we don't overwrite manual edits.
+  let changed = false;
   const setIfEmpty = (id, value) => {
     const current = fields[id]?.[LOCALE];
     if (current == null || current === "") {
       fields[id] = { [LOCALE]: value };
+      changed = true;
     }
   };
   setIfEmpty("eyebrow", banner.eyebrow);
@@ -177,6 +179,13 @@ async function patchPagePortfolioBanner(spaceId, envId, token, banner) {
         projectsSectionTitle: banner.projectsSectionTitle,
       }),
     };
+    changed = true;
+  }
+
+  // Never republish unchanged entries — that retriggers the deploy webhook loop.
+  if (!changed) {
+    console.log("Page/portfolio banner already set — skip patch");
+    return;
   }
 
   const updated = await cma(
@@ -331,7 +340,7 @@ async function main() {
     projects: projectSeeds(),
   };
 
-  if (spaceId && cmaToken) {
+  if (spaceId && cmaToken && !process.env.GITHUB_ACTIONS) {
     for (const [id, def] of Object.entries(TYPES)) {
       await ensureContentType(spaceId, envId, cmaToken, id, {
         name: def.name,
@@ -409,6 +418,8 @@ async function main() {
     );
 
     await patchPagePortfolioBanner(spaceId, envId, cmaToken, banner);
+  } else if (process.env.GITHUB_ACTIONS) {
+    console.log("CI: skipping Contentful CMA writes (Delivery API only)");
   } else {
     console.warn("No CMA token — writing local portfolio seeds only.");
   }
