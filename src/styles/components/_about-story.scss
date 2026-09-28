@@ -1,0 +1,91 @@
+@import "../abstract/mixins/respond-to";
+
+.about-story {
+  --as-ink: var(--color-text, #1a2332);
+  --as-muted: var(--color-text-muted, #5a6577);
+  --as-accent: var(--color-accent, #2c5282);
+  --as-paper: var(--color-surface-muted, #f7fafc);
+  --as-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --as-sans: "IBM Plex Sans", Poppins, system-ui, sans-serif;
+  background: var(--as-paper);
+  color: var(--as-ink);
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+}
+
+.about-story__inner {
+  width: min(1120px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: center;
+
+  @include respond-to(small) {
+    width: calc(100% - 1.5rem);
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+}
+
+.about-story__media {
+  min-width: 0;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: min(78vh, 720px);
+    object-fit: contain;
+    object-position: center;
+    background: transparent;
+  }
+}
+
+.about-story__copy {
+  min-width: 0;
+  padding-block: 0.5rem;
+}
+
+.about-story__eyebrow {
+  margin: 0 0 1rem;
+  font-family: var(--as-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--as-accent);
+
+  span {
+    margin: 0 0.35rem;
+    opacity: 0.75;
+  }
+}
+
+.about-story__title {
+  margin: 0 0 1.25rem;
+  font-family: var(--as-serif);
+  font-size: clamp(2rem, 4.2vw, 3.15rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--as-ink);
+
+  em {
+    font-style: italic;
+    color: var(--as-accent);
+  }
+}
+
+.about-story__body {
+  margin: 0;
+  max-width: 34rem;
+  font-family: var(--as-sans);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--as-muted);
+}
+
+[data-theme="dark"] .about-story__media img {
+  background: #1c2430;
+}
