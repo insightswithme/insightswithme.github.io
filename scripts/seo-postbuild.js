@@ -4,12 +4,10 @@
  */
 const fs = require("fs");
 const path = require("path");
-const matter = require("gray-matter");
-const removeMd = require("remove-markdown");
+const { fetchPosts } = require("./lib/fetch-posts");
 
 const root = path.join(__dirname, "..");
 const outDir = path.join(root, "out");
-const blogsDir = path.join(root, "content", "blogs");
 const configPath = path.join(root, "content", "config.json");
 
 const defaultProdUrl = "https://pawan-tyagi.github.io";
@@ -32,35 +30,33 @@ function escapeXml(str) {
     .replace(/'/g, "&apos;");
 }
 
-function parsePostDate(data, filePath) {
-  const raw = data.modifiedDate || data.date;
+function parsePostDate(post) {
+  const raw = post.modifiedDate || post.date;
   if (raw) {
     const d = new Date(raw);
     if (!Number.isNaN(d.getTime())) return d;
   }
-  return fs.statSync(filePath).mtime;
+  if (post.filePath && fs.existsSync(post.filePath)) {
+    return fs.statSync(post.filePath).mtime;
+  }
+  return new Date();
 }
 
-function loadPosts() {
-  const files = fs.readdirSync(blogsDir).filter((f) => f.endsWith(".md"));
-  return files
-    .map((filename) => {
-      const filePath = path.join(blogsDir, filename);
-      const slug = filename.replace(/\.md$/, "");
-      const raw = fs.readFileSync(filePath, "utf8");
-      const { data, content } = matter(raw);
-      const plain = removeMd(content).replace(/\s+/g, " ").trim();
+async function loadPosts() {
+  const posts = await fetchPosts();
+  return posts
+    .map((p) => {
+      const plain = (p.body || "").trim();
       const description =
-        data.metaDescription ||
-        data.description ||
+        p.description ||
+        p.excerpt ||
         plain.slice(0, 160) + (plain.length > 160 ? "…" : "");
-      const date = parsePostDate(data, filePath);
       return {
-        slug,
-        title: data.title || slug,
+        slug: p.slug,
+        title: p.title || p.slug,
         description: String(description).trim(),
-        date,
-        url: `${siteUrl}/blogs/${slug}`,
+        date: parsePostDate(p),
+        url: `${siteUrl}/blogs/${p.slug}`,
       };
     })
     .sort((a, b) => b.date.getTime() - a.date.getTime());
@@ -131,14 +127,17 @@ This site welcomes AI assistants and search engines. Content is for public refer
   console.log(`Wrote ${posts.length} posts to out/llms.txt`);
 }
 
-function main() {
+async function main() {
   if (!fs.existsSync(outDir)) {
     console.error("out/ not found — run next build before seo-postbuild");
     process.exit(1);
   }
-  const posts = loadPosts();
+  const posts = await loadPosts();
   writeRss(posts);
   writeLlmsTxt(posts);
 }
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

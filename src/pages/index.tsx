@@ -9,35 +9,50 @@ import { GetStaticProps } from "next";
 import HomeOrbitBanner from "@/components/Sections/HomeOrbitBanner";
 import LatestBlogs from "@/components/Sections/LatestBlogs";
 import { getAllBlogsSorted } from "@/lib/loadBlogs";
+import { getPortfolioData, type PortfolioData } from "@/lib/portfolio";
 import type { Blog } from "@/types/blog";
 
-type PortfolioProps = {
+type HomeProps = {
   blogs: Blog[];
+  portfolio: PortfolioData;
 };
 
-const Portfolio = ({ blogs }: PortfolioProps) => {
+const Home = ({ blogs, portfolio }: HomeProps) => {
+  const { banner } = portfolio;
+
   return (
     <Layout>
-      <WebsiteMetaBundle
-        path="/"
-        title="Sitecore & .NET Developer Blog"
-      />
+      <WebsiteMetaBundle path="/" title="Sitecore & .NET Developer Blog" />
 
       <HomeOrbitBanner />
       <LatestBlogs blogs={blogs} />
-      <Banner />
-      <Experience />
-      <Award />
-      <PC />
-      <TechnicalSkills />
+      <Banner banner={banner} />
+      <Experience
+        title={banner.experienceSectionTitle}
+        imageUrl={banner.experienceImageUrl}
+        experiences={portfolio.experiences}
+      />
+      <Award
+        title={banner.awardsSectionTitle}
+        items={portfolio.certifications}
+      />
+      <PC
+        title={banner.contributionsSectionTitle}
+        contributions={portfolio.contributions}
+      />
+      <TechnicalSkills
+        title={banner.skillsSectionTitle}
+        groups={portfolio.skillGroups}
+      />
     </Layout>
   );
 };
 
-export default Portfolio;
+export default Home;
 
-export const getStaticProps: GetStaticProps<PortfolioProps> = async () => ({
+export const getStaticProps: GetStaticProps<HomeProps> = async () => ({
   props: {
-    blogs: getAllBlogsSorted(),
+    blogs: await getAllBlogsSorted(),
+    portfolio: await getPortfolioData(),
   },
 });

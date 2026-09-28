@@ -114,7 +114,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 
   return {
     props: {
-      blogs: getBlogsForCategory(categorySlug),
+      blogs: await getBlogsForCategory(categorySlug),
       categorySlug,
       categoryLabel,
       categoryDescription,

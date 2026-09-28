@@ -5,13 +5,19 @@ import Burger from "./Burger";
 
 import type { FC } from "react";
 import Link from "next/link";
+import type { NavItem } from "@/lib/siteMeta";
 
 export interface NavigationProps {
   className?: string;
   isFooter?: boolean;
+  items?: NavItem[];
 }
 
-const Navigation: FC<NavigationProps> = ({ className, isFooter }) => {
+const Navigation: FC<NavigationProps> = ({
+  className,
+  isFooter,
+  items = [],
+}) => {
   const [active, setActive] = useState(false);
   useEffect(() => {
     const SCREEN_SM = 768;
@@ -42,67 +48,44 @@ const Navigation: FC<NavigationProps> = ({ className, isFooter }) => {
       )}
       <nav className={className + " " + (active ? "active" : "")}>
         <div className="site-search site-search-mobile">
-          {/* Mobile: link to full search page to keep burger menu simple */}
-          <Link href="/search" className="site-search-mobile-link" onClick={() => setActive(false)}>
+          <Link
+            href="/search"
+            className="site-search-mobile-link"
+            onClick={() => setActive(false)}
+          >
             Search blogs…
           </Link>
         </div>
         <ul className="menu">
-          <li>
-            <Link href="/blogs" aria-label="Blogs" onClick={() => setActive(false)}>
-              Blogs
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/categories"
-              aria-label="Categories"
-              onClick={() => setActive(false)}
-            >
-              Categories
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/search"
-              aria-label="Search"
-              onClick={() => setActive(false)}
-            >
-              Search
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/portfolio"
-              aria-label="Portfolio"
-              onClick={() => setActive(false)}
-            >
-              Portfolio
-            </Link>
-          </li>
-          <li>
-            <Link href="/about" aria-label="About" onClick={() => setActive(false)}>
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/contact"
-              aria-label="Contact"
-              onClick={() => setActive(false)}
-            >
-              Contact
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/privacy"
-              aria-label="Privacy Policy"
-              onClick={() => setActive(false)}
-            >
-              Privacy Policy
-            </Link>
-          </li>
+          {items.map((item) => {
+            const external =
+              item.href.startsWith("http://") ||
+              item.href.startsWith("https://") ||
+              item.openInNewTab;
+            return (
+              <li key={`${item.href}-${item.label}`}>
+                {external ? (
+                  <a
+                    href={item.href}
+                    aria-label={item.label}
+                    target={item.openInNewTab ? "_blank" : undefined}
+                    rel={item.openInNewTab ? "noopener noreferrer" : undefined}
+                    onClick={() => setActive(false)}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={item.href}
+                    aria-label={item.label}
+                    onClick={() => setActive(false)}
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </div>

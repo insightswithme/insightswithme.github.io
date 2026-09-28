@@ -1,80 +1,129 @@
-// import config from "@/lib/config";
-// import Navigation from "./Navigation";
 import Link from "next/link";
 import { withBasePath } from "@/lib/withBasePath";
+import type { NavItem } from "@/lib/siteMeta";
+import footerData from "../../content/generated/footer.json";
 
-const SiteFooter: React.FC = () => {
+export interface SiteFooterProps {
+  navItems?: NavItem[];
+}
+
+type FooterContent = {
+  aboutTitle?: string;
+  aboutText?: string;
+  pagesTitle?: string;
+  legalTitle?: string;
+  connectTitle?: string;
+  copyrightText?: string;
+  copyrightSuffix?: string;
+  linkedinUrl?: string;
+  githubUrl?: string;
+  slackUrl?: string;
+  stackExchangeUrl?: string;
+  twitterUrl?: string;
+};
+
+function resolveCopyright(text: string | undefined): string {
+  const year = String(new Date().getFullYear());
+  return (text || "© {{year}} Pawan Tyagi. All rights reserved.").replaceAll(
+    "{{year}}",
+    year
+  );
+}
+
+const SiteFooter: React.FC<SiteFooterProps> = ({ navItems = [] }) => {
+  const footer = footerData as FooterContent;
+  const pageLinks = navItems.filter(
+    (item) =>
+      !["/privacy", "/sitemap.xml"].includes(item.href) &&
+      !item.href.endsWith("rss.xml")
+  );
+  const legalFromCms = navItems.filter((item) => item.href === "/privacy");
+
+  const socials = [
+    {
+      label: "LinkedIn",
+      href: footer.linkedinUrl,
+      icon: "fab fa-linkedin-in",
+    },
+    {
+      label: "GitHub",
+      href: footer.githubUrl,
+      icon: "fab fa-github",
+    },
+    {
+      label: "Sitecore Slack",
+      href: footer.slackUrl,
+      icon: "fab fa-slack",
+    },
+    {
+      label: "Sitecore Stack Exchange",
+      href: footer.stackExchangeUrl,
+      icon: "fab fa-stack-exchange",
+    },
+    {
+      label: "Twitter",
+      href: footer.twitterUrl,
+      icon: "fab fa-twitter",
+    },
+  ].filter((s) => Boolean(s.href));
+
+  const copyright = resolveCopyright(footer.copyrightText);
+  const suffix = footer.copyrightSuffix?.trim();
+
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer-content">
           <div className="footer-section">
-            <h4>About Pawan</h4>
-            <p>
-              Technical Lead at Altudo (Gurugram). Sitecore XM Cloud &amp; 10
-              .NET certified, Azure AZ-204. Passionate about sharing Sitecore
-              knowledge through blogging and community engagement.
-            </p>
-            <div className="social-links">
-              <a
-                href="https://www.linkedin.com/in/pawan-tyagi-6bb22357/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-              <a
-                href="https://github.com/pawan-tyagi"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fab fa-github"></i>
-              </a>
-              <a
-                href="https://sitecorechat.slack.com/team/U066H8NTN6N"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Sitecore Slack"
-              >
-                <i className="fab fa-slack"></i>
-              </a>
-              <a
-                href="https://sitecore.stackexchange.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Sitecore Stack Exchange"
-              >
-                <i className="fab fa-stack-exchange"></i>
-              </a>
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                <i className="fab fa-twitter"></i>
-              </a>
-            </div>
+            <h4>{footer.aboutTitle || "About"}</h4>
+            {footer.aboutText ? <p>{footer.aboutText}</p> : null}
+            {socials.length ? (
+              <div className="social-links">
+                {socials.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={s.label}
+                  >
+                    <i className={s.icon}></i>
+                  </a>
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <div className="footer-section">
-            <h4>Important Pages</h4>
+            <h4>{footer.pagesTitle || "Important Pages"}</h4>
             <ul>
-              <li>
-                <Link href="/blogs">Blog Home</Link>
-              </li>
-              <li>
-                <Link href="/categories">Categories</Link>
-              </li>
-              <li>
-                <Link href="/about">About</Link>
-              </li>
-              <li>
-                <Link href="/contact">Contact</Link>
-              </li>
+              {pageLinks.map((item) => (
+                <li key={`${item.href}-${item.label}`}>
+                  {item.href.startsWith("http") || item.openInNewTab ? (
+                    <a
+                      href={item.href}
+                      target={item.openInNewTab ? "_blank" : undefined}
+                      rel={
+                        item.openInNewTab ? "noopener noreferrer" : undefined
+                      }
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link href={item.href}>{item.label}</Link>
+                  )}
+                </li>
+              ))}
             </ul>
           </div>
           <div className="footer-section">
-            <h4>Legal & Info</h4>
+            <h4>{footer.legalTitle || "Legal & Info"}</h4>
             <ul>
-              <li>
-                <Link href="/privacy">Privacy Policy</Link>
-              </li>
+              {legalFromCms.map((item) => (
+                <li key={`${item.href}-${item.label}`}>
+                  <Link href={item.href}>{item.label}</Link>
+                </li>
+              ))}
               <li>
                 <Link href="/sitemap.xml">Sitemap</Link>
               </li>
@@ -84,66 +133,28 @@ const SiteFooter: React.FC = () => {
             </ul>
           </div>
           <div className="footer-section">
-            <h4>Connect with Me</h4>
+            <h4>{footer.connectTitle || "Connect with Me"}</h4>
             <ul className="social-links-list">
-              <li>
-                <a
-                  href="https://www.linkedin.com/in/pawan-tyagi-6bb22357/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="LinkedIn"
-                >
-                  <i className="fab fa-linkedin-in"></i> LinkedIn
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/pawan-tyagi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="GitHub"
-                >
-                  <i className="fab fa-github"></i> GitHub
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://sitecorechat.slack.com/team/U066H8NTN6N"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Sitecore Slack"
-                >
-                  <i className="fab fa-slack"></i> Slack
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://sitecore.stackexchange.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Sitecore Stack Exchange"
-                >
-                  <i className="fab fa-stack-exchange"></i> Stack Exchange
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Twitter"
-                >
-                  <i className="fab fa-twitter"></i> Twitter
-                </a>
-              </li>
+              {socials.map((s) => (
+                <li key={`list-${s.label}`}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={s.label}
+                  >
+                    <i className={s.icon}></i> {s.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
         <div className="footer-bottom">
           <p>
-            &copy; 2026 Pawan Tyagi. All rights reserved. | Built with
-            passion for sharing knowledge
+            {copyright}
+            {suffix ? ` | ${suffix}` : null}
           </p>
         </div>
       </div>

@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-09-28T11:32:33.718Z",
+  "name": "Site Footer",
+  "aboutTitle": "About Pawan",
+  "aboutText": "Technical Lead at Altudo (Gurugram). Sitecore XM Cloud & 10 .NET certified, Azure AZ-204. Passionate about sharing Sitecore knowledge through blogging and community engagement.",
+  "pagesTitle": "Important Pages",
+  "legalTitle": "Legal & Info",
+  "connectTitle": "Connect with Me",
+  "copyrightText": "© {{year}} Pawan Tyagi. All rights reserved.",
+  "copyrightSuffix": "Built with passion for sharing knowledge",
+  "linkedinUrl": "https://www.linkedin.com/in/pawan-tyagi-6bb22357/",
+  "githubUrl": "https://github.com/pawan-tyagi",
+  "slackUrl": "https://sitecorechat.slack.com/team/U066H8NTN6N",
+  "stackExchangeUrl": "https://sitecore.stackexchange.com",
+  "twitterUrl": ""
+}

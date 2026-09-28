@@ -1,77 +1,44 @@
 import React from "react";
+import type { PortfolioSkillGroup } from "@/lib/portfolio";
 
-const TechnicalSkills: React.FC = () => {
+export interface TechnicalSkillsProps {
+  title?: string;
+  groups: PortfolioSkillGroup[];
+}
+
+const TechnicalSkills: React.FC<TechnicalSkillsProps> = ({
+  title = "Technical Skills",
+  groups,
+}) => {
+  if (!groups.length) return null;
+
+  // Keep original 2-row layout: first 3, then remaining
+  const firstRow = groups.slice(0, 3);
+  const secondRow = groups.slice(3);
+
+  const renderRow = (items: PortfolioSkillGroup[]) => (
+    <div className="multi-lists">
+      {items.map((group) => (
+        <div key={group.name} className="multi-lists-section card">
+          <h4>{group.name}</h4>
+          <ul>
+            {group.skills.map((skill) => (
+              <li key={skill}>{skill}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <div className="component-section component-content">
       <div className="container">
         <div className="component-title">
-          <h2>Technical Skills</h2>
+          <h2>{title}</h2>
         </div>
-
-        <div className="multi-lists">
-          <div className="multi-lists-section card">
-            <h4>Sitecore</h4>
-            <ul>
-              <li>Sitecore XP 9.x &amp; 10.x</li>
-              <li>Sitecore XM Cloud</li>
-              <li>Sitecore SXA</li>
-              <li>JSS / Headless</li>
-              <li>Helix architecture</li>
-              <li>Content Hub / DAM Connector</li>
-              <li>Sitecore Search</li>
-            </ul>
-          </div>
-          <div className="multi-lists-section card">
-            <h4>Sitecore Modules &amp; Tools</h4>
-            <ul>
-              <li>Sitecore Forms &amp; Webhooks</li>
-              <li>Sitecore Connect</li>
-              <li>Content Serialization (SCS)</li>
-              <li>PowerShell Extensions (SPE)</li>
-              <li>Experience Edge / GraphQL</li>
-              <li>Sitecore Stream</li>
-            </ul>
-          </div>
-          <div className="multi-lists-section card">
-            <h4>Cloud &amp; DevOps</h4>
-            <ul>
-              <li>Microsoft Azure (AZ-204)</li>
-              <li>Docker</li>
-              <li>Azure DevOps pipelines</li>
-              <li>XM Cloud Deploy</li>
-              <li>Git</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="multi-lists">
-          <div className="multi-lists-section card">
-            <h4>Backend</h4>
-            <ul>
-              <li>.NET / C#</li>
-              <li>ASP.NET MVC</li>
-              <li>Web API</li>
-              <li>MSSQL Server</li>
-            </ul>
-          </div>
-          <div className="multi-lists-section card">
-            <h4>Frontend</h4>
-            <ul>
-              <li>JavaScript</li>
-              <li>jQuery</li>
-              <li>Next.js / React (headless)</li>
-              <li>SCSS / CSS</li>
-            </ul>
-          </div>
-          <div className="multi-lists-section card">
-            <h4>Search</h4>
-            <ul>
-              <li>Sitecore Search (API / Feed crawlers)</li>
-              <li>Solr (SXA)</li>
-              <li>Coveo for Sitecore</li>
-            </ul>
-          </div>
-        </div>
+        {renderRow(firstRow)}
+        {secondRow.length ? renderRow(secondRow) : null}
       </div>
     </div>
   );

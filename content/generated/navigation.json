@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-09-28T09:50:48.596Z",
+  "items": [
+    {
+      "label": "Blogs",
+      "href": "/blogs",
+      "order": 1,
+      "location": "both",
+      "openInNewTab": false
+    },
+    {
+      "label": "Categories",
+      "href": "/categories",
+      "order": 2,
+      "location": "both",
+      "openInNewTab": false
+    },
+    {
+      "label": "Search",
+      "href": "/search",
+      "order": 3,
+      "location": "header",
+      "openInNewTab": false
+    },
+    {
+      "label": "Portfolio",
+      "href": "/portfolio",
+      "order": 4,
+      "location": "header",
+      "openInNewTab": false
+    },
+    {
+      "label": "About",
+      "href": "/about",
+      "order": 5,
+      "location": "both",
+      "openInNewTab": false
+    },
+    {
+      "label": "Contact",
+      "href": "/contact",
+      "order": 6,
+      "location": "both",
+      "openInNewTab": false
+    },
+    {
+      "label": "Privacy Policy",
+      "href": "/privacy",
+      "order": 7,
+      "location": "both",
+      "openInNewTab": false
+    }
+  ]
+}
