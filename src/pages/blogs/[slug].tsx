@@ -1,13 +1,10 @@
-import fs from "fs";
 import React, { useEffect } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import matter from "gray-matter";
 import { GetStaticProps, GetStaticPaths } from "next";
 import Layout from "@/components/Layout";
 import removeMd from "remove-markdown";
 import Link from "next/link";
 import { format } from "date-fns";
+import type { Document } from "@contentful/rich-text-types";
 
 import BlogPostMetaBundle from "@/components/meta/BlogPostMetaBundle";
 import type { FaqItem, HowToData } from "@/components/meta/JsonLdFaqHowTo";
@@ -18,46 +15,39 @@ import readingDuration from "reading-duration";
 import BlogHeader from "@/components/BlogHeader";
 
 import CommentBox from "@/components/CommentBox";
-import MarkdownLink from "@/components/blog/MarkdownLink";
-import MarkdownImage from "@/components/blog/MarkdownImage";
-import CodeBlock from "@/components/blog/CodeBlock";
-import MarkdownHeading from "@/components/blog/MarkdownHeading";
+import BlogPostBody from "@/components/blog/BlogPostBody";
 import BlogTableOfContents from "@/components/blog/BlogTableOfContents";
 import BlogSideTags from "@/components/blog/BlogSideTags";
 import { extractTocFromMarkdown } from "@/lib/blogToc";
+import { getAllBlogsSorted, getBlogDetailBySlug } from "@/lib/loadBlogs";
 
-interface Frontmatter {
+interface BlogFrontmatterResolved {
   title: string;
   description: string;
   metaDescription: string;
   featuredImage: string;
   keywords: string;
-  date: Date;
-  modifiedDate?: Date | string;
-  tags: { tag: string }[];
-  faq?: FaqItem[];
-  howto?: HowToData;
-  author?: string;
-  originalUrl?: string;
-  source?: string;
-  canonicalUrl?: string;
-}
-
-interface BlogFrontmatterResolved
-  extends Omit<Frontmatter, "date" | "modifiedDate"> {
   date: string;
   modifiedDate: string;
+  tags: { tag: string }[];
+  faq: FaqItem[] | null;
+  howto: HowToData | null;
+  author: string | null;
+  originalUrl: string | null;
+  source: string | null;
+  canonicalUrl: string | null;
 }
 
 interface BlogProps {
   frontmatter: BlogFrontmatterResolved;
   markdown: string;
+  richText: Document | null;
   slug: string;
 }
 
 const AUTHOR_NAME = "Pawan Tyagi";
 
-const Blog: React.FC<BlogProps> = ({ frontmatter, markdown, slug }) => {
+const Blog: React.FC<BlogProps> = ({ frontmatter, markdown, richText, slug }) => {
   const postDate = new Date(frontmatter.date);
   const postModified = new Date(frontmatter.modifiedDate);
   const tocItems = extractTocFromMarkdown(markdown);
@@ -99,11 +89,11 @@ const Blog: React.FC<BlogProps> = ({ frontmatter, markdown, slug }) => {
         date={postDate}
         modifiedDate={postModified}
         author={frontmatter.author || AUTHOR_NAME}
-        canonicalUrl={frontmatter.canonicalUrl}
+        canonicalUrl={frontmatter.canonicalUrl ?? undefined}
         articlePlainText={articlePlainText}
         tags={frontmatter.tags}
-        faq={frontmatter.faq}
-        howto={frontmatter.howto}
+        faq={frontmatter.faq ?? undefined}
+        howto={frontmatter.howto ?? undefined}
       />
 
       <article className="blog-post-page" aria-labelledby="blog-post-title">
@@ -113,32 +103,15 @@ const Blog: React.FC<BlogProps> = ({ frontmatter, markdown, slug }) => {
           className="blog-page"
           readingTime={readingTime}
           featureImage={frontmatter.featuredImage}
-          source={frontmatter.source}
-          originalUrl={frontmatter.originalUrl}
+          source={frontmatter.source ?? undefined}
+          originalUrl={frontmatter.originalUrl ?? undefined}
         />
         <Breadcrumb className="blog-page" />
         <div className="container">
           <div className="container-fluid blog-body-layout">
             <div className="blog-container">
               <hr className="blog-rule blog-rule-start" />
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  a: MarkdownLink,
-                  img: MarkdownImage,
-                  pre: ({ children, className }) => (
-                    <CodeBlock className={className}>{children}</CodeBlock>
-                  ),
-                  h2: ({ children }) => (
-                    <MarkdownHeading level={2}>{children}</MarkdownHeading>
-                  ),
-                  h3: ({ children }) => (
-                    <MarkdownHeading level={3}>{children}</MarkdownHeading>
-                  ),
-                }}
-              >
-                {markdown}
-              </ReactMarkdown>
+              <BlogPostBody markdown={markdown} richText={richText} />
               <hr className="blog-rule blog-rule-end" />
               <p className="blog-authored-by">
                 Authored by{" "}
@@ -166,39 +139,45 @@ const Blog: React.FC<BlogProps> = ({ frontmatter, markdown, slug }) => {
 
 export default Blog;
 
-function coerceBlogDate(value: unknown): Date {
-  if (value instanceof Date && !Number.isNaN(value.getTime())) return value;
-  const parsed = new Date(String(value ?? ""));
-  return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
-}
-
 export const getStaticProps: GetStaticProps<BlogProps> = async ({ params }) => {
   const slug = params?.slug as string;
-  const fileContent = matter(
-    fs.readFileSync(`./content/blogs/${slug}.md`, "utf8")
-  );
-  const raw = fileContent.data as Frontmatter;
-  const date = coerceBlogDate(raw.date);
-  const modifiedDate =
-    raw.modifiedDate != null ? coerceBlogDate(raw.modifiedDate) : date;
+  const post = await getBlogDetailBySlug(slug);
+
+  if (!post) {
+    return { notFound: true };
+  }
+
+  const fm = post.frontmatter;
 
   return {
     props: {
       frontmatter: {
-        ...raw,
-        date: date.toISOString(),
-        modifiedDate: modifiedDate.toISOString(),
+        title: fm.title,
+        description: fm.description,
+        metaDescription: fm.metaDescription,
+        featuredImage: fm.featuredImage,
+        keywords: fm.keywords,
+        date: fm.date,
+        modifiedDate: fm.modifiedDate,
+        tags: fm.tags,
+        faq: fm.faq ?? null,
+        howto: fm.howto ?? null,
+        author: fm.author ?? null,
+        originalUrl: null,
+        source: null,
+        canonicalUrl: null,
       },
-      markdown: fileContent.content,
-      slug,
+      markdown: post.markdown,
+      richText: post.richText ?? null,
+      slug: post.slug,
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const files = fs.readdirSync("./content/blogs");
-  const paths = files.map((file) => ({
-    params: { slug: file.replace(/\.md$/, "") },
+  const blogs = await getAllBlogsSorted();
+  const paths = blogs.map((blog) => ({
+    params: { slug: blog.slug },
   }));
 
   return {

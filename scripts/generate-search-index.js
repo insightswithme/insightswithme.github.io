@@ -4,48 +4,10 @@
  */
 const fs = require("fs");
 const path = require("path");
-const matter = require("gray-matter");
-const removeMd = require("remove-markdown");
+const { fetchPosts } = require("./lib/fetch-posts");
 
 const root = path.join(__dirname, "..");
-const blogsDir = path.join(root, "content", "blogs");
 const outPath = path.join(root, "public", "search-index.json");
-
-function tagSlugs(tags) {
-  if (!Array.isArray(tags)) return [];
-  return tags.map((t) => (typeof t === "object" && t ? t.tag : t)).filter(Boolean);
-}
-
-const posts = fs
-  .readdirSync(blogsDir)
-  .filter((f) => f.endsWith(".md"))
-  .map((filename) => {
-    const slug = filename.replace(/\.md$/, "");
-    const raw = fs.readFileSync(path.join(blogsDir, filename), "utf8");
-    const { data, content } = matter(raw);
-    const plain = removeMd(content || "")
-      .replace(/\s+/g, " ")
-      .trim();
-    const tags = tagSlugs(data.tags);
-    const keywords = String(data.keywords || "")
-      .split(",")
-      .map((k) => k.trim())
-      .filter(Boolean);
-
-    return {
-      type: "post",
-      title: data.title || slug,
-      slug,
-      url: `/blogs/${slug}`,
-      excerpt: (data.description || data.metaDescription || plain.slice(0, 160)).trim(),
-      body: plain.slice(0, 4000),
-      tags,
-      keywords,
-      date: data.date || "",
-      featuredImage: data.featuredImage || "",
-    };
-  })
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 const pages = [
   {
@@ -110,13 +72,36 @@ const pages = [
   },
 ];
 
-const index = {
-  generatedAt: new Date().toISOString(),
-  items: [...posts, ...pages],
-};
+async function main() {
+  const posts = (await fetchPosts()).map((p) => ({
+    type: "post",
+    title: p.title,
+    slug: p.slug,
+    url: `/blogs/${p.slug}`,
+    excerpt: p.excerpt,
+    body: (p.body || "").slice(0, 4000),
+    tags: p.tags,
+    keywords: String(p.keywords || "")
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean),
+    date: p.date || "",
+    featuredImage: p.featuredImage || "",
+  }));
 
-fs.mkdirSync(path.dirname(outPath), { recursive: true });
-fs.writeFileSync(outPath, JSON.stringify(index));
-console.log(
-  `Wrote ${index.items.length} search items → public/search-index.json`
-);
+  const index = {
+    generatedAt: new Date().toISOString(),
+    items: [...posts, ...pages],
+  };
+
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, JSON.stringify(index));
+  console.log(
+    `Wrote ${index.items.length} search items → public/search-index.json`
+  );
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

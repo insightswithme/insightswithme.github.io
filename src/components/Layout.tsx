@@ -9,6 +9,8 @@ import SiteFooter from "@/components/SiteFooter";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/SiteSearch";
 import { withBasePath } from "@/lib/withBasePath";
+import type { NavItem } from "@/lib/siteMeta";
+import navigationData from "../../content/generated/navigation.json";
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -16,7 +18,17 @@ export interface LayoutProps {
   metaDescription?: string;
 }
 
+function navFor(location: "header" | "footer"): NavItem[] {
+  const items = (navigationData.items || []) as NavItem[];
+  return items
+    .filter((item) => item.location === location || item.location === "both")
+    .slice()
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+}
+
 const Layout: FC<LayoutProps> = ({ children }) => {
+  const headerNav = navFor("header");
+  const footerNav = navFor("footer");
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
 
@@ -81,7 +93,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
           <div className="header-end">
             <SiteSearch />
-            <Navigation className="header-nav" />
+            <Navigation className="header-nav" items={headerNav} />
             <ThemeToggle />
           </div>
         </div>
@@ -89,7 +101,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
       <main className="">{children}</main>
 
-      <SiteFooter />
+      <SiteFooter navItems={footerNav} />
 
       <ScrollToTop />
       <WhatsAppButton />

@@ -5,10 +5,17 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Layout from "@/components/Layout";
 import WebsiteMetaBundle from "@/components/meta/WebsiteMetaBundle";
 import TitleBanner from "@/components/TitleBanner";
+import PageMarkdown from "@/components/PageMarkdown";
 import { searchItems, type SearchItem } from "@/lib/search";
 import { withBasePath } from "@/lib/withBasePath";
+import { getPageBySlug, type SitePage } from "@/lib/pages";
+import type { GetStaticProps } from "next";
 
-const SearchPage = () => {
+interface SearchPageProps {
+  page: SitePage;
+}
+
+const SearchPage: React.FC<SearchPageProps> = ({ page }) => {
   const router = useRouter();
   const query = typeof router.query.q === "string" ? router.query.q : "";
   const [draft, setDraft] = useState(query);
@@ -46,14 +53,19 @@ const SearchPage = () => {
     <Layout>
       <WebsiteMetaBundle
         path="/search"
-        title={query ? `Search: ${query}` : "Search"}
-        description="Search Sitecore and XM Cloud blog posts, guides, and site pages."
+        title={query ? `Search: ${query}` : page.title || "Search"}
+        description={page.metaDescription || undefined}
       />
-      <TitleBanner title="Search" />
+      <TitleBanner title={page.title || "Search"} />
       <Breadcrumb />
       <div className="container">
         <div className="container-fluid">
           <div className="search-page">
+            {page.intro ? (
+              <div className="search-page-status">
+                <PageMarkdown markdown={page.intro} />
+              </div>
+            ) : null}
             <form
               className="search-page-form"
               role="search"
@@ -131,3 +143,24 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
+
+export const getStaticProps: GetStaticProps<SearchPageProps> = async () => {
+  const page =
+    (await getPageBySlug("search")) ||
+    ({
+      title: "Search",
+      slug: "search",
+      metaDescription:
+        "Search Sitecore and XM Cloud blog posts, guides, and site pages.",
+      eyebrow: "",
+      headline: "",
+      intro: "",
+      body: "",
+      heroImageUrl: "",
+      linkedinUrl: "",
+      careerStartYear: null,
+      sitecoreStartYear: null,
+    } satisfies SitePage);
+
+  return { props: { page } };
+};

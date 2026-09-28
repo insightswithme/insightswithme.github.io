@@ -1,17 +1,18 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+This is a [Next.js](https://nextjs.org) static blog (InsightsWithMe) with **Contentful** as the CMS and local markdown fallback.
 
 ## Getting Started
 
-First, run the development server:
+1. Copy `.env.example` → `.env.local` and add Contentful tokens (see [CONTENTFUL.md](./CONTENTFUL.md)).
+2. One-shot CMS setup (content type + migrate + verify):
+
+```bash
+npm run contentful:setup
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

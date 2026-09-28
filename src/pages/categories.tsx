@@ -6,28 +6,34 @@ import Layout from "@/components/Layout";
 import WebsiteMetaBundle from "@/components/meta/WebsiteMetaBundle";
 import TitleBanner from "@/components/TitleBanner";
 import CategoryCards from "@/components/categories/CategoryCards";
+import PageMarkdown from "@/components/PageMarkdown";
 import {
   getCategoriesWithStats,
   type CategoryWithStats,
 } from "@/lib/categories";
 import { getAllBlogsSorted } from "@/lib/loadBlogs";
+import { getPageBySlug, type SitePage } from "@/lib/pages";
 import config from "@/lib/config";
 
 interface PageProps {
   categories: CategoryWithStats[];
   totalPosts: number;
+  page: SitePage;
 }
 
-const PAGE_TITLE = "Sitecore & .NET Blog Categories";
-const PAGE_DESCRIPTION =
-  "Browse Sitecore, SXA, XM Cloud, Marketplace, Azure DevOps, and Next.js article categories. Find practical developer tutorials grouped by topic.";
+const CategoryPage: React.FC<PageProps> = ({
+  categories,
+  totalPosts,
+  page,
+}) => {
+  const pageTitle = page.headline || page.title || "Blog Categories";
+  const pageDescription = page.metaDescription || "";
 
-const CategoryPage: React.FC<PageProps> = ({ categories, totalPosts }) => {
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: PAGE_TITLE,
-    description: PAGE_DESCRIPTION,
+    name: pageTitle,
+    description: pageDescription,
     url: `${config.base_url}/categories`,
     mainEntity: {
       "@type": "ItemList",
@@ -45,8 +51,8 @@ const CategoryPage: React.FC<PageProps> = ({ categories, totalPosts }) => {
     <Layout>
       <WebsiteMetaBundle
         path="/categories"
-        title={PAGE_TITLE}
-        description={PAGE_DESCRIPTION}
+        title={pageTitle}
+        description={pageDescription || undefined}
       />
       <Head>
         <script
@@ -54,64 +60,42 @@ const CategoryPage: React.FC<PageProps> = ({ categories, totalPosts }) => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
         />
       </Head>
-      <TitleBanner title="Blog Categories" />
+      <TitleBanner title={page.title || "Blog Categories"} />
       <Breadcrumb />
       <div className="container">
         <div className="container-fluid blog-body-layout">
           <div className="blog-container page-content category-hub">
-            <p className="category-hub-lead">
-              Explore {totalPosts} technical articles on Sitecore XP, SXA, XM
-              Cloud, Marketplace apps, Azure DevOps, and modern frontend
-              development. Pick a category to jump into focused guides and
-              real-world solutions.
-            </p>
+            {page.intro ? (
+              <div className="category-hub-lead">
+                <PageMarkdown markdown={page.intro} />
+              </div>
+            ) : (
+              <p className="category-hub-lead">
+                Explore {totalPosts} technical articles. Pick a category to jump
+                into focused guides.
+              </p>
+            )}
 
             <CategoryCards categories={categories} />
 
-            <section className="category-hub-help" aria-labelledby="how-to-use">
-              <h2 id="how-to-use">How to use these categories</h2>
-              <ul>
-                <li>
-                  Start with{" "}
-                  <Link href="/categories/sitecore">Sitecore</Link> for core
-                  CMS tips, then go deeper with{" "}
-                  <Link href="/categories/sitecore-sxa">SXA</Link> or{" "}
-                  <Link href="/categories/sitecore-xm-cloud">XM Cloud</Link>.
-                </li>
-                <li>
-                  Building Marketplace apps? Follow the{" "}
-                  <Link href="/categories/sitecore-marketplace">
-                    Sitecore Marketplace
-                  </Link>{" "}
-                  series and related{" "}
-                  <Link href="/categories/nextjs-react-development">
-                    Next.js / React
-                  </Link>{" "}
-                  posts.
-                </li>
-                <li>
-                  Prefer a chronological feed? Visit the{" "}
-                  <Link href="/blogs">full blog index</Link>.
-                </li>
-              </ul>
-            </section>
+            {page.body ? (
+              <section className="category-hub-help">
+                <PageMarkdown markdown={page.body} />
+              </section>
+            ) : null}
           </div>
 
-          <aside className="blog-side-container" aria-label="Quick links">
-            <nav className="blog-toc" aria-label="Quick links">
-              <p className="blog-toc-title">Quick links</p>
+          <aside className="blog-side-container" aria-label="All categories">
+            <nav className="blog-toc" aria-label="All categories">
+              <p className="blog-toc-title">All categories</p>
               <ol>
+                {categories.map((cat) => (
+                  <li key={cat.slug} className="level-2">
+                    <Link href={`/categories/${cat.slug}`}>{cat.name}</Link>
+                  </li>
+                ))}
                 <li className="level-2">
                   <Link href="/blogs">All articles</Link>
-                </li>
-                <li className="level-2">
-                  <Link href="/about">About the author</Link>
-                </li>
-                <li className="level-2">
-                  <Link href="/contact">Contact</Link>
-                </li>
-                <li className="level-2">
-                  <Link href="/portfolio">Portfolio</Link>
                 </li>
               </ol>
             </nav>
@@ -125,13 +109,30 @@ const CategoryPage: React.FC<PageProps> = ({ categories, totalPosts }) => {
 export default CategoryPage;
 
 export const getStaticProps: GetStaticProps<PageProps> = async () => {
-  const categories = getCategoriesWithStats();
-  const totalPosts = getAllBlogsSorted().length;
+  const categories = await getCategoriesWithStats();
+  const blogs = await getAllBlogsSorted();
+  const totalPosts = blogs.length;
+  const page =
+    (await getPageBySlug("categories", { totalPosts })) ||
+    ({
+      title: "Blog Categories",
+      slug: "categories",
+      metaDescription: "",
+      eyebrow: "",
+      headline: "Sitecore & .NET Blog Categories",
+      intro: `Explore ${totalPosts} technical articles.`,
+      body: "",
+      heroImageUrl: "",
+      linkedinUrl: "",
+      careerStartYear: null,
+      sitecoreStartYear: null,
+    } satisfies SitePage);
 
   return {
     props: {
       categories,
       totalPosts,
+      page,
     },
   };
 };

@@ -1,6 +1,5 @@
 const fs = require("fs");
-const path = require("path");
-const matter = require("gray-matter");
+const { fetchPosts } = require("./scripts/lib/fetch-posts");
 
 /** @type {import('next-sitemap').IConfig} */
 const defaultProdUrl = "https://pawan-tyagi.github.io";
@@ -20,19 +19,21 @@ const MEDIUM_PRIORITY_PATHS = new Set([
 ]);
 
 /**
- * Prefer frontmatter modifiedDate / date; fall back to file mtime.
- * @param {string} filePath
- * @param {Record<string, unknown>} data
+ * Prefer modifiedDate / date; fall back to now.
+ * @param {{ modifiedDate?: string | Date, date?: string | Date, filePath?: string | null }} post
  */
-function blogLastmod(filePath, data) {
-  const fromMatter = data.modifiedDate || data.date;
+function blogLastmod(post) {
+  const fromMatter = post.modifiedDate || post.date;
   if (fromMatter) {
     const parsed = new Date(/** @type {string | Date} */ (fromMatter));
     if (!Number.isNaN(parsed.getTime())) {
       return parsed.toISOString();
     }
   }
-  return fs.statSync(filePath).mtime.toISOString();
+  if (post.filePath && fs.existsSync(post.filePath)) {
+    return fs.statSync(post.filePath).mtime.toISOString();
+  }
+  return new Date().toISOString();
 }
 
 const config = {
@@ -75,21 +76,12 @@ const config = {
     };
   },
   additionalPaths: async () => {
-    const blogsDir = "./content/blogs";
-    const files = fs.readdirSync(blogsDir).filter((f) => f.endsWith(".md"));
-
-    return files.map((filename) => {
-      const slug = filename.replace(/\.md$/, "");
-      const filePath = path.join(blogsDir, filename);
-      const raw = fs.readFileSync(filePath, "utf8");
-      const { data } = matter(raw);
-
-      return {
-        loc: `/blogs/${slug}`,
-        lastmod: blogLastmod(filePath, data),
-        priority: 0.8,
-      };
-    });
+    const posts = await fetchPosts();
+    return posts.map((post) => ({
+      loc: `/blogs/${post.slug}`,
+      lastmod: blogLastmod(post),
+      priority: 0.8,
+    }));
   },
 };
 
