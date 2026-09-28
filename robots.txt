@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+# Host
+Host: https://insightswithme.github.io
+
+# Sitemaps
+Sitemap: https://insightswithme.github.io/sitemap.xml
