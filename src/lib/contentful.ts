@@ -223,15 +223,14 @@ export async function fetchAllBlogEntries(): Promise<AnyEntry[]> {
   let total = Infinity;
 
   while (skip < total) {
-    // Field filters/order are valid at runtime; SDK generics are overly strict.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const page = await client.getEntries({
       content_type: CONTENTFUL_CONTENT_TYPE,
       order: ["-fields.date"],
       limit,
       skip,
       include: 2,
-    } as any);
+      // SDK query generics reject custom field filters/order
+    } as never);
     total = page.total;
     entries.push(...page.items);
     skip += page.items.length;
@@ -247,13 +246,12 @@ export async function fetchBlogEntryBySlug(
   if (!isContentfulConfigured()) return null;
 
   const client = getClient();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const res = await client.getEntries({
     content_type: CONTENTFUL_CONTENT_TYPE,
     "fields.slug": slug,
     limit: 1,
     include: 2,
-  } as any);
+  } as never);
 
   return res.items[0] ?? null;
 }

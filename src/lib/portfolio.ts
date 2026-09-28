@@ -138,13 +138,12 @@ async function fetchFromContentful(): Promise<PortfolioData | null> {
     environment: process.env.CONTENTFUL_ENVIRONMENT || "master",
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const get = (content_type: string) =>
     client.getEntries({
       content_type,
       order: ["fields.order"],
       limit: 100,
-    } as any);
+    } as never);
 
   const [skills, experiences, contributions, certifications, projects, pages] =
     await Promise.all([
@@ -157,7 +156,7 @@ async function fetchFromContentful(): Promise<PortfolioData | null> {
         content_type: "page",
         "fields.slug": "portfolio",
         limit: 1,
-      } as any),
+      } as never),
     ]);
 
   const defaults = defaultPortfolio();

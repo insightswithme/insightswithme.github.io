@@ -72,12 +72,11 @@ async function fetchPageFromContentful(slug: string): Promise<SitePage | null> {
     environment: process.env.CONTENTFUL_ENVIRONMENT || "master",
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const res = await client.getEntries({
     content_type: "page",
     "fields.slug": slug,
     limit: 1,
-  } as any);
+  } as never);
 
   const entry = res.items[0];
   if (!entry) return null;
