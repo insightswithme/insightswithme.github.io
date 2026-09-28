@@ -32,6 +32,12 @@ jobs:
       NEXT_PUBLIC_COMMENTBOX_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_COMMENTBOX_PROJECT_ID }}
       NEXT_PUBLIC_GA_TRACKING_ID: ${{ vars.NEXT_PUBLIC_GA_TRACKING_ID }}
       NEXT_PUBLIC_BASE_URL: ${{ vars.NEXT_PUBLIC_BASE_URL }}
+      # Contentful (required at build time — static export bakes CMS content into HTML)
+      CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+      CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+      CONTENTFUL_ENVIRONMENT: ${{ vars.CONTENTFUL_ENVIRONMENT }}
+      CONTENTFUL_MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
+      CONTENTFUL_PREVIEW_TOKEN: ${{ secrets.CONTENTFUL_PREVIEW_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -76,16 +82,22 @@ jobs:
             else
               echo "NEXT_PUBLIC_BASE_PATH=" >> "$GITHUB_ENV"
             fi
-            exit 0
-          fi
-          REPO="${{ github.event.repository.name }}"
-          OWNER="${{ github.repository_owner }}"
-          if [ "$REPO" = "$OWNER.github.io" ]; then
-            echo "NEXT_PUBLIC_BASE_PATH=" >> "$GITHUB_ENV"
-            echo "NEXT_PUBLIC_BASE_URL=https://${OWNER}.github.io" >> "$GITHUB_ENV"
           else
-            echo "NEXT_PUBLIC_BASE_PATH=/${REPO}" >> "$GITHUB_ENV"
-            echo "NEXT_PUBLIC_BASE_URL=https://${OWNER}.github.io/${REPO}" >> "$GITHUB_ENV"
+            REPO="${{ github.event.repository.name }}"
+            OWNER="${{ github.repository_owner }}"
+            if [ "$REPO" = "$OWNER.github.io" ]; then
+              echo "NEXT_PUBLIC_BASE_PATH=" >> "$GITHUB_ENV"
+              echo "NEXT_PUBLIC_BASE_URL=https://${OWNER}.github.io" >> "$GITHUB_ENV"
+            else
+              echo "NEXT_PUBLIC_BASE_PATH=/${REPO}" >> "$GITHUB_ENV"
+              echo "NEXT_PUBLIC_BASE_URL=https://${OWNER}.github.io/${REPO}" >> "$GITHUB_ENV"
+            fi
+          fi
+          if [ -z "${CONTENTFUL_ENVIRONMENT}" ]; then
+            echo "CONTENTFUL_ENVIRONMENT=master" >> "$GITHUB_ENV"
+          fi
+          if [ -z "${CONTENTFUL_SPACE_ID}" ] || [ -z "${CONTENTFUL_ACCESS_TOKEN}" ]; then
+            echo "::warning::CONTENTFUL_SPACE_ID / CONTENTFUL_ACCESS_TOKEN secrets are missing. Build will use committed generated JSON / markdown fallback — Contentful edits will NOT appear on GitHub Pages."
           fi
       - name: Restore cache
         uses: actions/cache@v4
