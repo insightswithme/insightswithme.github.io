@@ -142,7 +142,7 @@ const SiteFooter: React.FC = () => {
 
         <div className="footer-bottom">
           <p>
-            &copy; 2025 Pawan Tyagi. All rights reserved. | Built with
+            &copy; 2026 Pawan Tyagi. All rights reserved. | Built with
             passion for sharing knowledge
           </p>
         </div>
