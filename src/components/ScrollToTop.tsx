@@ -27,6 +27,7 @@ const ScrollToTop: React.FC = () => {
       {isVisible && (
         <button
           onClick={scrollToTop}
+          className="scroll-to-top"
           style={{
             position: "fixed",
             bottom: "15px",
