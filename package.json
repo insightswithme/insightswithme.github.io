@@ -17,7 +17,8 @@
     "contentful:sync-nav": "node scripts/sync-contentful-nav-categories.mjs",
     "contentful:sync-pages": "node scripts/sync-contentful-pages.mjs",
     "contentful:sync-portfolio": "node scripts/sync-contentful-portfolio.mjs",
-    "contentful:sync-footer": "node scripts/sync-contentful-footer.mjs"
+    "contentful:sync-footer": "node scripts/sync-contentful-footer.mjs",
+    "contentful:setup-webhook": "node scripts/setup-contentful-deploy-webhook.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.2.2",
