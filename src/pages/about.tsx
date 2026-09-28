@@ -1,6 +1,7 @@
 import Breadcrumb from "@/components/Breadcrumb";
 import Layout from "@/components/Layout";
 import WebsiteMetaBundle from "@/components/meta/WebsiteMetaBundle";
+import AboutStory from "@/components/Sections/AboutStory";
 import TitleBanner from "@/components/TitleBanner";
 import { useEffect } from "react";
 
@@ -32,6 +33,7 @@ const About = () => {
       <WebsiteMetaBundle path="/about" title="About" />
       <TitleBanner title="About" />
       <Breadcrumb />
+      <AboutStory />
       <div className="container">
         <div className="container-fluid">
           <div className="main-container">
