@@ -79,6 +79,10 @@ function webhookDefinition(githubToken) {
       { key: "Authorization", value: `Bearer ${githubToken}` },
       { key: "X-GitHub-Api-Version", value: "2022-11-28" },
       { key: "Content-Type", value: "application/json" },
+      {
+        key: "User-Agent",
+        value: "Contentful-Webhook-GitHubPages-Redeploy",
+      },
     ],
     topics: [
       "Entry.publish",
@@ -92,12 +96,14 @@ function webhookDefinition(githubToken) {
     transformation: {
       method: "POST",
       contentType: "application/json",
-      body: JSON.stringify({
-        event_type: EVENT_TYPE,
-        client_payload: {
-          source: "contentful",
-        },
-      }),
+      body: [
+        "{",
+        '  "event_type": "contentful-publish",',
+        '  "client_payload": {',
+        '    "source": "contentful"',
+        "  }",
+        "}",
+      ].join("\n"),
     },
     active: true,
   };
