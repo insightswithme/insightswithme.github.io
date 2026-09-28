@@ -236,9 +236,11 @@ async function main() {
   const seed = footerSeed();
   let footer = seed;
 
-  if (spaceId && cmaToken) {
+  if (spaceId && cmaToken && !process.env.GITHUB_ACTIONS) {
     await ensureContentType(spaceId, envId, cmaToken);
     await ensureEntry(spaceId, envId, cmaToken, seed);
+  } else if (process.env.GITHUB_ACTIONS) {
+    console.log("CI: skipping Contentful CMA writes (Delivery API only)");
   } else {
     console.warn("No CMA token — writing local footer seed only.");
   }
