@@ -11,6 +11,8 @@ export interface Config {
   readonly linkedin_account?: string;
   readonly stackexchange_account?: string;
   readonly contact_email?: string;
+  readonly whatsapp_number?: string;
+  readonly whatsapp_message?: string;
 }
 
 function resolveBaseUrl(): string {

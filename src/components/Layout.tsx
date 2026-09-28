@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import { useEffect, useRef, useState, type FC } from "react";
 import Link from "next/link";
 import ScrollToTop from "@/components/ScrollToTop";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import SiteFooter from "@/components/SiteFooter";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -91,6 +92,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <SiteFooter />
 
       <ScrollToTop />
+      <WhatsAppButton />
     </div>
   );
 };
