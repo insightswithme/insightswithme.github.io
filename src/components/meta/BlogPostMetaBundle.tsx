@@ -9,6 +9,7 @@ import OpenGraphMeta from "@/components/meta/OpenGraphMeta";
 import TwitterCardMeta from "@/components/meta/TwitterCardMeta";
 import config from "@/lib/config";
 import { blogPostPath } from "@/lib/blogPostPath";
+import { ogImageUrl } from "@/lib/contentfulImage";
 import Head from "next/head";
 import { formatISO } from "date-fns";
 
@@ -72,6 +73,7 @@ const BlogPostMetaBundle: FC<BlogPostMetaBundleProps> = ({
   const articleTags = tags?.map((t) => t.tag).filter(Boolean) ?? [];
   const snippet = metaDescription || description;
   const wordCount = articlePlainText.split(/\s+/).filter(Boolean).length;
+  const shareImage = ogImageUrl(featuredImage) || featuredImage;
 
   return (
     <>
@@ -92,7 +94,7 @@ const BlogPostMetaBundle: FC<BlogPostMetaBundleProps> = ({
         url={path}
         title={title}
         description={metaDescription || description}
-        image={featuredImage}
+        image={shareImage}
         ogType="article"
         articlePublishedTime={publishedISO}
         articleModifiedTime={modifiedISO}
@@ -103,7 +105,7 @@ const BlogPostMetaBundle: FC<BlogPostMetaBundleProps> = ({
         url={path}
         title={title}
         description={metaDescription || description}
-        image={featuredImage}
+        image={shareImage}
       />
       <JsonLdBreadcrumbList path={path} title={title} />
       <JsonLdMetaBlog
@@ -114,7 +116,7 @@ const BlogPostMetaBundle: FC<BlogPostMetaBundleProps> = ({
         modifiedDate={modifiedDate ?? date}
         content={articlePlainText}
         author={author}
-        image={featuredImage}
+        image={shareImage}
         keywords={keywordList}
         inLanguage="en"
         wordCount={wordCount}

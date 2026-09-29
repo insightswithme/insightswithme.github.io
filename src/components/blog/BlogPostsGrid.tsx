@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { FC } from "react";
+import LazyBackground from "@/components/LazyBackground";
 import type { Blog } from "@/types/blog";
+import { cardImageUrl } from "@/lib/contentfulImage";
 import { withBasePath } from "@/lib/withBasePath";
 
 export interface BlogPostsGridProps {
@@ -27,23 +29,12 @@ const BlogPostsGrid: FC<BlogPostsGridProps> = ({
 
   return (
     <div className="posts-grid">
-      {blogs.map((blog) => (
+      {blogs.map((blog, index) => (
         <article key={blog.slug} className="post-card">
-          <div
+          <LazyBackground
             className="post-image"
-            style={{
-              backgroundImage: `
-                linear-gradient(
-                  45deg,
-                  rgba(44, 82, 130, 0.5),
-                  rgba(66, 153, 225, 0.2)
-                ),
-                url("${withBasePath(blog.featuredImage || "")}")
-              `,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
+            eager={index < 2}
+            src={withBasePath(cardImageUrl(blog.featuredImage || ""))}
             aria-hidden="true"
           />
           <div className="post-content">

@@ -1,5 +1,7 @@
 import type { FC } from "react";
+import Head from "next/head";
 import FormattedDate from "@/components/FormattedDate";
+import { heroImageUrl } from "@/lib/contentfulImage";
 import { withBasePath } from "@/lib/withBasePath";
 
 export interface BlogHeaderProps {
@@ -24,17 +26,24 @@ const BlogHeader: FC<BlogHeaderProps> = ({
   originalUrl,
 }) => {
   const attributionLabel = source || "original publication";
+  const optimizedSrc = withBasePath(heroImageUrl(featureImage) || featureImage);
 
   return (
     <div className={`background-primary blog-header ${className || ""}`}>
+      {optimizedSrc ? (
+        <Head>
+          <link rel="preload" as="image" href={optimizedSrc} />
+        </Head>
+      ) : null}
       <img
         className="blog-header-image"
-        src={withBasePath(featureImage)}
+        src={optimizedSrc}
         alt={title}
         width={1200}
         height={630}
         decoding="async"
         fetchPriority="high"
+        loading="eager"
       />
       <div className="blog-header-overlay" aria-hidden="true" />
       <div className="container blog-header-content">

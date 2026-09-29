@@ -62,6 +62,8 @@ $env:CONTENTFUL_UPLOAD_IMAGES="1"; npm run contentful:migrate
 
 **Banner workflow:** Media library (or sync script) → set `featuredImage` on the post → Publish entry → GitHub Pages webhook redeploys. The site prefers the Asset CDN URL at build time; `featuredImageUrl` / `public/uploads/` are fallback only.
 
+**Performance:** Display URLs go through Contentful Images API (`w` / `fm=webp` / `q`) via `src/lib/contentfulImage.ts`. Card thumbnails lazy-load; the post hero is preloaded. The CDN already sets long cache headers — no extra app cache layer needed.
+
 ## 3. Content model (`blogPost`)
 
 | Field | Type | Notes |
