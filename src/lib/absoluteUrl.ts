@@ -9,8 +9,12 @@ export function absoluteFromSiteRoot(pathOrUrl: string | undefined): string {
   if (!pathOrUrl) {
     return `${config.base_url.replace(/\/$/, "")}${DEFAULT_OG_IMAGE}`;
   }
-  if (pathOrUrl.startsWith("http://") || pathOrUrl.startsWith("https://")) {
-    return pathOrUrl;
+  if (
+    pathOrUrl.startsWith("http://") ||
+    pathOrUrl.startsWith("https://") ||
+    pathOrUrl.startsWith("//")
+  ) {
+    return pathOrUrl.startsWith("//") ? `https:${pathOrUrl}` : pathOrUrl;
   }
   const base = config.base_url.replace(/\/$/, "");
   // Old leftover brand asset — never serve it for previews.

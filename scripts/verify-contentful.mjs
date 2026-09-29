@@ -54,7 +54,16 @@ async function main() {
   if (page.items.length) {
     console.log("  Latest:");
     for (const item of page.items) {
-      console.log(`    - ${item.fields.slug}`);
+      const f = item.fields;
+      const assetUrl = f.featuredImage?.fields?.file?.url;
+      const cdn = assetUrl
+        ? assetUrl.startsWith("//")
+          ? `https:${assetUrl}`
+          : assetUrl
+        : "";
+      const fallback = typeof f.featuredImageUrl === "string" ? f.featuredImageUrl : "";
+      const img = cdn ? `asset ${cdn}` : fallback ? `url ${fallback}` : "no image";
+      console.log(`    - ${f.slug} (${img})`);
     }
   }
   console.log(

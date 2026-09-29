@@ -45,12 +45,22 @@ npm run contentful:migrate
 npm run contentful:verify
 ```
 
-Upload featured images during migrate:
+Upload / link blog banners as Contentful Assets (recommended):
+
+```bash
+npm run contentful:sync-banners
+# Force re-upload + relink:
+# PowerShell: $env:CONTENTFUL_FORCE_BANNER_SYNC="1"; npm run contentful:sync-banners
+```
+
+Or upload during a full markdown migrate:
 
 ```bash
 # PowerShell
 $env:CONTENTFUL_UPLOAD_IMAGES="1"; npm run contentful:migrate
 ```
+
+**Banner workflow:** Media library (or sync script) → set `featuredImage` on the post → Publish entry → GitHub Pages webhook redeploys. The site prefers the Asset CDN URL at build time; `featuredImageUrl` / `public/uploads/` are fallback only.
 
 ## 3. Content model (`blogPost`)
 
@@ -60,8 +70,8 @@ $env:CONTENTFUL_UPLOAD_IMAGES="1"; npm run contentful:migrate
 | `slug` | Symbol | Required, unique, kebab-case |
 | `excerpt` / `description` / `metaDescription` | Text/Symbol | SEO + cards |
 | `keywords` | Symbol | |
-| `featuredImage` | Asset (image) | Optional |
-| `featuredImageUrl` | Symbol | Local path fallback e.g. `/uploads/...` |
+| `featuredImage` | Asset (image) | **Preferred** — blog banner from Contentful Media CDN |
+| `featuredImageUrl` | Symbol | Local path fallback only e.g. `/uploads/...` |
 | `date` / `modifiedDate` | Date | |
 | `tags` | Symbol[] | Categories |
 | `author` | Symbol | |
@@ -86,5 +96,8 @@ npm run contentful:verify
 ## 5. Day-to-day
 
 1. Edit / publish entries in the [Contentful web app](https://app.contentful.com/)
-2. Rebuild / redeploy the static site so `getStaticProps` picks up changes  
-3. Or keep editing markdown locally and re-run `npm run contentful:migrate`
+2. **Banners:** upload in Media → attach to `featuredImage` → Publish (do not rely on git `public/uploads` for new images)
+3. Rebuild / redeploy the static site so `getStaticProps` picks up changes (webhook auto-redeploy if configured)
+4. Or keep editing markdown locally and re-run `npm run contentful:migrate`
+
+Before bulk `contentful:sync-banners`, pause the GitHub Pages redeploy webhook so you don’t queue one deploy per post.
