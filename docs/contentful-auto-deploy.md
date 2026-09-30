@@ -1,9 +1,17 @@
 # Auto-redeploy GitHub Pages when Contentful publishes
 
 > **Full end-to-end guide (setup, call activity, troubleshooting, reuse):**  
-> **[contentful-github-pages-redeploy.md](./contentful-github-pages-redeploy.md)**
+> **[contentful-github-pages-redeploy.md](./contentful-github-pages-redeploy.md)**  
+> **Vercel host:** [vercel-deploy.md](./vercel-deploy.md) (needs its own **Vercel redeploy** webhook)
 
-After you **Publish** (or unpublish/delete) an entry in Contentful, webhook **GitHub Pages redeploy** calls GitHub `repository_dispatch` and runs **Deploy Next.js site to Pages**.
+After you **Publish** (or unpublish/delete) an entry in Contentful:
+
+| Host | Webhook | Result |
+| --- | --- | --- |
+| GitHub Pages | **GitHub Pages redeploy** | Rebuilds https://insightswithme.github.io |
+| Vercel | **Vercel redeploy** | Rebuilds https://insightswithme-blog.vercel.app |
+
+Both are static builds — CMS publish alone does not change a host until that host’s webhook fires a rebuild.
 
 ## Quick day-to-day
 

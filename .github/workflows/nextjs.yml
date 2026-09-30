@@ -115,14 +115,12 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-      # Use `npm run build` / `yarn build` so `next-sitemap` runs after export (not just `next build`).
+      # Static export for GitHub Pages (parks API routes). Vercel uses plain `npm run build` + Draft Mode.
       - name: Build with Next.js
-        run: |
-          if [ "${{ steps.detect-package-manager.outputs.manager }}" = "yarn" ]; then
-            yarn build
-          else
-            npm run build
-          fi
+        env:
+          STATIC_EXPORT: "1"
+          GITHUB_PAGES: "true"
+        run: npm run build:static
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:

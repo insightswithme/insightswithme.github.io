@@ -139,9 +139,13 @@ const Blog: React.FC<BlogProps> = ({ frontmatter, markdown, richText, slug }) =>
 
 export default Blog;
 
-export const getStaticProps: GetStaticProps<BlogProps> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<BlogProps> = async ({
+  params,
+  draftMode,
+}) => {
   const slug = params?.slug as string;
-  const post = await getBlogDetailBySlug(slug);
+  const preview = Boolean(draftMode);
+  const post = await getBlogDetailBySlug(slug, preview);
 
   if (!post) {
     return { notFound: true };
@@ -180,8 +184,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
     params: { slug: blog.slug },
   }));
 
+  const staticExport =
+    process.env.STATIC_EXPORT === "1" ||
+    process.env.STATIC_EXPORT === "true" ||
+    process.env.GITHUB_PAGES === "true";
+
   return {
     paths,
-    fallback: false,
+    // Vercel: allow draft/new slugs at request time. Static export: must be false.
+    fallback: staticExport ? false : "blocking",
   };
 };

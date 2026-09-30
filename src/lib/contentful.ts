@@ -8,7 +8,7 @@ const SPACE = process.env.CONTENTFUL_SPACE_ID;
 const TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
 const PREVIEW_TOKEN = process.env.CONTENTFUL_PREVIEW_TOKEN;
 const ENVIRONMENT = process.env.CONTENTFUL_ENVIRONMENT || "master";
-const USE_PREVIEW =
+const USE_PREVIEW_ENV =
   process.env.CONTENTFUL_USE_PREVIEW === "1" ||
   process.env.CONTENTFUL_USE_PREVIEW === "true";
 
@@ -40,18 +40,20 @@ export type BlogPostFields = {
 type AnyEntry = Entry<any, undefined, string>;
 
 export function isContentfulConfigured(): boolean {
-  return Boolean(SPACE && TOKEN);
+  return Boolean(SPACE && (TOKEN || PREVIEW_TOKEN));
 }
 
-function getClient(): ContentfulClientApi<undefined> {
+function getClient(preview = false): ContentfulClientApi<undefined> {
   if (!SPACE) {
     throw new Error("Missing CONTENTFUL_SPACE_ID in environment");
   }
 
-  if (USE_PREVIEW) {
+  const usePreview = preview || USE_PREVIEW_ENV;
+
+  if (usePreview) {
     if (!PREVIEW_TOKEN) {
       throw new Error(
-        "CONTENTFUL_USE_PREVIEW is set but CONTENTFUL_PREVIEW_TOKEN is missing"
+        "Draft/preview requested but CONTENTFUL_PREVIEW_TOKEN is missing"
       );
     }
     return createClient({
@@ -63,9 +65,7 @@ function getClient(): ContentfulClientApi<undefined> {
   }
 
   if (!TOKEN) {
-    throw new Error(
-      "Missing CONTENTFUL_ACCESS_TOKEN in environment"
-    );
+    throw new Error("Missing CONTENTFUL_ACCESS_TOKEN in environment");
   }
   return createClient({
     space: SPACE,
@@ -213,10 +213,12 @@ export function mapEntryToDetail(entry: AnyEntry): BlogPostDetail {
   };
 }
 
-export async function fetchAllBlogEntries(): Promise<AnyEntry[]> {
+export async function fetchAllBlogEntries(
+  preview = false
+): Promise<AnyEntry[]> {
   if (!isContentfulConfigured()) return [];
 
-  const client = getClient();
+  const client = getClient(preview);
   const entries: AnyEntry[] = [];
   const limit = 100;
   let skip = 0;
@@ -241,11 +243,12 @@ export async function fetchAllBlogEntries(): Promise<AnyEntry[]> {
 }
 
 export async function fetchBlogEntryBySlug(
-  slug: string
+  slug: string,
+  preview = false
 ): Promise<AnyEntry | null> {
   if (!isContentfulConfigured()) return null;
 
-  const client = getClient();
+  const client = getClient(preview);
   const res = await client.getEntries({
     content_type: CONTENTFUL_CONTENT_TYPE,
     "fields.slug": slug,

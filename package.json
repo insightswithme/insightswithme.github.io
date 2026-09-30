@@ -6,6 +6,7 @@
     "dev": "node scripts/sync-contentful-nav-categories.mjs && node scripts/sync-contentful-pages.mjs && node scripts/sync-contentful-portfolio.mjs && node scripts/sync-contentful-footer.mjs && node scripts/generate-search-index.js && next dev",
     "prebuild": "node scripts/sync-contentful-nav-categories.mjs && node scripts/sync-contentful-pages.mjs && node scripts/sync-contentful-portfolio.mjs && node scripts/sync-contentful-footer.mjs && node scripts/generate-search-index.js",
     "build": "next build && next-sitemap && node scripts/seo-postbuild.js",
+    "build:static": "node scripts/build-static.mjs",
     "start": "next start",
     "lint": "next lint",
     "export": "next export",
@@ -19,11 +20,15 @@
     "contentful:sync-portfolio": "node scripts/sync-contentful-portfolio.mjs",
     "contentful:sync-footer": "node scripts/sync-contentful-footer.mjs",
     "contentful:setup-webhook": "node scripts/setup-contentful-deploy-webhook.mjs",
-    "contentful:sync-banners": "node scripts/sync-contentful-blog-banners.mjs"
+    "contentful:setup-vercel-webhook": "node scripts/setup-contentful-vercel-webhook.mjs",
+    "contentful:sync-banners": "node scripts/sync-contentful-blog-banners.mjs",
+    "vercel:deploy": "vercel --prod",
+    "vercel:preview": "vercel"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.2.2",
     "@contentful/rich-text-types": "^17.2.7",
+    "@contentful/vercel-nextjs-toolkit": "^1.6.1",
     "@next/third-parties": "^15.5.25",
     "commentbox.io": "^2.1.0",
     "contentful": "^11.12.10",
@@ -54,7 +59,8 @@
     "eslint-config-next": "^15.5.25",
     "next-sitemap": "^4.2.3",
     "turndown": "^7.2.4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vercel": "^61.1.0"
   },
   "overrides": {
     "postcss": "^8.5.28"

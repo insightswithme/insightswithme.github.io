@@ -112,15 +112,15 @@ function getBlogDetailFromMarkdown(slug: string): BlogPostDetail | null {
  * Loads all posts from Contentful (published), newest first.
  * Falls back to local `content/blogs` markdown if Contentful is unset or empty.
  */
-export async function getAllBlogsSorted(): Promise<Blog[]> {
+export async function getAllBlogsSorted(preview = false): Promise<Blog[]> {
   if (isContentfulConfigured()) {
     try {
-      const entries = await fetchAllBlogEntries();
+      const entries = await fetchAllBlogEntries(preview);
       if (entries.length > 0) {
         return entries.map(mapEntryToBlog);
       }
       console.warn(
-        "[loadBlogs] Contentful returned 0 published posts; using local markdown fallback."
+        "[loadBlogs] Contentful returned 0 posts; using local markdown fallback."
       );
     } catch (err) {
       console.warn(
@@ -135,11 +135,12 @@ export async function getAllBlogsSorted(): Promise<Blog[]> {
 
 /** Single post for `/blogs/[slug]` — Contentful first, then markdown. */
 export async function getBlogDetailBySlug(
-  slug: string
+  slug: string,
+  preview = false
 ): Promise<BlogPostDetail | null> {
   if (isContentfulConfigured()) {
     try {
-      const entry = await fetchBlogEntryBySlug(slug);
+      const entry = await fetchBlogEntryBySlug(slug, preview);
       if (entry) return mapEntryToDetail(entry);
     } catch (err) {
       console.warn(
