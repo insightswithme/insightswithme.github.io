@@ -21,6 +21,7 @@
     "contentful:sync-footer": "node scripts/sync-contentful-footer.mjs",
     "contentful:setup-webhook": "node scripts/setup-contentful-deploy-webhook.mjs",
     "contentful:setup-vercel-webhook": "node scripts/setup-contentful-vercel-webhook.mjs",
+    "contentful:setup-preview": "node scripts/setup-contentful-preview.mjs",
     "contentful:sync-banners": "node scripts/sync-contentful-blog-banners.mjs",
     "vercel:deploy": "vercel --prod",
     "vercel:preview": "vercel"
