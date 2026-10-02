@@ -18,9 +18,23 @@ export interface LayoutProps {
   metaDescription?: string;
 }
 
+function normalizeLocation(
+  value: unknown
+): "header" | "footer" | "both" {
+  const raw = String(value || "both")
+    .toLowerCase()
+    .trim();
+  if (raw === "header" || raw === "footer" || raw === "both") return raw;
+  return "both";
+}
+
 function navFor(location: "header" | "footer"): NavItem[] {
   const items = (navigationData.items || []) as NavItem[];
   return items
+    .map((item) => ({
+      ...item,
+      location: normalizeLocation(item.location),
+    }))
     .filter((item) => item.location === location || item.location === "both")
     .slice()
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -94,7 +108,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           </div>
 
           <div className="header-end">
-            <SiteSearch />
+            {headerNav.some((item) => item.href === "/search") ? (
+              <SiteSearch />
+            ) : null}
             <Navigation className="header-nav" items={headerNav} />
             <ThemeToggle />
           </div>

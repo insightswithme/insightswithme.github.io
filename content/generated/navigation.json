@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T07:41:29.913Z",
+  "generatedAt": "2026-10-02T09:50:10.716Z",
   "items": [
     {
       "label": "Blogs",
@@ -26,7 +26,14 @@
       "label": "Portfolio",
       "href": "/portfolio",
       "order": 4,
-      "location": "header",
+      "location": "footer",
+      "openInNewTab": false
+    },
+    {
+      "label": "About",
+      "href": "/about",
+      "order": 5,
+      "location": "both",
       "openInNewTab": false
     },
     {
@@ -34,13 +41,6 @@
       "href": "/sugcon",
       "order": 5,
       "location": "header",
-      "openInNewTab": false
-    },
-    {
-      "label": "About",
-      "href": "/about",
-      "order": 5,
-      "location": "footer",
       "openInNewTab": false
     },
     {

@@ -412,13 +412,21 @@ async function main() {
         "fields.order"
       );
       if (navEntries.length) {
-        navigation = navEntries.map((e, i) => ({
-          label: e.fields.label,
-          href: e.fields.href,
-          order: e.fields.order ?? i + 1,
-          location: e.fields.location || "both",
-          openInNewTab: Boolean(e.fields.openInNewTab),
-        }));
+        navigation = navEntries.map((e, i) => {
+          const raw = String(e.fields.location || "both")
+            .toLowerCase()
+            .trim();
+          const location = ["header", "footer", "both"].includes(raw)
+            ? raw
+            : "both";
+          return {
+            label: e.fields.label,
+            href: e.fields.href,
+            order: e.fields.order ?? i + 1,
+            location,
+            openInNewTab: Boolean(e.fields.openInNewTab),
+          };
+        });
       }
     } catch (err) {
       console.warn(

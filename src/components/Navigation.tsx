@@ -47,15 +47,17 @@ const Navigation: FC<NavigationProps> = ({
         <Burger active={active} onClick={() => setActive(!active)} />
       )}
       <nav className={className + " " + (active ? "active" : "")}>
-        <div className="site-search site-search-mobile">
-          <Link
-            href="/search"
-            className="site-search-mobile-link"
-            onClick={() => setActive(false)}
-          >
-            Search blogs…
-          </Link>
-        </div>
+        {!isFooter && items.some((item) => item.href === "/search") ? (
+          <div className="site-search site-search-mobile">
+            <Link
+              href="/search"
+              className="site-search-mobile-link"
+              onClick={() => setActive(false)}
+            >
+              Search blogs…
+            </Link>
+          </div>
+        ) : null}
         <ul className="menu">
           {items.map((item) => {
             const external =
