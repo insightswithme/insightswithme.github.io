@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T16:17:26.925Z",
+  "generatedAt": "2026-10-02T07:20:39.588Z",
   "banner": {
     "title": "Portfolio",
     "metaDescription": "Portfolio of Pawan Tyagi — Sitecore XM Cloud, .NET, certifications, experience, and projects.",
@@ -238,22 +238,28 @@
   ],
   "projects": [
     {
-      "title": "Microsite for an Energy and Product-Based Company",
-      "duration": "2 Months",
-      "description": "Sitecore XM Cloud, Sitecore Search, JSS (Headless), full-stack development.",
+      "title": "Orrick — Sitecore 10.4.1 Upgrade (Portal & Dotcom)",
+      "duration": "Jul 2026 – Present",
+      "description": "Leading Sitecore XP 10.4.1 upgrade for Orrick Portal and orrick.com Dotcom: Azure AD / SSO & Identity Server, Solr and Algolia search, CI/CD across Dev/Test/Prod, CM/CD environment build-out, load balancer and performance (Core Web Vitals) validation, and UAT readiness.",
       "order": 1
     },
     {
-      "title": "Tiles Manufacturing Company",
-      "duration": "2 years +",
-      "description": "Sitecore 10.2, Coveo Search Enhancement, Sitecore Upgrade, Automated CI/CD processes, full stack development.",
+      "title": "The Joint Commission (TJC) — XM Cloud Headless",
+      "duration": "Technical Lead",
+      "description": "Sitecore XM Cloud, Next.js, Netlify, ASP.NET MVC. Architected headless migration for 22,000+ accredited US healthcare organizations — reusable JSS components, dynamic templates, and secure headless delivery aligned with strict compliance requirements.",
       "order": 2
     },
     {
-      "title": "Healthcare Company",
-      "duration": "6 Months",
-      "description": "Sitecore 10.2, customize SXA rendering, Solr Index configuration, SXA Search Components.",
+      "title": "AFL (Fiber Optic Solutions) — Composable DXP",
+      "duration": "Technical Lead & Architect",
+      "description": "Sitecore XM Cloud + Next.js on Vercel. End-to-end composable architecture with Edge caching, ISR, and headless multisite to improve performance and Core Web Vitals.",
       "order": 3
+    },
+    {
+      "title": "McCormick & Company — Global Multi-site SXA",
+      "duration": "Lead / Architect",
+      "description": "Sitecore 9.3, SXA, .NET 4.8, MVC5, Glass Mapper. Spearheaded global multi-site implementation with custom SXA renderings and SPE-based content migration automation that cut manual editorial effort by ~40%.",
+      "order": 4
     }
   ]
 }
