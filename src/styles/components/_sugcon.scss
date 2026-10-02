@@ -177,7 +177,8 @@
   }
 
   &:nth-child(even) {
-    .sugcon-person__photo {
+    .sugcon-person__photo,
+    .sugcon-carousel {
       order: 2;
 
       @include respond-to(small) {
@@ -187,11 +188,14 @@
   }
 }
 
-.sugcon-person__photo {
+.sugcon-person__photo,
+.sugcon-carousel {
   min-width: 0;
   overflow: hidden;
   background: #e8e2dc;
+}
 
+.sugcon-person__photo {
   img {
     display: block;
     width: 100%;
@@ -203,6 +207,66 @@
 
   &:hover img {
     transform: scale(1.03);
+  }
+}
+
+.sugcon-carousel__stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #e8e2dc;
+}
+
+.sugcon-carousel__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+
+  &.is-active {
+    opacity: 1;
+    z-index: 1;
+  }
+}
+
+.sugcon-carousel__thumbs {
+  .sugcon-carousel__thumb {
+    display: block;
+    padding: 0;
+    border: 2px solid transparent;
+    background: #e8e2dc;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+    opacity: 0.72;
+
+    img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+      opacity: 1;
+      outline: none;
+    }
+
+    &.is-active {
+      opacity: 1;
+      border-color: var(--sg-accent, #c41e3a);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sugcon-carousel__slide {
+    transition: none;
   }
 }
 
@@ -246,7 +310,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  img {
+  > img {
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;

@@ -443,6 +443,13 @@ const TYPES = {
         localized: false,
         items: { type: "Symbol" },
       },
+      {
+        id: "carouselIntervalMs",
+        name: "Carousel Interval (ms)",
+        type: "Integer",
+        required: false,
+        localized: false,
+      },
       { id: "featured", name: "Featured", type: "Boolean", required: false, localized: false },
       { id: "order", name: "Order", type: "Integer", required: false, localized: false },
     ],
@@ -554,6 +561,10 @@ function mapFromDelivery(page, connections, insights, moments) {
     galleryUrls: Array.isArray(e.fields.gallery)
       ? e.fields.gallery.map(resolveAssetUrl).filter(Boolean)
       : [],
+    carouselIntervalMs:
+      typeof e.fields.carouselIntervalMs === "number"
+        ? e.fields.carouselIntervalMs
+        : 0,
     featured: Boolean(e.fields.featured),
     order: e.fields.order ?? 0,
   }));
@@ -673,6 +684,10 @@ async function main() {
           eventName: { [LOCALE]: c.eventName || "" },
           eventYear: { [LOCALE]: c.eventYear || "" },
           connectionNote: { [LOCALE]: c.connectionNote || "" },
+          carouselIntervalMs: {
+            [LOCALE]:
+              typeof c.carouselIntervalMs === "number" ? c.carouselIntervalMs : 0,
+          },
           featured: { [LOCALE]: Boolean(c.featured) },
           order: { [LOCALE]: c.order },
         };
@@ -683,8 +698,21 @@ async function main() {
       }
     } else {
       console.log(
-        `communityConnection: ${existingConnections.length} exist — skip seed (Contentful is source of truth)`
+        `communityConnection: ${existingConnections.length} exist — skip text seed`
       );
+      // Fill carouselIntervalMs only when missing (do not overwrite editor values).
+      const seedByName = new Map(
+        connectionSeeds().map((c) => [c.name, c.carouselIntervalMs ?? 0])
+      );
+      for (const entry of existingConnections) {
+        const name = entry.fields?.name?.[LOCALE];
+        const current = entry.fields?.carouselIntervalMs?.[LOCALE];
+        if (current != null || !seedByName.has(name)) continue;
+        const fields = { ...entry.fields };
+        fields.carouselIntervalMs = { [LOCALE]: seedByName.get(name) };
+        await updateAndPublish(spaceId, envId, cmaToken, entry, fields);
+        console.log(`  set carouselIntervalMs on ${name}: ${seedByName.get(name)}`);
+      }
     }
 
     const existingInsights = await listEntries(

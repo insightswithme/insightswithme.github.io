@@ -1,6 +1,7 @@
 export { default as SugconHero } from "./Hero";
 export { default as SugconSectionHeader } from "./SectionHeader";
 export { default as SugconPersonCard } from "./PersonCard";
+export { default as SugconPhotoCarousel } from "./PhotoCarousel";
 export { default as SugconConnections } from "./Connections";
 export { default as SugconInsightCard } from "./InsightCard";
 export { default as SugconInsights } from "./Insights";

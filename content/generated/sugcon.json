@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T08:07:39.126Z",
+  "generatedAt": "2026-10-02T09:08:05.326Z",
   "banner": {
     "title": "SUGCON",
     "metaDescription": "Relationship building at SUGCON India — connections with organizers, Sitecore community voices, and conversation starters that stick.",
@@ -35,6 +35,7 @@
         "https://images.ctfassets.net/7csiqfkqfved/5qhFjH7TaiO1i7Z62QQo6d/2ec714f5991c0db56f6bab990bbcab90/sebastian-winter-2024.png",
         "https://images.ctfassets.net/7csiqfkqfved/2Ft3IjSTz2sr8nSLSLVp85/7188d60737dc19e4b48928d26b77fdb9/sugcon-2024-sitecore.png"
       ],
+      "carouselIntervalMs": 4000,
       "featured": true,
       "order": 1
     },
@@ -52,20 +53,22 @@
         "https://images.ctfassets.net/7csiqfkqfved/2j03yDfdcKaDiz5YbxKI3c/c6997ae801c409b576bc4dc928405930/altudo-team-rob.png",
         "https://images.ctfassets.net/7csiqfkqfved/5MrL3qLJ9nmQ5c44ofDSwl/264f080d529ec4be7f957bd3011269b3/altudo-team-lobby.png"
       ],
+      "carouselIntervalMs": 4500,
       "featured": true,
       "order": 2
     },
     {
-      "name": "Sailash Tirkey",
+      "name": "Sailash Tirkey and Sumit Kumar",
       "role": "Colleague",
       "company": "Altudo",
       "eventName": "SUGCON India",
-      "eventYear": "2024",
-      "connectionNote": "Shared the floor with Sailash and the Altudo crew — celebrating organizers, sponsors, and the people who make SUGCON feel like home. Team presence turns individual networking into lasting community goodwill.",
+      "eventYear": "2026",
+      "connectionNote": "Shared the floor with Sailash, Sumit and the Altudo crew — celebrating organizers, sponsors, and the people who make SUGCON feel like home. Team presence turns individual networking into lasting community goodwill.",
       "photoUrl": "https://images.ctfassets.net/7csiqfkqfved/5qhFjH7TaiO1i7Z62QQo6d/2ec714f5991c0db56f6bab990bbcab90/sebastian-winter-2024.png",
       "galleryUrls": [
         "https://images.ctfassets.net/7csiqfkqfved/5qhFjH7TaiO1i7Z62QQo6d/2ec714f5991c0db56f6bab990bbcab90/sebastian-winter-2024.png"
       ],
+      "carouselIntervalMs": 0,
       "featured": false,
       "order": 3
     }

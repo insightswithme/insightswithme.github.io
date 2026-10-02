@@ -80,6 +80,7 @@ export function connectionSeeds() {
         "/images/sugcon/sugcon-2024-sitecore.png",
       ],
       featured: true,
+      carouselIntervalMs: 4000,
       order: 1,
     },
     {
@@ -98,6 +99,7 @@ export function connectionSeeds() {
         "/images/sugcon/altudo-team-lobby.png",
       ],
       featured: true,
+      carouselIntervalMs: 4500,
       order: 2,
     },
     {
@@ -111,6 +113,7 @@ export function connectionSeeds() {
       photoLocalPath: "/images/sugcon/sebastian-winter-2024.png",
       galleryLocalPaths: ["/images/sugcon/sebastian-winter-2024.png"],
       featured: false,
+      carouselIntervalMs: 0,
       order: 3,
     },
   ];

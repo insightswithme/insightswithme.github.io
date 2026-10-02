@@ -36,6 +36,8 @@ export type CommunityConnection = {
   connectionNote: string;
   photoUrl: string;
   galleryUrls: string[];
+  /** Auto-advance delay (ms) for featured left-image carousel. 0 = off. */
+  carouselIntervalMs: number;
   featured: boolean;
   order: number;
 };
@@ -213,6 +215,8 @@ async function fetchFromContentful(): Promise<SugconData | null> {
         connectionNote: str(f.connectionNote),
         photoUrl: assetUrl(f.photo as Asset | undefined),
         galleryUrls: gallery.map((a) => assetUrl(a)).filter(Boolean),
+        carouselIntervalMs:
+          typeof f.carouselIntervalMs === "number" ? f.carouselIntervalMs : 0,
         featured: Boolean(f.featured),
         order: typeof f.order === "number" ? f.order : 0,
       };
