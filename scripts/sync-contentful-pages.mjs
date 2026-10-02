@@ -105,6 +105,15 @@ async function ensureContentType(spaceId, envId, token) {
       { id: "intro", name: "Intro", type: "Text", required: false, localized: false },
       { id: "body", name: "Body", type: "Text", required: false, localized: false },
       {
+        id: "heroImage",
+        name: "Hero Image",
+        type: "Link",
+        linkType: "Asset",
+        required: false,
+        localized: false,
+        validations: [{ linkMimetypeGroup: ["image"] }],
+      },
+      {
         id: "heroImageUrl",
         name: "Hero Image URL",
         type: "Symbol",

@@ -92,6 +92,35 @@ Browse the category cards above to find focused Sitecore and .NET tutorials. Pre
       sitecoreStartYear: null,
     },
     {
+      title: "SUGCON",
+      slug: "sugcon",
+      metaDescription:
+        "Relationship building at SUGCON India — connections with organizers, Sitecore community voices, and conversation starters that stick.",
+      eyebrow: "COMMUNITY • CONNECTIONS • CONVERSATIONS",
+      headline: "SUGCON is where relationships compound.",
+      intro:
+        "The sessions matter. The hallway conversations matter more. These are the people I met, the moments we shared, and the talking points that keep the Sitecore community moving forward — from SUGCON India 2024 through 2026.",
+      body: JSON.stringify({
+        ctaLabel: "Continue the conversation on LinkedIn",
+        peopleKicker: "Key people",
+        peopleTitle: "Relationships built on the floor",
+        peopleLede:
+          "Names, faces, and the notes I want to remember — not a speaker list, a connection list.",
+        insightsKicker: "Conversation starters",
+        insightsTitle: "Points worth carrying into the next chat",
+        insightsLede:
+          "Session highlights that became follow-up topics with the people above — framing, not a transcript.",
+        momentsKicker: "On the floor",
+        momentsTitle: "Moments that sealed the handshake",
+        momentsLede:
+          "Proof of presence — booths, backdrops, and the people standing beside you.",
+      }),
+      heroImageUrl: "/images/sugcon/sebastian-winter-2026.png",
+      linkedinUrl: "https://www.linkedin.com/in/pawan-tyagi-6bb22357/",
+      careerStartYear: null,
+      sitecoreStartYear: null,
+    },
+    {
       title: "Contact Me",
       slug: "contact",
       metaDescription:

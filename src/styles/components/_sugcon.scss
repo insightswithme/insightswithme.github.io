@@ -1,0 +1,419 @@
+@import "../abstract/mixins/respond-to";
+
+.sugcon-hero {
+  --sg-ink: #1a1520;
+  --sg-muted: #5c5266;
+  --sg-accent: #c41e3a;
+  --sg-paper: #faf7f4;
+  --sg-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --sg-sans: "IBM Plex Sans", Poppins, system-ui, sans-serif;
+  position: relative;
+  min-height: min(78vh, 640px);
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+  color: #fff;
+  background: #2a1f28;
+}
+
+.sugcon-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.sugcon-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+  display: block;
+  transform: scale(1.02);
+  animation: sugcon-hero-drift 18s ease-in-out infinite alternate;
+}
+
+.sugcon-hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(26, 21, 32, 0.15) 0%, rgba(26, 21, 32, 0.72) 58%, rgba(26, 21, 32, 0.92) 100%),
+    linear-gradient(90deg, rgba(196, 30, 58, 0.28) 0%, transparent 45%);
+}
+
+.sugcon-hero__copy {
+  position: relative;
+  z-index: 1;
+  width: min(760px, calc(100% - 2.5rem));
+  margin: 0 auto 0 0;
+  padding: clamp(2.5rem, 7vw, 4.5rem) clamp(1.25rem, 4vw, 3.5rem)
+    clamp(2.25rem, 5vw, 3.5rem);
+  animation: sugcon-rise 0.9s ease-out both;
+}
+
+.sugcon-hero__eyebrow {
+  margin: 0 0 0.85rem;
+  font-family: var(--sg-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.sugcon-hero__headline {
+  margin: 0 0 1rem;
+  font-family: var(--sg-serif);
+  font-weight: 400;
+  font-size: clamp(2.15rem, 5.5vw, 3.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  max-width: 14ch;
+}
+
+.sugcon-hero__intro {
+  margin: 0 0 1.5rem;
+  font-family: var(--sg-sans);
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 42rem;
+}
+
+.sugcon-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--sg-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+  padding-bottom: 0.15rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: #ffe8ec;
+    border-color: #ffe8ec;
+  }
+}
+
+.sugcon-section {
+  --sg-ink: #1a1520;
+  --sg-muted: #5c5266;
+  --sg-accent: #c41e3a;
+  --sg-paper: #faf7f4;
+  --sg-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --sg-sans: "IBM Plex Sans", Poppins, system-ui, sans-serif;
+  background: var(--sg-paper);
+  color: var(--sg-ink);
+  padding: clamp(2.75rem, 6vw, 4.75rem) 0;
+}
+
+.sugcon-insights {
+  background: #fff;
+}
+
+.sugcon-section__inner {
+  width: min(1120px, calc(100% - 2.5rem));
+  margin: 0 auto;
+
+  @include respond-to(small) {
+    width: calc(100% - 1.5rem);
+  }
+}
+
+.sugcon-section__head {
+  max-width: 40rem;
+  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.sugcon-section__kicker {
+  margin: 0 0 0.65rem;
+  font-family: var(--sg-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sg-accent);
+  font-weight: 600;
+}
+
+.sugcon-section__title {
+  margin: 0 0 0.75rem;
+  font-family: var(--sg-serif);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3.5vw, 2.55rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.sugcon-section__lede {
+  margin: 0;
+  font-family: var(--sg-sans);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--sg-muted);
+}
+
+.sugcon-people__featured {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.sugcon-person {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.sugcon-person--featured {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: center;
+  padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  border-bottom: 1px solid rgba(26, 21, 32, 0.1);
+  animation: sugcon-rise 0.8s ease-out both;
+
+  @include respond-to(small) {
+    grid-template-columns: 1fr;
+  }
+
+  &:nth-child(even) {
+    .sugcon-person__photo {
+      order: 2;
+
+      @include respond-to(small) {
+        order: 0;
+      }
+    }
+  }
+}
+
+.sugcon-person__photo {
+  min-width: 0;
+  overflow: hidden;
+  background: #e8e2dc;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.55s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.03);
+  }
+}
+
+.sugcon-person__body {
+  min-width: 0;
+}
+
+.sugcon-person__meta,
+.sugcon-person__event {
+  margin: 0;
+  font-family: var(--sg-sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sg-muted);
+}
+
+.sugcon-person__name {
+  margin: 0.35rem 0 0.45rem;
+  font-family: var(--sg-serif);
+  font-weight: 400;
+  font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+  line-height: 1.15;
+}
+
+.sugcon-person__note {
+  margin: 0.85rem 0 0;
+  font-family: var(--sg-sans);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--sg-ink);
+}
+
+.sugcon-person__gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin-top: 1.15rem;
+
+  @include respond-to(small) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.sugcon-people__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.sugcon-people__grid .sugcon-person__photo img {
+  aspect-ratio: 5 / 4;
+}
+
+.sugcon-people__grid .sugcon-person__name {
+  font-size: 1.45rem;
+}
+
+.sugcon-insights__list {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.sugcon-insight {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1.2fr) minmax(0, 0.9fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: start;
+  padding-top: 0.25rem;
+  animation: sugcon-rise 0.75s ease-out both;
+
+  @include respond-to(small) {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+.sugcon-insight__index {
+  font-family: var(--sg-serif);
+  font-size: 1.5rem;
+  color: var(--sg-accent);
+  line-height: 1;
+  padding-top: 0.2rem;
+}
+
+.sugcon-insight__title {
+  margin: 0 0 0.45rem;
+  font-family: var(--sg-serif);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+}
+
+.sugcon-insight__summary {
+  margin: 0 0 0.65rem;
+  font-family: var(--sg-sans);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--sg-ink);
+}
+
+.sugcon-insight__detail {
+  margin: 0;
+  font-family: var(--sg-sans);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--sg-muted);
+}
+
+.sugcon-insight__event {
+  margin: 0.85rem 0 0;
+  font-family: var(--sg-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sg-accent);
+}
+
+.sugcon-insight__media {
+  overflow: hidden;
+  background: #efeae4;
+
+  @include respond-to(small) {
+    grid-column: 1 / -1;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+}
+
+.sugcon-moments__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+
+  @include respond-to(small) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sugcon-moment {
+  margin: 0;
+  background: #fff;
+
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  figcaption {
+    padding: 0.9rem 0.15rem 0;
+    display: grid;
+    gap: 0.25rem;
+    font-family: var(--sg-sans);
+
+    strong {
+      font-family: var(--sg-serif);
+      font-weight: 400;
+      font-size: 1.15rem;
+      color: var(--sg-ink);
+    }
+
+    span {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: var(--sg-muted);
+    }
+  }
+}
+
+@keyframes sugcon-hero-drift {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.06) translate3d(0, -1.5%, 0);
+  }
+}
+
+@keyframes sugcon-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sugcon-hero__img,
+  .sugcon-hero__copy,
+  .sugcon-person--featured,
+  .sugcon-insight {
+    animation: none;
+  }
+
+  .sugcon-person__photo img {
+    transition: none;
+  }
+}

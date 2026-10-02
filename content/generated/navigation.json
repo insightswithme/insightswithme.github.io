@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T16:17:11.147Z",
+  "generatedAt": "2026-10-02T07:41:29.913Z",
   "items": [
     {
       "label": "Blogs",
@@ -30,24 +30,31 @@
       "openInNewTab": false
     },
     {
+      "label": "SUGCON",
+      "href": "/sugcon",
+      "order": 5,
+      "location": "header",
+      "openInNewTab": false
+    },
+    {
       "label": "About",
       "href": "/about",
       "order": 5,
-      "location": "both",
+      "location": "footer",
       "openInNewTab": false
     },
     {
       "label": "Contact",
       "href": "/contact",
       "order": 6,
-      "location": "both",
+      "location": "footer",
       "openInNewTab": false
     },
     {
       "label": "Privacy Policy",
       "href": "/privacy",
       "order": 7,
-      "location": "both",
+      "location": "footer",
       "openInNewTab": false
     }
   ]

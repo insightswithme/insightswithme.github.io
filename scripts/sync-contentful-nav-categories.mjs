@@ -184,9 +184,10 @@ function defaultNavigation() {
     { label: "Categories", href: "/categories", order: 2, location: "both" },
     { label: "Search", href: "/search", order: 3, location: "header" },
     { label: "Portfolio", href: "/portfolio", order: 4, location: "header" },
-    { label: "About", href: "/about", order: 5, location: "both" },
-    { label: "Contact", href: "/contact", order: 6, location: "both" },
-    { label: "Privacy Policy", href: "/privacy", order: 7, location: "both" },
+    { label: "SUGCON", href: "/sugcon", order: 5, location: "header" },
+    { label: "About", href: "/about", order: 6, location: "both" },
+    { label: "Contact", href: "/contact", order: 7, location: "both" },
+    { label: "Privacy Policy", href: "/privacy", order: 8, location: "both" },
   ];
 }
 
