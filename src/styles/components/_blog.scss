@@ -25,7 +25,7 @@
   }
 
   @media (min-width: $screen-lg) {
-    gap: 8rem;
+    gap: 2.5rem;
   }
 
   @include respond-to(medium) {
@@ -39,7 +39,7 @@
   flex: 1 1 0;
   width: auto;
   min-width: 0;
-  max-width: calc(100% - 16rem);
+  max-width: calc(100% - 13rem);
   padding-right: 0;
   box-sizing: border-box;
   word-break: break-word;
@@ -155,8 +155,10 @@
 }
 
 .blog-side-container {
-  flex: 0 0 25rem;
-  width: 14.5rem;
+  flex: 0 0 12rem;
+  width: 12rem;
+  max-width: 12rem;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
@@ -164,19 +166,25 @@
   top: 5rem;
   align-self: flex-start;
   max-height: calc(100vh - 6rem);
+  overflow-x: hidden;
   overflow-y: auto;
   order: 2;
+  margin-left: auto;
 
   @include respond-to(large) {
-    flex: 0 0 15rem;
+    flex: 0 0 11rem;
+    width: 11rem;
+    max-width: 11rem;
   }
 
   @include respond-to(medium) {
     flex: 1 1 100%;
     width: 100%;
+    max-width: 100%;
     position: static;
     max-height: none;
     margin-top: 2rem;
+    margin-left: 0;
     padding-top: 1.25rem;
     border-top: 1px solid var(--color-border);
   }
@@ -185,8 +193,11 @@
 /* Modern TOC — no card/border/radius; slim progress rail */
 .blog-toc {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   padding: 0;
+  overflow-x: hidden;
 
   .blog-toc-title {
     font-size: 0.7rem;
@@ -273,9 +284,28 @@
 
   &.blog-side-tags {
     padding-top: 0.25rem;
+    margin-left: 0.75rem;
+    max-width: 100%;
+    overflow: hidden;
+
+    ol,
+    li,
+    a {
+      max-width: 100%;
+    }
+
+    a {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      hyphens: auto;
+    }
 
     a:hover {
       color: var(--color-accent);
+    }
+
+    @include respond-to(medium) {
+      margin-left: 0.35rem;
     }
   }
 }
