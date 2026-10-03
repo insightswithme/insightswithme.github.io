@@ -55,15 +55,22 @@ export async function fetchCommentsBySlug(slug: string): Promise<BlogComment[]> 
   }
 }
 
-/** GitHub Pages has no API routes; post to the Vercel comments API. */
+const COMMENTS_API_HOST = "insightswithme-blog.vercel.app";
+const COMMENTS_API_URL = `https://${COMMENTS_API_HOST}/api/comments`;
+
+/** Local and the comments API host use same-origin; all other live hosts post here. */
 export function commentsSubmitUrl(): string {
   const explicit = (process.env.NEXT_PUBLIC_COMMENTS_API_URL || "").trim();
-  if (explicit) return explicit;
-  if (
-    typeof window !== "undefined" &&
-    /\.github\.io$/i.test(window.location.hostname)
-  ) {
-    return "https://insightswithme-blog.vercel.app/api/comments";
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") {
+      return withBasePath("/api/comments");
+    }
+    if (host === COMMENTS_API_HOST) {
+      return "/api/comments";
+    }
+    return explicit || COMMENTS_API_URL;
   }
+  if (explicit) return explicit;
   return withBasePath("/api/comments");
 }

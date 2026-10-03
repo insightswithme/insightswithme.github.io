@@ -21,6 +21,7 @@ function allowedOrigins(): string[] {
         "https://insightswithme.github.io",
         "http://insightswithme.github.io",
         "https://insightswithme-blog.vercel.app",
+        "https://insightswithme-github-io-insightswithme.vercel.app",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         base,
@@ -30,9 +31,28 @@ function allowedOrigins(): string[] {
   ];
 }
 
+function originAllowed(origin: string): boolean {
+  if (!origin) return false;
+  if (allowedOrigins().includes(origin)) return true;
+  try {
+    const { hostname, protocol } = new URL(origin);
+    if (protocol !== "https:") return false;
+    if (hostname.endsWith(".github.io")) return true;
+    if (
+      hostname.endsWith(".vercel.app") &&
+      hostname.includes("insightswithme")
+    ) {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+  return false;
+}
+
 function applyCors(req: NextApiRequest, res: NextApiResponse) {
   const origin = String(req.headers.origin || "");
-  if (origin && allowedOrigins().includes(origin)) {
+  if (originAllowed(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Vary", "Origin");
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
