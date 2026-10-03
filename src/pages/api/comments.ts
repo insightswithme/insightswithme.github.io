@@ -9,6 +9,37 @@ function readEnv(name: string): string {
   return (process.env[name] || "").trim();
 }
 
+function allowedOrigins(): string[] {
+  const extra = readEnv("COMMENTS_ALLOWED_ORIGINS")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const base = readEnv("NEXT_PUBLIC_BASE_URL").replace(/\/$/, "");
+  return [
+    ...new Set(
+      [
+        "https://insightswithme.github.io",
+        "http://insightswithme.github.io",
+        "https://insightswithme-blog.vercel.app",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        base,
+        ...extra,
+      ].filter(Boolean)
+    ),
+  ];
+}
+
+function applyCors(req: NextApiRequest, res: NextApiResponse) {
+  const origin = String(req.headers.origin || "");
+  if (origin && allowedOrigins().includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  }
+}
+
 async function cma(
   method: string,
   urlPath: string,
@@ -54,8 +85,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  applyCors(req, res);
+
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+
   if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
+    res.setHeader("Allow", "POST, OPTIONS");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
@@ -63,8 +100,13 @@ export default async function handler(
   const token = readEnv("CONTENTFUL_MANAGEMENT_TOKEN");
   const envId = readEnv("CONTENTFUL_ENVIRONMENT") || "master";
 
-  if (!spaceId || !token || !isContentfulConfigured()) {
+  if (!spaceId || !isContentfulConfigured()) {
     return res.status(503).json({ error: "Comments are not configured" });
+  }
+  if (!token) {
+    return res.status(503).json({
+      error: "Comment submit is not configured (missing Contentful management token)",
+    });
   }
 
   const payload = typeof req.body === "object" && req.body ? req.body : {};

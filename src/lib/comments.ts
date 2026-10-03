@@ -1,5 +1,6 @@
 import { isContentfulConfigured } from "@/lib/contentful";
 import { createClient } from "contentful";
+import { withBasePath } from "@/lib/withBasePath";
 
 export const BLOG_COMMENT_TYPE = "blogComment";
 
@@ -52,4 +53,17 @@ export async function fetchCommentsBySlug(slug: string): Promise<BlogComment[]> 
     console.warn(`[comments] Failed to load comments for "${slug}"`, err);
     return [];
   }
+}
+
+/** GitHub Pages has no API routes; post to the Vercel comments API. */
+export function commentsSubmitUrl(): string {
+  const explicit = (process.env.NEXT_PUBLIC_COMMENTS_API_URL || "").trim();
+  if (explicit) return explicit;
+  if (
+    typeof window !== "undefined" &&
+    /\.github\.io$/i.test(window.location.hostname)
+  ) {
+    return "https://insightswithme-blog.vercel.app/api/comments";
+  }
+  return withBasePath("/api/comments");
 }

@@ -198,7 +198,7 @@ export const getStaticProps: GetStaticProps<BlogProps> = async ({
       slug: post.slug,
       comments,
       commentsEnabled: fm.commentsEnabled !== false,
-      commentsSubmitEnabled: !staticExport,
+      commentsSubmitEnabled: true,
     },
     ...(staticExport ? {} : { revalidate: 60 }),
   };

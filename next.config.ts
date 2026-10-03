@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_COMMENTBOX_PROJECT_ID:
       process.env.NEXT_PUBLIC_COMMENTBOX_PROJECT_ID,
+    NEXT_PUBLIC_COMMENTS_API_URL:
+      process.env.NEXT_PUBLIC_COMMENTS_API_URL ||
+      (staticExport
+        ? "https://insightswithme-blog.vercel.app/api/comments"
+        : ""),
   },
   basePath,
   assetPrefix: basePath,

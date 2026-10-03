@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { format } from "date-fns";
-import { withBasePath } from "@/lib/withBasePath";
+import { commentsSubmitUrl } from "@/lib/comments";
 import type { BlogComment } from "@/lib/comments";
 
 export interface BlogCommentsProps {
@@ -32,7 +32,7 @@ const BlogComments: React.FC<BlogCommentsProps> = ({
     setError("");
     setStatus("saving");
     try {
-      const res = await fetch(withBasePath("/api/comments"), {
+      const res = await fetch(commentsSubmitUrl(), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ slug, name, body, website }),
@@ -122,8 +122,8 @@ const BlogComments: React.FC<BlogCommentsProps> = ({
           </form>
         ) : (
           <p className="blog-comment-note">
-            Comments are managed in Contentful. Publishing a comment on this
-            host requires the Vercel app (not the static GitHub Pages export).
+            Comments can be posted after this site is connected to the live
+            comments API.
           </p>
         )}
       </div>
