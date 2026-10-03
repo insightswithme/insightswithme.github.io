@@ -19,7 +19,15 @@ import {
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const outDir = path.join(root, "content", "generated");
+const publicDir = path.join(root, "public");
 const LOCALE = "en-US";
+const ASSET_IMAGE = {
+  type: "Link",
+  linkType: "Asset",
+  validations: [{ linkMimetypeGroup: ["image"] }],
+  required: false,
+  localized: false,
+};
 
 function loadEnv() {
   for (const name of [".env.local", ".env"]) {
@@ -118,6 +126,218 @@ async function listEntries(spaceId, envId, token, contentType) {
     if (!page.items.length) break;
   }
   return items;
+}
+
+function mimeFor(fileName) {
+  const lower = fileName.toLowerCase();
+  if (lower.endsWith(".png")) return "image/png";
+  if (lower.endsWith(".webp")) return "image/webp";
+  if (lower.endsWith(".gif")) return "image/gif";
+  return "image/jpeg";
+}
+
+function localPathFromRef(imagePath) {
+  if (!imagePath || typeof imagePath !== "string") return null;
+  if (/^https?:\/\//i.test(imagePath) || imagePath.startsWith("//")) return null;
+  const absolute = path.join(publicDir, imagePath.replace(/^\//, ""));
+  return fs.existsSync(absolute) ? absolute : null;
+}
+
+function assetLink(id) {
+  return { sys: { type: "Link", linkType: "Asset", id } };
+}
+
+function resolveAssetUrl(asset) {
+  const url = asset?.fields?.file?.url || asset?.fields?.file?.[LOCALE]?.url;
+  if (!url || typeof url !== "string") return "";
+  return url.startsWith("//") ? `https:${url}` : url;
+}
+
+async function findAssetByFileName(spaceId, envId, token, fileName) {
+  const q = new URLSearchParams({ "fields.title": fileName, limit: "5" });
+  const res = await cma(
+    "GET",
+    `/spaces/${spaceId}/environments/${envId}/assets?${q}`,
+    { token }
+  );
+  return (
+    (res.items || []).find((a) => {
+      const file = a.fields?.file?.[LOCALE];
+      return file?.fileName === fileName || a.fields?.title?.[LOCALE] === fileName;
+    }) || null
+  );
+}
+
+async function uploadLocalImage(spaceId, envId, token, absolutePath) {
+  const fileName = path.basename(absolutePath);
+  const existing = await findAssetByFileName(spaceId, envId, token, fileName);
+  if (existing?.fields?.file?.[LOCALE]?.url) {
+    if (!existing.sys.publishedVersion) {
+      return cma(
+        "PUT",
+        `/spaces/${spaceId}/environments/${envId}/assets/${existing.sys.id}/published`,
+        { token, version: existing.sys.version }
+      );
+    }
+    return existing;
+  }
+
+  const contentType = mimeFor(fileName);
+  const bytes = fs.readFileSync(absolutePath);
+  const uploadRes = await fetch(
+    `https://upload.contentful.com/spaces/${spaceId}/uploads`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/octet-stream",
+      },
+      body: bytes,
+    }
+  );
+  const upload = await uploadRes.json();
+  if (!uploadRes.ok) throw new Error(`upload failed: ${JSON.stringify(upload)}`);
+
+  let asset = await cma("POST", `/spaces/${spaceId}/environments/${envId}/assets`, {
+    token,
+    body: {
+      fields: {
+        title: { [LOCALE]: fileName },
+        description: { [LOCALE]: `Portfolio media (${fileName})` },
+        file: {
+          [LOCALE]: {
+            contentType,
+            fileName,
+            uploadFrom: {
+              sys: { type: "Link", linkType: "Upload", id: upload.sys.id },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  await cma(
+    "PUT",
+    `/spaces/${spaceId}/environments/${envId}/assets/${asset.sys.id}/files/${LOCALE}/process`,
+    { token, version: asset.sys.version }
+  );
+
+  for (let i = 0; i < 30; i++) {
+    await new Promise((r) => setTimeout(r, 500));
+    asset = await cma(
+      "GET",
+      `/spaces/${spaceId}/environments/${envId}/assets/${asset.sys.id}`,
+      { token }
+    );
+    if (asset.fields?.file?.[LOCALE]?.url) break;
+  }
+  if (!asset.fields?.file?.[LOCALE]?.url) {
+    throw new Error(`Asset processing timed out for ${fileName}`);
+  }
+  return cma(
+    "PUT",
+    `/spaces/${spaceId}/environments/${envId}/assets/${asset.sys.id}/published`,
+    { token, version: asset.sys.version }
+  );
+}
+
+async function ensureAsset(spaceId, envId, token, imageRef, cache) {
+  if (!imageRef) return null;
+  if (cache.has(imageRef)) return cache.get(imageRef);
+  const absolute = localPathFromRef(imageRef);
+  if (!absolute) {
+    cache.set(imageRef, null);
+    return null;
+  }
+  const asset = await uploadLocalImage(spaceId, envId, token, absolute);
+  cache.set(imageRef, asset);
+  console.log(`  asset ${path.basename(absolute)} → ${asset.sys.id}`);
+  return asset;
+}
+
+async function updateAndPublish(spaceId, envId, token, entry, fields) {
+  const updated = await cma(
+    "PUT",
+    `/spaces/${spaceId}/environments/${envId}/entries/${entry.sys.id}`,
+    { token, version: entry.sys.version, body: { fields } }
+  );
+  return cma(
+    "PUT",
+    `/spaces/${spaceId}/environments/${envId}/entries/${updated.sys.id}/published`,
+    { token, version: updated.sys.version }
+  );
+}
+
+async function linkPortfolioMedia(spaceId, envId, token, banner) {
+  const cache = new Map();
+  const q = new URLSearchParams({
+    content_type: "page",
+    "fields.slug": "portfolio",
+    limit: "1",
+  });
+  const found = await cma(
+    "GET",
+    `/spaces/${spaceId}/environments/${envId}/entries?${q}`,
+    { token }
+  );
+  const page = found.items?.[0];
+  if (page) {
+    const fields = { ...page.fields };
+    let changed = false;
+    if (!fields.heroImage?.[LOCALE]?.sys?.id) {
+      const hero = await ensureAsset(
+        spaceId,
+        envId,
+        token,
+        banner.heroImageUrl,
+        cache
+      );
+      if (hero) {
+        fields.heroImage = { [LOCALE]: assetLink(hero.sys.id) };
+        changed = true;
+      }
+    }
+    if (!fields.experienceImage?.[LOCALE]?.sys?.id) {
+      const exp = await ensureAsset(
+        spaceId,
+        envId,
+        token,
+        banner.experienceImageUrl,
+        cache
+      );
+      if (exp) {
+        fields.experienceImage = { [LOCALE]: assetLink(exp.sys.id) };
+        changed = true;
+      }
+    }
+    if (changed) {
+      await updateAndPublish(spaceId, envId, token, page, fields);
+      console.log("Linked portfolio hero + experience images");
+    } else {
+      console.log("Portfolio page images already linked");
+    }
+  }
+
+  const contributions = await listEntries(
+    spaceId,
+    envId,
+    token,
+    "portfolioContribution"
+  );
+  const seeds = contributionSeeds();
+  for (const entry of contributions) {
+    if (entry.fields?.image?.[LOCALE]?.sys?.id) continue;
+    const title = entry.fields?.title?.[LOCALE];
+    const seed = seeds.find((s) => s.title === title);
+    if (!seed?.imageUrl) continue;
+    const asset = await ensureAsset(spaceId, envId, token, seed.imageUrl, cache);
+    if (!asset) continue;
+    const fields = { ...entry.fields };
+    fields.image = { [LOCALE]: assetLink(asset.sys.id) };
+    await updateAndPublish(spaceId, envId, token, entry, fields);
+    console.log(`  linked image on contribution: ${title}`);
+  }
 }
 
 async function createAndPublish(spaceId, envId, token, contentType, fields) {
@@ -238,7 +458,14 @@ const TYPES = {
     displayField: "title",
     fields: [
       { id: "title", name: "Title", type: "Symbol", required: true, localized: false },
-      { id: "imageUrl", name: "Image URL", type: "Symbol", required: false, localized: false },
+      { id: "image", name: "Image", ...ASSET_IMAGE },
+      {
+        id: "imageUrl",
+        name: "Image URL (unused — prefer Image)",
+        type: "Symbol",
+        required: false,
+        localized: false,
+      },
       { id: "linkUrl", name: "Link URL", type: "Symbol", required: false, localized: false },
       { id: "ctaLabel", name: "CTA Label", type: "Symbol", required: false, localized: false },
       { id: "order", name: "Order", type: "Integer", required: false, localized: false },
@@ -304,6 +531,7 @@ async function fetchDelivery(spaceId, cdaToken, envId, contentType, order = "fie
   const res = await client.getEntries({
     content_type: contentType,
     order: [order],
+    include: 2,
     limit: 100,
   });
   return res.items;
@@ -418,6 +646,7 @@ async function main() {
     );
 
     await patchPagePortfolioBanner(spaceId, envId, cmaToken, banner);
+    await linkPortfolioMedia(spaceId, envId, cmaToken, banner);
   } else if (process.env.GITHUB_ACTIONS) {
     console.log("CI: skipping Contentful CMA writes (Delivery API only)");
   } else {
@@ -446,15 +675,19 @@ async function main() {
           eyebrow: page.fields.eyebrow || banner.eyebrow,
           headline: page.fields.headline || banner.headline,
           intro: page.fields.intro || banner.intro,
-          heroImageUrl: page.fields.heroImageUrl || banner.heroImageUrl,
+          heroImageUrl:
+            resolveAssetUrl(page.fields.heroImage) ||
+            (typeof page.fields.heroImageUrl === "string" &&
+            page.fields.heroImageUrl.startsWith("http")
+              ? page.fields.heroImageUrl
+              : ""),
           linkedinUrl: page.fields.linkedinUrl || banner.linkedinUrl,
           ctaLabel: extras.ctaLabel || banner.ctaLabel,
           skillsSectionTitle:
             extras.skillsSectionTitle || banner.skillsSectionTitle,
           experienceSectionTitle:
             extras.experienceSectionTitle || banner.experienceSectionTitle,
-          experienceImageUrl:
-            extras.experienceImageUrl || banner.experienceImageUrl,
+          experienceImageUrl: resolveAssetUrl(page.fields.experienceImage),
           contributionsSectionTitle:
             extras.contributionsSectionTitle ||
             banner.contributionsSectionTitle,
@@ -482,7 +715,7 @@ async function main() {
       if (contributions.length) {
         portfolio.contributions = contributions.map((e, i) => ({
           title: e.fields.title,
-          imageUrl: e.fields.imageUrl || "",
+          imageUrl: resolveAssetUrl(e.fields.image) || "",
           linkUrl: e.fields.linkUrl || "",
           ctaLabel: e.fields.ctaLabel || "Visit",
           order: e.fields.order ?? i + 1,

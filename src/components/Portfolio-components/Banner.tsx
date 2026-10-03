@@ -42,19 +42,21 @@ const Banner: React.FC<BannerProps> = ({ banner }) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {banner.ctaLabel || "View LinkedIn Profile"}
+                {banner.ctaLabel}
               </a>
             </div>
           ) : null}
         </div>
         <div className="promo-image promo-image-photo">
-          <img
-            src={withBasePath(banner.heroImageUrl || "/images/home-right.jpg")}
-            alt={banner.headline || "Portfolio"}
-            width={800}
-            height={800}
-            decoding="async"
-          />
+          {banner.heroImageUrl ? (
+            <img
+              src={withBasePath(banner.heroImageUrl)}
+              alt={banner.headline || banner.title || ""}
+              width={800}
+              height={800}
+              decoding="async"
+            />
+          ) : null}
         </div>
       </div>
     </div>

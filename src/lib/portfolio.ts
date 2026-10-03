@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { createClient } from "contentful";
-import { isContentfulConfigured } from "@/lib/contentful";
+import { createClient, type Asset } from "contentful";
+import { assetUrl, isContentfulConfigured } from "@/lib/contentful";
 import {
   portfolioBannerSeed,
   skillGroupSeeds,
@@ -142,6 +142,7 @@ async function fetchFromContentful(): Promise<PortfolioData | null> {
     client.getEntries({
       content_type,
       order: ["fields.order"],
+      include: 2,
       limit: 100,
     } as never);
 
@@ -155,6 +156,7 @@ async function fetchFromContentful(): Promise<PortfolioData | null> {
       client.getEntries({
         content_type: "page",
         "fields.slug": "portfolio",
+        include: 2,
         limit: 1,
       } as never),
     ]);
@@ -170,15 +172,14 @@ async function fetchFromContentful(): Promise<PortfolioData | null> {
     eyebrow: String(f.eyebrow || defaults.banner.eyebrow),
     headline: String(f.headline || defaults.banner.headline),
     intro: String(f.intro || defaults.banner.intro),
-    heroImageUrl: String(f.heroImageUrl || defaults.banner.heroImageUrl),
+    heroImageUrl: assetUrl(f.heroImage as Asset | undefined),
     linkedinUrl: String(f.linkedinUrl || defaults.banner.linkedinUrl),
     ctaLabel: extras.ctaLabel || defaults.banner.ctaLabel,
     skillsSectionTitle:
       extras.skillsSectionTitle || defaults.banner.skillsSectionTitle,
     experienceSectionTitle:
       extras.experienceSectionTitle || defaults.banner.experienceSectionTitle,
-    experienceImageUrl:
-      extras.experienceImageUrl || defaults.banner.experienceImageUrl,
+    experienceImageUrl: assetUrl(f.experienceImage as Asset | undefined),
     contributionsSectionTitle:
       extras.contributionsSectionTitle ||
       defaults.banner.contributionsSectionTitle,
@@ -214,7 +215,7 @@ async function fetchFromContentful(): Promise<PortfolioData | null> {
       const fields = e.fields as Record<string, unknown>;
       return {
         title: String(fields.title || ""),
-        imageUrl: String(fields.imageUrl || ""),
+        imageUrl: assetUrl(fields.image as Asset | undefined),
         linkUrl: String(fields.linkUrl || ""),
         ctaLabel: String(fields.ctaLabel || "Visit"),
         order: typeof fields.order === "number" ? fields.order : i + 1,

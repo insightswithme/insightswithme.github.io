@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-02T10:07:39.869Z",
+  "generatedAt": "2026-10-03T14:30:51.667Z",
   "banner": {
     "title": "Portfolio",
     "metaDescription": "Portfolio of Pawan Tyagi — Sitecore XM Cloud, .NET, certifications, experience, and projects.",
     "eyebrow": "Hello folks!",
-    "headline": "I am Pawan Tyagi",
-    "intro": "Technical Lead at Altudo · Sitecore 2× Certified · XM Cloud Certified · Optimizely CMS Certified · Azure AZ-204\n\nBased in Gurugram, I lead Sitecore engineering delivery with deep experience across XM Cloud, Content Hub, Search, Helix, Optimizely, and .NET MVC — plus Docker and Azure.\n\nI share practical Sitecore insights on my blog \"InsightsWithMe\" and contribute to the developer community.",
-    "heroImageUrl": "/images/home-right.jpg",
+    "headline": "I am Pawan Kumar Tyagi",
+    "intro": "Technical Lead at Altudo · Sitecore 3× Certified · XM Cloud/AI Certified · Optimizely CMS Certified · Azure AZ-204\n\nBased in Gurugram, I lead Sitecore engineering delivery with deep experience across XM Cloud, Content Hub, Search, Helix, Optimizely, and .NET MVC — plus Docker and Azure.\n\nI share practical Sitecore insights on my blog \"InsightsWithMe\" and contribute to the developer community.",
+    "heroImageUrl": "https://images.ctfassets.net/7csiqfkqfved/3yONUXS4SkShjRb2pxnRpH/205917d64e3dc7683352894678f42859/Gemini_Generated_Image_sl8i4fsl8i4fsl8i.png",
     "linkedinUrl": "https://www.linkedin.com/in/pawan-tyagi-6bb22357/",
     "ctaLabel": "View LinkedIn Profile",
     "skillsSectionTitle": "Technical Skills",
     "experienceSectionTitle": "Work Experience",
-    "experienceImageUrl": "/images/about-us.png",
+    "experienceImageUrl": "https://images.ctfassets.net/7csiqfkqfved/4rdOyAlzdSHRkyEleKA6zg/a64618f447e52c4e683929f25215efee/about-us.png",
     "contributionsSectionTitle": "Publications & Contributions",
     "awardsSectionTitle": "Certifications & Achievements",
     "projectsSectionTitle": "Recent Projects"
@@ -126,7 +126,7 @@
   "contributions": [
     {
       "title": "Insights With Me",
-      "imageUrl": "/images/ds-blog-logo.png",
+      "imageUrl": "https://images.ctfassets.net/7csiqfkqfved/7HvKwFinsQAiTlaoNh1srk/797f474ba48d4f48907c1c50d8d2f539/ds-blog-logo.png",
       "linkUrl": "https://insightswithpawantyagi.blogspot.com/",
       "ctaLabel": "Visit Blog",
       "order": 1,
@@ -134,7 +134,7 @@
     },
     {
       "title": "Technical Blog",
-      "imageUrl": "/images/github-images.jpeg",
+      "imageUrl": "https://images.ctfassets.net/7csiqfkqfved/6PLqgQnvZOo67RIr7QOcuC/7d3f45d61f7a3ad4fa11fdc5c11a2278/github-images.jpeg",
       "linkUrl": "/blogs",
       "ctaLabel": "View Posts",
       "order": 2,
@@ -142,7 +142,7 @@
     },
     {
       "title": "LinkedIn",
-      "imageUrl": "/images/altudo-icon.png",
+      "imageUrl": "https://images.ctfassets.net/7csiqfkqfved/3GmAU5HjLjP7tzzhKG0sCx/d30ce6bb74e48f38015394f8c176d53f/altudo-icon.png",
       "linkUrl": "https://www.linkedin.com/in/pawan-tyagi-6bb22357/",
       "ctaLabel": "Visit Profile",
       "order": 3,
@@ -150,7 +150,7 @@
     },
     {
       "title": "Sitecore Stack Exchange",
-      "imageUrl": "/images/stack-exchange-sitecore.png",
+      "imageUrl": "https://images.ctfassets.net/7csiqfkqfved/6ccUGm1pRmN1kR63lGAoU1/701803eef9ae10b68a8d5362fabe3161/stack-exchange-sitecore.png",
       "linkUrl": "https://sitecore.stackexchange.com",
       "ctaLabel": "Visit",
       "order": 4,

@@ -1,6 +1,19 @@
 {
-  "generatedAt": "2026-10-02T10:07:28.954Z",
+  "generatedAt": "2026-10-03T14:30:12.343Z",
   "items": [
+    {
+      "title": "Portfolio",
+      "slug": "portfolio",
+      "metaDescription": "Portfolio of Pawan Tyagi — Sitecore XM Cloud, .NET, certifications, experience, and projects.",
+      "eyebrow": "Hello folks!",
+      "headline": "I am Pawan Kumar Tyagi",
+      "intro": "Technical Lead at Altudo · Sitecore 3× Certified · XM Cloud/AI Certified · Optimizely CMS Certified · Azure AZ-204\n\nBased in Gurugram, I lead Sitecore engineering delivery with deep experience across XM Cloud, Content Hub, Search, Helix, Optimizely, and .NET MVC — plus Docker and Azure.\n\nI share practical Sitecore insights on my blog \"InsightsWithMe\" and contribute to the developer community.",
+      "body": "{\"ctaLabel\":\"View LinkedIn Profile\",\"skillsSectionTitle\":\"Technical Skills\",\"experienceSectionTitle\":\"Work Experience\",\"experienceImageUrl\":\"/images/about-us.png\",\"contributionsSectionTitle\":\"Publications & Contributions\",\"awardsSectionTitle\":\"Certifications & Achievements\",\"projectsSectionTitle\":\"Recent Projects\"}",
+      "heroImageUrl": "/images/home-right.jpg",
+      "linkedinUrl": "https://www.linkedin.com/in/pawan-tyagi-6bb22357/",
+      "careerStartYear": null,
+      "sitecoreStartYear": null
+    },
     {
       "title": "SUGCON",
       "slug": "sugcon",
@@ -23,19 +36,6 @@
       "intro": "Thank you for visiting my blog site! Whether you have a question, feedback you'd like to discuss, I'd love to hear from you.",
       "body": "## Get in Touch\n\n- **GitHub:** [https://github.com/pawan-tyagi](https://github.com/pawan-tyagi)\n- **LinkedIn:** [https://www.linkedin.com/in/pawan-tyagi-6bb22357/](https://www.linkedin.com/in/pawan-tyagi-6bb22357/)\n\n## Why Connect with Me?\n\n- **Blog Feedback:** Have suggestions or ideas for my blog? I'd love to hear how I can make it better for readers like you.\n- **Networking:** Let's connect to share ideas, learn, and grow together in the world of tech and blogging.\n\n## Quick Note\n\nTo ensure a prompt response, please include a clear subject when you write — via the form above or LinkedIn.",
       "heroImageUrl": "",
-      "linkedinUrl": "https://www.linkedin.com/in/pawan-tyagi-6bb22357/",
-      "careerStartYear": null,
-      "sitecoreStartYear": null
-    },
-    {
-      "title": "Portfolio",
-      "slug": "portfolio",
-      "metaDescription": "Portfolio of Pawan Tyagi — Sitecore XM Cloud, .NET, certifications, experience, and projects.",
-      "eyebrow": "Hello folks!",
-      "headline": "I am Pawan Tyagi",
-      "intro": "Technical Lead at Altudo · Sitecore 2× Certified · XM Cloud Certified · Optimizely CMS Certified · Azure AZ-204\n\nBased in Gurugram, I lead Sitecore engineering delivery with deep experience across XM Cloud, Content Hub, Search, Helix, Optimizely, and .NET MVC — plus Docker and Azure.\n\nI share practical Sitecore insights on my blog \"InsightsWithMe\" and contribute to the developer community.",
-      "body": "{\"ctaLabel\":\"View LinkedIn Profile\",\"skillsSectionTitle\":\"Technical Skills\",\"experienceSectionTitle\":\"Work Experience\",\"experienceImageUrl\":\"/images/about-us.png\",\"contributionsSectionTitle\":\"Publications & Contributions\",\"awardsSectionTitle\":\"Certifications & Achievements\",\"projectsSectionTitle\":\"Recent Projects\"}",
-      "heroImageUrl": "/images/home-right.jpg",
       "linkedinUrl": "https://www.linkedin.com/in/pawan-tyagi-6bb22357/",
       "careerStartYear": null,
       "sitecoreStartYear": null

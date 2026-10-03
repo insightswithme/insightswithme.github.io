@@ -9,7 +9,7 @@ export interface PCProps {
 }
 
 const PC: React.FC<PCProps> = ({
-  title = "Publications & Contributions",
+  title,
   contributions,
 }) => {
   if (!contributions.length) return null;
@@ -17,54 +17,56 @@ const PC: React.FC<PCProps> = ({
   return (
     <div className="component-section component-content">
       <div className="container">
-        <div className="component-title">
-          <h2>{title}</h2>
-        </div>
+        {title ? (
+          <div className="component-title">
+            <h2>{title}</h2>
+          </div>
+        ) : null}
         <div className="component-content">
           {contributions.map((item) => {
             const external =
               item.openInNewTab ||
               item.linkUrl.startsWith("http://") ||
               item.linkUrl.startsWith("https://");
-            const image = (
-              <img
-                src={withBasePath(item.imageUrl)}
-                alt={item.title}
-              />
-            );
-            const cta = item.ctaLabel || "Visit";
+            const image = item.imageUrl ? (
+              <img src={withBasePath(item.imageUrl)} alt={item.title} />
+            ) : null;
+            const cta = item.ctaLabel;
 
             return (
               <div key={item.title} className="promo icon-promo-card col-6">
                 <div className="icon-image">
-                  {external ? (
-                    <a
-                      href={item.linkUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {image}
-                    </a>
-                  ) : (
-                    <Link href={item.linkUrl}>{image}</Link>
-                  )}
+                  {image &&
+                    (external ? (
+                      <a
+                        href={item.linkUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {image}
+                      </a>
+                    ) : (
+                      <Link href={item.linkUrl}>{image}</Link>
+                    ))}
                 </div>
                 <div className="title">
                   <h4>{item.title}</h4>
                 </div>
-                <div className="promo-link-cta button">
-                  {external ? (
-                    <a
-                      href={item.linkUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {cta}
-                    </a>
-                  ) : (
-                    <Link href={item.linkUrl}>{cta}</Link>
-                  )}
-                </div>
+                {cta ? (
+                  <div className="promo-link-cta button">
+                    {external ? (
+                      <a
+                        href={item.linkUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {cta}
+                      </a>
+                    ) : (
+                      <Link href={item.linkUrl}>{cta}</Link>
+                    )}
+                  </div>
+                ) : null}
               </div>
             );
           })}

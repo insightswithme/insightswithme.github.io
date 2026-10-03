@@ -122,6 +122,15 @@ async function ensureContentType(spaceId, envId, token) {
         validations: [{ size: { max: 512 } }],
       },
       {
+        id: "experienceImage",
+        name: "Experience Image",
+        type: "Link",
+        linkType: "Asset",
+        required: false,
+        localized: false,
+        validations: [{ linkMimetypeGroup: ["image"] }],
+      },
+      {
         id: "linkedinUrl",
         name: "LinkedIn URL",
         type: "Symbol",

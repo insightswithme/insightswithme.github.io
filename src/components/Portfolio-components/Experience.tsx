@@ -9,25 +9,25 @@ export interface ExperienceProps {
 }
 
 const Experience: React.FC<ExperienceProps> = ({
-  title = "Work Experience",
-  imageUrl = "/images/about-us.png",
+  title,
+  imageUrl,
   experiences,
 }) => {
   if (!experiences.length) return null;
 
   return (
     <div className="promo image-left background-gray">
-      <div className="component-title">
-        <h2>{title}</h2>
-      </div>
-      <div className="container">
-        <div className="promo-image">
-          <img
-            src={withBasePath(imageUrl)}
-            alt="Experience"
-            decoding="async"
-          />
+      {title ? (
+        <div className="component-title">
+          <h2>{title}</h2>
         </div>
+      ) : null}
+      <div className="container">
+        {imageUrl ? (
+          <div className="promo-image">
+            <img src={withBasePath(imageUrl)} alt="" decoding="async" />
+          </div>
+        ) : null}
         <div className="promo-content">
           <div className="experience">
             {experiences.map((org) => (
