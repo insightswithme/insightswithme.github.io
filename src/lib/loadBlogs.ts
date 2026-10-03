@@ -104,6 +104,7 @@ function getBlogDetailFromMarkdown(slug: string): BlogPostDetail | null {
       faq: raw.faq ?? null,
       howto: raw.howto ?? null,
       author: raw.author ? String(raw.author) : null,
+      commentsEnabled: raw.commentsEnabled !== false,
     },
   };
 }

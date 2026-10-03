@@ -14,12 +14,13 @@ import Breadcrumb from "@/components/Breadcrumb";
 import readingDuration from "reading-duration";
 import BlogHeader from "@/components/BlogHeader";
 
-import CommentBox from "@/components/CommentBox";
+import BlogComments from "@/components/blog/BlogComments";
 import BlogPostBody from "@/components/blog/BlogPostBody";
 import BlogTableOfContents from "@/components/blog/BlogTableOfContents";
 import BlogSideTags from "@/components/blog/BlogSideTags";
 import { extractTocFromMarkdown } from "@/lib/blogToc";
 import { getAllBlogsSorted, getBlogDetailBySlug } from "@/lib/loadBlogs";
+import { fetchCommentsBySlug, type BlogComment } from "@/lib/comments";
 
 interface BlogFrontmatterResolved {
   title: string;
@@ -43,11 +44,22 @@ interface BlogProps {
   markdown: string;
   richText: Document | null;
   slug: string;
+  comments: BlogComment[];
+  commentsEnabled: boolean;
+  commentsSubmitEnabled: boolean;
 }
 
 const AUTHOR_NAME = "Pawan Tyagi";
 
-const Blog: React.FC<BlogProps> = ({ frontmatter, markdown, richText, slug }) => {
+const Blog: React.FC<BlogProps> = ({
+  frontmatter,
+  markdown,
+  richText,
+  slug,
+  comments,
+  commentsEnabled,
+  commentsSubmitEnabled,
+}) => {
   const postDate = new Date(frontmatter.date);
   const postModified = new Date(frontmatter.modifiedDate);
   const tocItems = extractTocFromMarkdown(markdown);
@@ -124,7 +136,12 @@ const Blog: React.FC<BlogProps> = ({ frontmatter, markdown, richText, slug }) =>
                   </>
                 ) : null}
               </p>
-              <CommentBox />
+              <BlogComments
+                slug={slug}
+                comments={comments}
+                commentsEnabled={commentsEnabled}
+                submitEnabled={commentsSubmitEnabled}
+              />
             </div>
             <aside className="blog-side-container" aria-label="Page navigation">
               <BlogTableOfContents items={tocItems} />
@@ -152,6 +169,11 @@ export const getStaticProps: GetStaticProps<BlogProps> = async ({
   }
 
   const fm = post.frontmatter;
+  const staticExport =
+    process.env.STATIC_EXPORT === "1" ||
+    process.env.STATIC_EXPORT === "true" ||
+    process.env.GITHUB_PAGES === "true";
+  const comments = await fetchCommentsBySlug(slug);
 
   return {
     props: {
@@ -174,7 +196,11 @@ export const getStaticProps: GetStaticProps<BlogProps> = async ({
       markdown: post.markdown,
       richText: post.richText ?? null,
       slug: post.slug,
+      comments,
+      commentsEnabled: fm.commentsEnabled !== false,
+      commentsSubmitEnabled: !staticExport,
     },
+    ...(staticExport ? {} : { revalidate: 60 }),
   };
 };
 

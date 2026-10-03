@@ -35,6 +35,7 @@ run("sync-contentful-nav-categories.mjs", "Sync navigation + categories");
 run("sync-contentful-pages.mjs", "Sync pages (About)");
 run("sync-contentful-portfolio.mjs", "Sync portfolio sections");
 run("sync-contentful-footer.mjs", "Sync footer copy");
+run("sync-contentful-comments.mjs", "Sync blog comments type");
 run("verify-contentful.mjs", "Verify Delivery API");
 
 console.log("\nContentful setup complete.");

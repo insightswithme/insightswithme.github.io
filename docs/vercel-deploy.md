@@ -64,9 +64,8 @@ In [Vercel Dashboard](https://vercel.com/dashboard) → your project → **Setti
 | `CONTENTFUL_ENVIRONMENT` | Recommended | `master` |
 | `NEXT_PUBLIC_BASE_URL` | Yes | Your Vercel URL after first deploy, e.g. `https://your-project.vercel.app` (or custom domain) |
 | `NEXT_PUBLIC_BASE_PATH` | Yes (empty) | Leave **empty** on Vercel (root domain) |
-| `CONTENTFUL_MANAGEMENT_TOKEN` | Optional | Not needed for CI read-only sync |
+| `CONTENTFUL_MANAGEMENT_TOKEN` | For comment submit | Used by `/api/comments` to create draft **Blog Comment** entries |
 | `NEXT_PUBLIC_GA_TRACKING_ID` | Optional | Analytics |
-| `NEXT_PUBLIC_COMMENTBOX_PROJECT_ID` | Optional | Comments |
 
 Or set via CLI (replace values):
 

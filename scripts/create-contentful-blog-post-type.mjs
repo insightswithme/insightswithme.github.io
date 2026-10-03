@@ -176,6 +176,25 @@ const contentType = {
       required: false,
       localized: false,
     },
+    {
+      id: "commentsEnabled",
+      name: "Comments enabled",
+      type: "Boolean",
+      required: false,
+      localized: false,
+    },
+    {
+      id: "bodyImages",
+      name: "Body images",
+      type: "Array",
+      required: false,
+      localized: false,
+      items: {
+        type: "Link",
+        linkType: "Asset",
+        validations: [{ linkMimetypeGroup: ["image"] }],
+      },
+    },
   ],
 };
 

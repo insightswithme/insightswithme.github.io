@@ -270,6 +270,15 @@ async function main() {
     if (data.howto) fields.howto = { [LOCALE]: data.howto };
 
     let entry = await findEntryBySlug(spaceId, envId, token, slug);
+    if (entry?.fields?.featuredImage && !fields.featuredImage) {
+      fields.featuredImage = entry.fields.featuredImage;
+    }
+    if (entry?.fields?.bodyImages) {
+      fields.bodyImages = entry.fields.bodyImages;
+    }
+    if (entry?.fields?.commentsEnabled && !fields.commentsEnabled) {
+      fields.commentsEnabled = entry.fields.commentsEnabled;
+    }
     if (entry) {
       entry = await cma(
         "PUT",

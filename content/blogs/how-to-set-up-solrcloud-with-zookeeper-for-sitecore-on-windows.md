@@ -9,8 +9,6 @@ metaDescription: >-
   Set up SolrCloud for Sitecore on Windows: Java 17, ZooKeeper, Solr 9.8.1 with
   HTTPS, Windows services, Sitecore collections, and a practical validation
   checklist.
-featuredImage: >-
-  https://images.ctfassets.net/7csiqfkqfved/4TSxAwypfTDl0XTxocZA0r/f89e01c28236da05564ea1ec6fba7f69/solrcloud-sitecore-setup-banner.jpg
 slug: how-to-set-up-solrcloud-with-zookeeper-for-sitecore-on-windows
 date: 'October 3, 2026 7:30 PM'
 modifiedDate: 'October 3, 2026 8:25 PM'
@@ -40,7 +38,7 @@ Host names and paths below are placeholders. Use your DNS, certificates, and app
 
 Solr nodes talk to each other and to ZooKeeper. The load balancer protects the Sitecore entry point. It does **not** replace replicas or ZooKeeper quorum.
 
-![Sitecore SolrCloud architecture: Sitecore roles through a private load balancer to Solr nodes coordinated by ZooKeeper](https://images.ctfassets.net/7csiqfkqfved/5uIyukvSKNyqvMG061b1X0/deeba139b79b43522b2824eb5995ed19/solrcloud-sitecore-architecture.png)
+![Sitecore SolrCloud architecture: Sitecore roles through a private load balancer to Solr nodes coordinated by ZooKeeper](media/solrcloud-sitecore-architecture.png)
 
 | Term | Meaning |
 | --- | --- |
@@ -82,7 +80,7 @@ Solr 9.8.1 can ship with a newer bundled ZooKeeper. This article uses an **exter
 
 Install the approved 64-bit JDK 17 on **every** Solr and ZooKeeper server. Set a system `JAVA_HOME` (for example `C:\Program Files\Java\jdk-17.0.20`), add `%JAVA_HOME%\bin` to the system `Path`, apply the change, and restart the host so Windows services see the same environment as your shell.
 
-![Windows Environment Variables dialog with JAVA_HOME set to JDK 17](https://images.ctfassets.net/7csiqfkqfved/38sGXHH8uhuO4y5bt5tS7L/3e09c14fd794c4229b7060ffcea5dc5c/solrcloud-java-home.png)
+![Windows Environment Variables dialog with JAVA_HOME set to JDK 17](media/solrcloud-java-home.png)
 
 Verify from an elevated Command Prompt:
 
@@ -92,7 +90,7 @@ java -version
 
 You want a 64-bit HotSpot build, not a leftover Java 8 on `PATH`.
 
-![Command Prompt showing java -version for JDK 17](https://images.ctfassets.net/7csiqfkqfved/7iPXcjHMFl7B2Spwbj976J/65fc7779d9cc417e8b141546d894e74f/solrcloud-java-version.png)
+![Command Prompt showing java -version for JDK 17](media/solrcloud-java-version.png)
 
 Confirm DNS as well:
 
@@ -192,11 +190,11 @@ nssm install zookeeper
 | Startup directory | `C:\zookeeper\bin` |
 | Arguments | `/c call C:\zookeeper\bin\zkServer.cmd` |
 
-![NSSM Application tab for the ZooKeeper Windows service](https://images.ctfassets.net/7csiqfkqfved/5lOQz0Z7uvH8xBxJftbvHk/46e35425fdf732e1123e3f5760bf6d59/solrcloud-nssm-zookeeper-application.png)
+![NSSM Application tab for the ZooKeeper Windows service](media/solrcloud-nssm-zookeeper-application.png)
 
 On the **I/O** tab, send stdout/stderr to files you can rotate:
 
-![NSSM I/O tab redirecting ZooKeeper stdout and stderr to log files](https://images.ctfassets.net/7csiqfkqfved/4hZ3SDZOTFQykmECasZWor/b42493b25632211c86a3530fa927bd91/solrcloud-nssm-zookeeper-io.png)
+![NSSM I/O tab redirecting ZooKeeper stdout and stderr to log files](media/solrcloud-nssm-zookeeper-io.png)
 
 Create `C:\zookeeper\logs` first. Install the service, then:
 
@@ -247,7 +245,7 @@ Import-PfxCertificate `
   -Exportable
 ```
 
-![Windows Certificates MMC showing Personal certificates after importing the Solr TLS certificate](https://images.ctfassets.net/7csiqfkqfved/7aGfI4XkBjyHvhtRMVT1no/d1fc8131d6007cb080f80f44f05bba6e/solrcloud-windows-certificate-store.png)
+![Windows Certificates MMC showing Personal certificates after importing the Solr TLS certificate](media/solrcloud-windows-certificate-store.png)
 
 If you have an existing JKS from an older Solr 8 node, convert it to PKCS12 (Command Prompt). Use a secret store for passwords — never commit them:
 
@@ -314,21 +312,21 @@ A practical Application tab:
 
 Solr still reads `ZK_HOST` (including `/solr`) from `solr.in.cmd`. You can also set `ZK_HOST` and `SOLR_HOST` on NSSM’s Environment tab — they must match the files on disk.
 
-![NSSM Application tab for Solr 9.8.1](https://images.ctfassets.net/7csiqfkqfved/WYlLMnlUWNkhQp6mDZZvT/98cb5269f481f64ffb643ce54b939b83/solrcloud-nssm-solr-application.png)
+![NSSM Application tab for Solr 9.8.1](media/solrcloud-nssm-solr-application.png)
 
 Redirect logs:
 
-![NSSM I/O tab redirecting Solr stdout and stderr](https://images.ctfassets.net/7csiqfkqfved/3dXVo0OZoKDe2P85bI8DFm/5d4b266005303f5fb9d5c8a9f0590331/solrcloud-nssm-solr-io.png)
+![NSSM I/O tab redirecting Solr stdout and stderr](media/solrcloud-nssm-solr-io.png)
 
 On the **Environment** tab, set `ZK_HOST` and `SOLR_HOST` so the service matches `solr.in.cmd` after a reboot:
 
-![NSSM Environment tab with ZK_HOST and SOLR_HOST for Solr](https://images.ctfassets.net/7csiqfkqfved/3tGSUyIP06VW4cyd6wwVAg/6bef74487b4410eb64ca0c4b6f542701/solrcloud-nssm-solr-environment.png)
+![NSSM Environment tab with ZK_HOST and SOLR_HOST for Solr](media/solrcloud-nssm-solr-environment.png)
 
 Create `C:\solr\logs` first. Start ZooKeeper, confirm quorum, then start Solr. After a reboot, confirm membership, the `/solr` chroot, and certificate trust again.
 
 Open Solr Admin over HTTPS and check Cloud → Nodes. Every live node should show the same collections once you create them. A dead node in a red row is a replica problem, not “the dashboard is slow.”
 
-![Solr Admin Cloud Nodes view with live and dead Solr nodes](https://images.ctfassets.net/7csiqfkqfved/5oIsnuK9dtLBqeYaHsV8AQ/8bf680af669f166b4812537fb4a02045/solrcloud-admin-cloud-nodes.png)
+![Solr Admin Cloud Nodes view with live and dead Solr nodes](media/solrcloud-admin-cloud-nodes.png)
 
 ## 6. Sitecore configset, collections, aliases
 

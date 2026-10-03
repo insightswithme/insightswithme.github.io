@@ -33,6 +33,9 @@ export type BlogPostFields = {
   featured?: boolean;
   faq?: FaqItem[];
   howto?: HowToData;
+  commentsEnabled?: boolean;
+  /** Inline screenshots / figures managed as Contentful assets */
+  bodyImages?: Asset[];
 };
 
 // Contentful's generated Entry generics are strict; keep runtime casts local.
@@ -115,6 +118,50 @@ export function assetUrl(asset: Asset | undefined): string {
   return url.startsWith("//") ? `https:${url}` : url;
 }
 
+function fileNameFromImageSrc(src: string): string {
+  const cleaned = src.trim().split(/\s+/)[0].replace(/[?#].*$/, "");
+  try {
+    if (/^https?:\/\//i.test(cleaned) || cleaned.startsWith("//")) {
+      const href = cleaned.startsWith("//") ? `https:${cleaned}` : cleaned;
+      return decodeURIComponent(new URL(href).pathname.split("/").pop() || "");
+    }
+  } catch {
+    /* ignore */
+  }
+  const parts = cleaned.split("/");
+  return decodeURIComponent(parts[parts.length - 1] || "");
+}
+
+function bodyImageAssets(value: unknown): Asset[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is Asset => {
+    const file = (item as Asset | undefined)?.fields?.file;
+    return Boolean(file && typeof file.url === "string");
+  });
+}
+
+/** Replace markdown image srcs with current URLs from linked Contentful assets. */
+export function resolveMarkdownImages(
+  markdown: string,
+  assets: Asset[] | undefined
+): string {
+  const list = bodyImageAssets(assets);
+  if (!markdown || !list.length) return markdown;
+  const byFile = new Map<string, string>();
+  for (const asset of list) {
+    const name = asset.fields?.file?.fileName;
+    const url = assetUrl(asset);
+    if (name && url) byFile.set(String(name), url);
+  }
+  if (!byFile.size) return markdown;
+  return markdown.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (all, alt, src) => {
+    const file = fileNameFromImageSrc(String(src));
+    const url = file ? byFile.get(file) : undefined;
+    if (!url) return all;
+    return `![${alt}](${url})`;
+  });
+}
+
 function resolveFeaturedImage(f: BlogPostFields): string {
   const fromAsset = assetUrl(f.featuredImage);
   if (fromAsset) return fromAsset;
@@ -169,6 +216,7 @@ export type BlogPostDetail = {
     faq: FaqItem[] | null;
     howto: HowToData | null;
     author: string | null;
+    commentsEnabled: boolean;
   };
 };
 
@@ -192,10 +240,11 @@ export function mapEntryToDetail(entry: AnyEntry): BlogPostDetail {
         .map((tag) => ({ tag }))
     : [];
   const { markdown, richText } = resolveBody(f);
+  const resolvedMarkdown = resolveMarkdownImages(markdown, f.bodyImages);
 
   return {
     slug: f.slug,
-    markdown,
+    markdown: resolvedMarkdown,
     richText: richText ?? null,
     frontmatter: {
       title: f.title,
@@ -209,6 +258,7 @@ export function mapEntryToDetail(entry: AnyEntry): BlogPostDetail {
       faq: f.faq ?? null,
       howto: f.howto ?? null,
       author: f.author ?? null,
+      commentsEnabled: f.commentsEnabled !== false,
     },
   };
 }
