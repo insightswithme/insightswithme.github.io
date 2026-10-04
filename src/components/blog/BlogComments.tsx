@@ -60,11 +60,17 @@ const BlogComments: React.FC<BlogCommentsProps> = ({
             <li key={comment.id} className="blog-comment">
               <div className="blog-comment-meta">
                 <strong>{comment.name}</strong>
-                {comment.createdAt ? (
-                  <time dateTime={comment.createdAt}>
-                    {format(new Date(comment.createdAt), "MMMM d, yyyy")}
-                  </time>
-                ) : null}
+                {(() => {
+                  const created = comment.createdAt
+                    ? new Date(comment.createdAt)
+                    : null;
+                  if (!created || Number.isNaN(created.getTime())) return null;
+                  return (
+                    <time dateTime={comment.createdAt}>
+                      {format(created, "MMMM d, yyyy")}
+                    </time>
+                  );
+                })()}
               </div>
               <p>{comment.body}</p>
             </li>
