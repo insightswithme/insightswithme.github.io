@@ -39,6 +39,9 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
       />
       <Award
         title={banner.awardsSectionTitle}
+        certificationsSubtitle={banner.certificationsSubtitle}
+        achievementsSubtitle={banner.achievementsSubtitle}
+        iconUrl={banner.awardsIconUrl}
         items={portfolio.certifications}
       />
       <Projects

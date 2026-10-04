@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T06:39:53.719Z",
+  "generatedAt": "2026-10-04T06:45:21.757Z",
   "banner": {
     "title": "Portfolio",
     "metaDescription": "Portfolio of Pawan Tyagi — Sitecore XM Cloud, .NET, certifications, experience, and projects.",
@@ -14,7 +14,10 @@
     "experienceImageUrl": "https://images.ctfassets.net/7csiqfkqfved/4rdOyAlzdSHRkyEleKA6zg/a64618f447e52c4e683929f25215efee/about-us.png",
     "contributionsSectionTitle": "Publications & Contributions",
     "awardsSectionTitle": "Certifications & Achievements",
-    "projectsSectionTitle": "Recent Projects"
+    "projectsSectionTitle": "Recent Projects",
+    "certificationsSubtitle": "Licenses & Certifications",
+    "achievementsSubtitle": "Community & Impact",
+    "awardsIconUrl": "https://images.ctfassets.net/7csiqfkqfved/4y92D9Eph6sHYs7h2khokt/7cc6271c6478476ff8f24c5047e8c3b4/award-blue-icon.png"
   },
   "skillGroups": [
     {

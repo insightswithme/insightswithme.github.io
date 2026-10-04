@@ -7,7 +7,7 @@ export interface ProjectsProps {
 }
 
 const Projects: React.FC<ProjectsProps> = ({
-  title = "Recent Projects",
+  title,
   projects,
 }) => {
   if (!projects.length) return null;
@@ -15,9 +15,11 @@ const Projects: React.FC<ProjectsProps> = ({
   return (
     <div className="component-section component-content">
       <div className="container">
-        <div className="component-title">
-          <h2>{title}</h2>
-        </div>
+        {title ? (
+          <div className="component-title">
+            <h2>{title}</h2>
+          </div>
+        ) : null}
         <div className="project-list">
           {projects.map((project) => (
             <div

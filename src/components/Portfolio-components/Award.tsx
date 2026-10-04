@@ -4,11 +4,17 @@ import type { PortfolioCertification } from "@/lib/portfolio";
 
 export interface AwardProps {
   title?: string;
+  certificationsSubtitle?: string;
+  achievementsSubtitle?: string;
+  iconUrl?: string;
   items: PortfolioCertification[];
 }
 
 const Award: React.FC<AwardProps> = ({
-  title = "Certifications & Achievements",
+  title,
+  certificationsSubtitle,
+  achievementsSubtitle,
+  iconUrl,
   items,
 }) => {
   const certifications = items.filter((i) => i.kind === "certification");
@@ -22,25 +28,29 @@ const Award: React.FC<AwardProps> = ({
       aria-labelledby="awards-heading"
     >
       <div className="container">
-        <div className="component-title">
-          <h2 id="awards-heading">{title}</h2>
-        </div>
+        {title ? (
+          <div className="component-title">
+            <h2 id="awards-heading">{title}</h2>
+          </div>
+        ) : null}
 
         <div className="awards-layout">
-          <div className="awards-icon">
-            <img
-              src={withBasePath("/images/award-blue-icon.png")}
-              alt=""
-              width={120}
-              height={120}
-              decoding="async"
-            />
-          </div>
+          {iconUrl ? (
+            <div className="awards-icon">
+              <img
+                src={withBasePath(iconUrl)}
+                alt=""
+                width={120}
+                height={120}
+                decoding="async"
+              />
+            </div>
+          ) : null}
 
           <div className="awards-body">
             {certifications.length ? (
               <>
-                <h3>Licenses &amp; Certifications</h3>
+                {certificationsSubtitle ? <h3>{certificationsSubtitle}</h3> : null}
                 <ul className="awards-list">
                   {certifications.map((cert) => (
                     <li key={cert.title}>
@@ -54,7 +64,9 @@ const Award: React.FC<AwardProps> = ({
 
             {achievements.length ? (
               <>
-                <h3 className="awards-subheading">Community &amp; Impact</h3>
+                {achievementsSubtitle ? (
+                  <h3 className="awards-subheading">{achievementsSubtitle}</h3>
+                ) : null}
                 <ul className="awards-list">
                   {achievements.map((item) => (
                     <li key={item.title}>

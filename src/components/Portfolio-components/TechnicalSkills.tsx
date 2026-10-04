@@ -7,7 +7,7 @@ export interface TechnicalSkillsProps {
 }
 
 const TechnicalSkills: React.FC<TechnicalSkillsProps> = ({
-  title = "Technical Skills",
+  title,
   groups,
 }) => {
   if (!groups.length) return null;
@@ -34,9 +34,11 @@ const TechnicalSkills: React.FC<TechnicalSkillsProps> = ({
   return (
     <div className="component-section component-content">
       <div className="container">
-        <div className="component-title">
-          <h2>{title}</h2>
-        </div>
+        {title ? (
+          <div className="component-title">
+            <h2>{title}</h2>
+          </div>
+        ) : null}
         {renderRow(firstRow)}
         {secondRow.length ? renderRow(secondRow) : null}
       </div>

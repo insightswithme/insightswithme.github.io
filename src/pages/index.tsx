@@ -34,6 +34,9 @@ const Home = ({ blogs, portfolio }: HomeProps) => {
       />
       <Award
         title={banner.awardsSectionTitle}
+        certificationsSubtitle={banner.certificationsSubtitle}
+        achievementsSubtitle={banner.achievementsSubtitle}
+        iconUrl={banner.awardsIconUrl}
         items={portfolio.certifications}
       />
       <PC

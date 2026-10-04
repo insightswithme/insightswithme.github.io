@@ -32,6 +32,9 @@ export type PortfolioBanner = {
   contributionsSectionTitle: string;
   awardsSectionTitle: string;
   projectsSectionTitle: string;
+  certificationsSubtitle: string;
+  achievementsSubtitle: string;
+  awardsIconUrl: string;
 };
 
 export type PortfolioSkillGroup = {
@@ -108,8 +111,18 @@ function readGenerated(): PortfolioData | null {
   try {
     const data = JSON.parse(fs.readFileSync(GENERATED_PATH, "utf8"));
     if (!data?.banner) return null;
+    const defaults = defaultPortfolio().banner;
     return {
-      banner: data.banner,
+      banner: {
+        ...defaults,
+        ...data.banner,
+        certificationsSubtitle:
+          data.banner.certificationsSubtitle ||
+          defaults.certificationsSubtitle,
+        achievementsSubtitle:
+          data.banner.achievementsSubtitle || defaults.achievementsSubtitle,
+        awardsIconUrl: data.banner.awardsIconUrl || defaults.awardsIconUrl,
+      },
       skillGroups: data.skillGroups || [],
       experiences: data.experiences || [],
       contributions: data.contributions || [],
@@ -161,32 +174,40 @@ async function fetchFromContentful(): Promise<PortfolioData | null> {
       } as never),
     ]);
 
-  const defaults = defaultPortfolio();
   const page = pages.items[0];
-  const f = (page?.fields || {}) as Record<string, unknown>;
+  if (!page) return null;
+  const f = (page.fields || {}) as Record<string, unknown>;
   const extras = parseExtras(f.body);
+  const str = (value: unknown) =>
+    typeof value === "string" ? value : value == null ? "" : String(value);
 
   const banner: PortfolioBanner = {
-    title: String(f.title || defaults.banner.title),
-    metaDescription: String(f.metaDescription || defaults.banner.metaDescription),
-    eyebrow: String(f.eyebrow || defaults.banner.eyebrow),
-    headline: String(f.headline || defaults.banner.headline),
-    intro: String(f.intro || defaults.banner.intro),
+    title: str(f.title),
+    metaDescription: str(f.metaDescription),
+    eyebrow: str(f.eyebrow),
+    headline: str(f.headline),
+    intro: str(f.intro),
     heroImageUrl: assetUrl(f.heroImage as Asset | undefined),
-    linkedinUrl: String(f.linkedinUrl || defaults.banner.linkedinUrl),
-    ctaLabel: extras.ctaLabel || defaults.banner.ctaLabel,
+    linkedinUrl: str(f.linkedinUrl),
+    ctaLabel: str(f.ctaLabel) || extras.ctaLabel || "",
     skillsSectionTitle:
-      extras.skillsSectionTitle || defaults.banner.skillsSectionTitle,
+      str(f.skillsSectionTitle) || extras.skillsSectionTitle || "",
     experienceSectionTitle:
-      extras.experienceSectionTitle || defaults.banner.experienceSectionTitle,
+      str(f.experienceSectionTitle) || extras.experienceSectionTitle || "",
     experienceImageUrl: assetUrl(f.experienceImage as Asset | undefined),
     contributionsSectionTitle:
+      str(f.contributionsSectionTitle) ||
       extras.contributionsSectionTitle ||
-      defaults.banner.contributionsSectionTitle,
+      "",
     awardsSectionTitle:
-      extras.awardsSectionTitle || defaults.banner.awardsSectionTitle,
+      str(f.awardsSectionTitle) || extras.awardsSectionTitle || "",
     projectsSectionTitle:
-      extras.projectsSectionTitle || defaults.banner.projectsSectionTitle,
+      str(f.projectsSectionTitle) || extras.projectsSectionTitle || "",
+    certificationsSubtitle:
+      str(f.certificationsSubtitle) || extras.certificationsSubtitle || "",
+    achievementsSubtitle:
+      str(f.achievementsSubtitle) || extras.achievementsSubtitle || "",
+    awardsIconUrl: assetUrl(f.awardsIcon as Asset | undefined),
   };
 
   return {

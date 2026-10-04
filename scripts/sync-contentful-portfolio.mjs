@@ -372,9 +372,11 @@ async function patchPagePortfolioBanner(spaceId, envId, token, banner) {
   }
 
   const fields = { ...entry.fields };
+  const extras = parseBannerExtras(fields.body?.[LOCALE]);
   // Only fill empty banner-related fields so we don't overwrite manual edits.
   let changed = false;
   const setIfEmpty = (id, value) => {
+    if (value == null || value === "") return;
     const current = fields[id]?.[LOCALE];
     if (current == null || current === "") {
       fields[id] = { [LOCALE]: value };
@@ -386,20 +388,48 @@ async function patchPagePortfolioBanner(spaceId, envId, token, banner) {
   setIfEmpty("intro", banner.intro);
   setIfEmpty("heroImageUrl", banner.heroImageUrl);
   setIfEmpty("linkedinUrl", banner.linkedinUrl);
-  // Store CTA + section titles in body as JSON sidecar if body empty
-  if (!fields.body?.[LOCALE]) {
-    fields.body = {
-      [LOCALE]: JSON.stringify({
-        ctaLabel: banner.ctaLabel,
-        skillsSectionTitle: banner.skillsSectionTitle,
-        experienceSectionTitle: banner.experienceSectionTitle,
-        experienceImageUrl: banner.experienceImageUrl,
-        contributionsSectionTitle: banner.contributionsSectionTitle,
-        awardsSectionTitle: banner.awardsSectionTitle,
-        projectsSectionTitle: banner.projectsSectionTitle,
-      }),
-    };
-    changed = true;
+  setIfEmpty("ctaLabel", extras.ctaLabel || banner.ctaLabel);
+  setIfEmpty(
+    "skillsSectionTitle",
+    extras.skillsSectionTitle || banner.skillsSectionTitle
+  );
+  setIfEmpty(
+    "experienceSectionTitle",
+    extras.experienceSectionTitle || banner.experienceSectionTitle
+  );
+  setIfEmpty(
+    "contributionsSectionTitle",
+    extras.contributionsSectionTitle || banner.contributionsSectionTitle
+  );
+  setIfEmpty(
+    "awardsSectionTitle",
+    extras.awardsSectionTitle || banner.awardsSectionTitle
+  );
+  setIfEmpty(
+    "projectsSectionTitle",
+    extras.projectsSectionTitle || banner.projectsSectionTitle
+  );
+  setIfEmpty(
+    "certificationsSubtitle",
+    extras.certificationsSubtitle || "Licenses & Certifications"
+  );
+  setIfEmpty(
+    "achievementsSubtitle",
+    extras.achievementsSubtitle || "Community & Impact"
+  );
+
+  if (!fields.awardsIcon?.[LOCALE]?.sys?.id) {
+    const icon = await ensureAsset(
+      spaceId,
+      envId,
+      token,
+      "/images/award-blue-icon.png",
+      new Map()
+    );
+    if (icon) {
+      fields.awardsIcon = { [LOCALE]: assetLink(icon.sys.id) };
+      changed = true;
+    }
   }
 
   // Never republish unchanged entries — that retriggers the deploy webhook loop.
@@ -418,7 +448,7 @@ async function patchPagePortfolioBanner(spaceId, envId, token, banner) {
     `/spaces/${spaceId}/environments/${envId}/entries/${entry.sys.id}/published`,
     { token, version: updated.sys.version }
   );
-  console.log("Patched Page/portfolio banner fields");
+  console.log("Patched Page/portfolio banner + section title fields");
 }
 
 const TYPES = {
@@ -669,32 +699,39 @@ async function main() {
       const extras = parseBannerExtras(page?.fields?.body);
 
       if (page) {
+        const f = page.fields || {};
         portfolio.banner = {
-          title: page.fields.title || "Portfolio",
-          metaDescription: page.fields.metaDescription || "",
-          eyebrow: page.fields.eyebrow || banner.eyebrow,
-          headline: page.fields.headline || banner.headline,
-          intro: page.fields.intro || banner.intro,
+          title: f.title || "",
+          metaDescription: f.metaDescription || "",
+          eyebrow: f.eyebrow || "",
+          headline: f.headline || "",
+          intro: f.intro || "",
           heroImageUrl:
-            resolveAssetUrl(page.fields.heroImage) ||
-            (typeof page.fields.heroImageUrl === "string" &&
-            page.fields.heroImageUrl.startsWith("http")
-              ? page.fields.heroImageUrl
+            resolveAssetUrl(f.heroImage) ||
+            (typeof f.heroImageUrl === "string" &&
+            f.heroImageUrl.startsWith("http")
+              ? f.heroImageUrl
               : ""),
-          linkedinUrl: page.fields.linkedinUrl || banner.linkedinUrl,
-          ctaLabel: extras.ctaLabel || banner.ctaLabel,
+          linkedinUrl: f.linkedinUrl || "",
+          ctaLabel: f.ctaLabel || extras.ctaLabel || "",
           skillsSectionTitle:
-            extras.skillsSectionTitle || banner.skillsSectionTitle,
+            f.skillsSectionTitle || extras.skillsSectionTitle || "",
           experienceSectionTitle:
-            extras.experienceSectionTitle || banner.experienceSectionTitle,
-          experienceImageUrl: resolveAssetUrl(page.fields.experienceImage),
+            f.experienceSectionTitle || extras.experienceSectionTitle || "",
+          experienceImageUrl: resolveAssetUrl(f.experienceImage),
           contributionsSectionTitle:
+            f.contributionsSectionTitle ||
             extras.contributionsSectionTitle ||
-            banner.contributionsSectionTitle,
+            "",
           awardsSectionTitle:
-            extras.awardsSectionTitle || banner.awardsSectionTitle,
+            f.awardsSectionTitle || extras.awardsSectionTitle || "",
           projectsSectionTitle:
-            extras.projectsSectionTitle || banner.projectsSectionTitle,
+            f.projectsSectionTitle || extras.projectsSectionTitle || "",
+          certificationsSubtitle:
+            f.certificationsSubtitle || extras.certificationsSubtitle || "",
+          achievementsSubtitle:
+            f.achievementsSubtitle || extras.achievementsSubtitle || "",
+          awardsIconUrl: resolveAssetUrl(f.awardsIcon),
         };
       }
 

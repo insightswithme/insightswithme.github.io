@@ -15,6 +15,9 @@ export function portfolioBannerSeed() {
     contributionsSectionTitle: "Publications & Contributions",
     awardsSectionTitle: "Certifications & Achievements",
     projectsSectionTitle: "Recent Projects",
+    certificationsSubtitle: "Licenses & Certifications",
+    achievementsSubtitle: "Community & Impact",
+    awardsIconUrl: "/images/award-blue-icon.png",
   };
 }
 
