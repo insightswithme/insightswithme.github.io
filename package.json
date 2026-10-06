@@ -22,6 +22,7 @@
     "contentful:sync-footer": "node scripts/sync-contentful-footer.mjs",
     "contentful:sync-comments": "node scripts/sync-contentful-comments.mjs",
     "contentful:link-solrcloud-images": "node scripts/link-solrcloud-blog-images.mjs",
+    "contentful:solrcloud-cdn": "node scripts/solrcloud-images-to-contentful-cdn.mjs",
     "contentful:setup-webhook": "node scripts/setup-contentful-deploy-webhook.mjs",
     "contentful:setup-vercel-webhook": "node scripts/setup-contentful-vercel-webhook.mjs",
     "contentful:setup-preview": "node scripts/setup-contentful-preview.mjs",

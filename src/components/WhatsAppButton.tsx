@@ -1,15 +1,35 @@
-import React from "react";
+import React, { useMemo } from "react";
 import config from "@/lib/config";
 
-const WhatsAppButton: React.FC = () => {
-  const phone = config.whatsapp_number?.replace(/\D/g, "");
-  if (!phone) return null;
+const WHATSAPP_XOR_KEY = 0x5a;
 
-  const text = encodeURIComponent(
-    config.whatsapp_message ||
-      "Hi Pawan, I found your blog InsightsWithMe and would like to connect."
+/** Decode XOR+base64 WhatsApp URL so the phone is not plain in source. */
+function decryptWhatsAppHref(encoded: string | undefined): string {
+  if (!encoded) return "";
+  try {
+    const binary =
+      typeof atob === "function"
+        ? atob(encoded)
+        : Buffer.from(encoded, "base64").toString("binary");
+    let out = "";
+    for (let i = 0; i < binary.length; i += 1) {
+      out += String.fromCharCode(binary.charCodeAt(i) ^ WHATSAPP_XOR_KEY);
+    }
+    if (!/^https:\/\/(api\.)?whatsapp\.com\//i.test(out) && !/^https:\/\/wa\.me\//i.test(out)) {
+      return "";
+    }
+    return out;
+  } catch {
+    return "";
+  }
+}
+
+const WhatsAppButton: React.FC = () => {
+  const href = useMemo(
+    () => decryptWhatsAppHref(config.whatsapp_href_enc),
+    []
   );
-  const href = `https://wa.me/${phone}?text=${text}`;
+  if (!href) return null;
 
   return (
     <a
