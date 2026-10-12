@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { openCookieSettings } from "@/lib/cookieConsent";
 import { withBasePath } from "@/lib/withBasePath";
 import type { NavItem } from "@/lib/siteMeta";
 import footerData from "../../content/generated/footer.json";
@@ -124,6 +125,15 @@ const SiteFooter: React.FC<SiteFooterProps> = ({ navItems = [] }) => {
                   <Link href={item.href}>{item.label}</Link>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  className="footer-cookie-settings"
+                  onClick={() => openCookieSettings()}
+                >
+                  Cookie settings
+                </button>
+              </li>
               <li>
                 <Link href="/sitemap.xml">Sitemap</Link>
               </li>

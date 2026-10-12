@@ -1,0 +1,142 @@
+.cookie-consent {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1200;
+  padding: 0.85rem 1rem calc(0.85rem + env(safe-area-inset-bottom, 0px));
+  background: color-mix(in srgb, var(--color-footer-bg, #0f172a) 94%, transparent);
+  border-top: 1px solid color-mix(in srgb, #fff 14%, transparent);
+  box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+  color: #f8fafc;
+}
+
+.cookie-consent__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+}
+
+.cookie-consent__copy {
+  flex: 1 1 18rem;
+  min-width: 0;
+}
+
+.cookie-consent__title {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.cookie-consent__text {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, #fff 82%, transparent);
+}
+
+.cookie-consent__text a {
+  color: var(--color-accent-bright, #7dd3fc);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.cookie-consent__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.cookie-consent__btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 0.45rem;
+  padding: 0.55rem 1.1rem;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    transform 0.15s ease;
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.cookie-consent__btn--ghost {
+  background: transparent;
+  border-color: color-mix(in srgb, #fff 35%, transparent);
+  color: #fff;
+
+  &:hover {
+    background: color-mix(in srgb, #fff 10%, transparent);
+  }
+}
+
+.cookie-consent__btn--primary {
+  background: var(--color-accent, #0ea5e9);
+  color: #041018;
+
+  &:hover {
+    filter: brightness(1.08);
+  }
+}
+
+.footer-cookie-settings {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--color-accent-bright);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-bright);
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cookie-consent__actions {
+    width: 100%;
+  }
+
+  .cookie-consent__btn {
+    flex: 1 1 auto;
+  }
+
+  /* Keep FABs reachable above the banner */
+  .whatsapp-fab {
+    bottom: 9.5rem;
+  }
+
+  .scroll-to-top {
+    bottom: 13.5rem !important;
+  }
+}

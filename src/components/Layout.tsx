@@ -4,10 +4,15 @@ import { useEffect, useRef, useState, type FC } from "react";
 import Link from "next/link";
 import ScrollToTop from "@/components/ScrollToTop";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import CookieConsent from "@/components/CookieConsent";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import SiteFooter from "@/components/SiteFooter";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/SiteSearch";
+import {
+  COOKIE_CONSENT_EVENT,
+  isAnalyticsAllowed,
+} from "@/lib/cookieConsent";
 import { withBasePath } from "@/lib/withBasePath";
 import type { NavItem } from "@/lib/siteMeta";
 import navigationData from "../../content/generated/navigation.json";
@@ -44,6 +49,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const headerNav = navFor("header");
   const footerNav = navFor("footer");
   const [isVisible, setIsVisible] = useState(true);
+  const [analyticsAllowed, setAnalyticsAllowed] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -62,6 +68,15 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const syncConsent = () => setAnalyticsAllowed(isAnalyticsAllowed());
+    syncConsent();
+    window.addEventListener(COOKIE_CONSENT_EVENT, syncConsent);
+    return () => {
+      window.removeEventListener(COOKIE_CONSENT_EVENT, syncConsent);
     };
   }, []);
 
@@ -89,7 +104,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         />
       </Head>
 
-      {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
+      {gaId && analyticsAllowed ? <GoogleAnalytics gaId={gaId} /> : null}
 
       <header className={`site-header ${isVisible ? "visible" : "hidden"}`}>
         <div className="container">
@@ -123,6 +138,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
       <ScrollToTop />
       <WhatsAppButton />
+      <CookieConsent />
     </div>
   );
 };
