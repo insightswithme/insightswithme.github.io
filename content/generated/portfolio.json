@@ -255,25 +255,25 @@
   ],
   "projects": [
     {
-      "title": "xxx name — Sitecore 10.4.1 Upgrade (Portal & Dotcom)",
+      "title": "Altudo — Sitecore 10.4.1 Upgrade (Portal & Dotcom)",
       "duration": "Jul 2026 – Present",
-      "description": "Leading Sitecore XP 10.4.1 upgrade for xxx name Portal and xxx name.com Dotcom: Azure AD / SSO & Identity Server, Solr and Algolia search, CI/CD across Dev/Test/Prod, CM/CD environment build-out, load balancer and performance (Core Web Vitals) validation, and UAT readiness.",
+      "description": "Leading Sitecore XP 10.4.1 upgrade for Altudo Portal and altudo.com Dotcom, including performance (Core Web Vitals) validation and UAT readiness.",
       "order": 1
     },
     {
-      "title": "The Joint Commission (TJC) — XM Cloud Headless",
+      "title": "Altudo — XM Cloud Headless",
       "duration": "Technical Lead",
       "description": "Sitecore XM Cloud, Next.js, Netlify, ASP.NET MVC. Architected headless migration for 22,000+ accredited US healthcare organizations — reusable JSS components, dynamic templates, and secure headless delivery aligned with strict compliance requirements.",
       "order": 2
     },
     {
-      "title": "xxx name — Composable DXP",
+      "title": "Altudo — Composable DXP",
       "duration": "Technical Lead & Architect",
       "description": "Sitecore XM Cloud + Next.js on Vercel. End-to-end composable architecture with Edge caching, ISR, and headless multisite to improve performance and Core Web Vitals.",
       "order": 3
     },
     {
-      "title": "xxx name — Global Multi-site SXA",
+      "title": "Altudo — Global Multi-site SXA",
       "duration": "Lead / Architect",
       "description": "Sitecore 9.3, SXA, .NET 4.8, MVC5, Glass Mapper. Spearheaded global multi-site implementation with custom SXA renderings and SPE-based content migration automation that cut manual editorial effort by ~40%.",
       "order": 4
